@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+    <title>M & T - Our Love Book</title>
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+/* Digital Bouquet Page Styles */
+.bouquet-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+    background: #000;
+}
+.bouquet-overlay {
+    position: absolute;
+    z-index: 10;
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#show-bouquet-btn {
+    padding: 12px 25px;
+    background: #9b59b6;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 15px #9b59b6;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.hidden-element { opacity: 0; pointer-events: none; }
+
+#bouquet-letter {
+    position: absolute;
+    top: 20px;
+    width: 80%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid #9b59b6;
+    color: white;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    z-index: 20;
+    max-height: 70%;
+    overflow-y: auto;
+}
+        :root { --paper: #fdf6e3; --ink: #2c241a; --cover: #d1c4e9; --accent: #7e57c2; --rose: #e91e63; --env-bg: #f2e6c9; }
+        
+        body { 
+            background: #1a1a1a; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: flex-start; 
+            align-items: center; 
+            height: 100vh; 
+            width: 100vw;
+            margin: 0; 
+            overflow: hidden; 
+            font-family: 'EB Garamond', serif; 
+        }
+
+        .heart-particle { position: absolute; color: rgba(233, 30, 99, 0.4); font-size: 20px; user-select: none; pointer-events: none; z-index: -1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        @keyframes fadeOut { 
+            0% { opacity: 0; transform: scale(0.5) translateY(0); }
+            20% { opacity: 1; transform: scale(1.2) translateY(-10px); }
+            100% { opacity: 0; transform: scale(1.5) translateY(-100px); }
+        }
+
+        .container { 
+            width: 100%; 
+            height: 80vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            position: relative;
+            padding-top: 15px;
+            box-sizing: border-box;
+        }
+
+        #book { box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: var(--paper); }
+        .page { padding: 30px 20px; background-color: var(--paper); color: var(--ink); border: 1px solid #d3bd9a; box-sizing: border-box; width: 100%; height: 100%; }
+        .page-content { height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .page.-cover { background-color: var(--cover); color: #4a148c; display: flex; justify-content: center; align-items: center; text-align: center; border: 6px solid #b39ddb; }
+        .page-date-header { font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: bold; border-bottom: 1px solid rgba(126, 87, 194, 0.2); padding-bottom: 5px; flex-shrink: 0; }
+        
+        /* FIXED SCROLLING */
+        .scroll-text { 
+            flex-grow: 1; 
+            overflow-y: auto !important; 
+            overflow-x: hidden;
+            padding-right: 10px; 
+            line-height: 1.6; 
+            font-size: 1.15rem; 
+            white-space: pre-wrap; 
+            text-align: left; 
+            -webkit-overflow-scrolling: touch !important; 
+            touch-action: pan-y !important; /* Forces vertical touch scrolling */
+        }
+
+        /* Custom scrollbar to make it look nicer */
+        .scroll-text::-webkit-scrollbar { width: 5px; }
+        .scroll-text::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        .nav-controls { position: fixed; bottom: 30px; display: flex; align-items: center; gap: 15px; z-index: 1000; background: #000; padding: 10px 20px; border-radius: 50px; width: 280px; justify-content: space-between; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .nav-btn { background: var(--accent); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        #current-date-display { color: white; font-size: 1rem; font-weight: bold; }
+
+        .lock-container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; }
+        .pin-display { font-size: 2.2rem; width: 160px; height: 50px; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--accent); margin-bottom: 20px; letter-spacing: 8px; color: var(--accent); font-weight: bold; }
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 220px; }
+        .num-btn { background: white; border: 1px solid #ddd; border-radius: 50%; width: 55px; height: 55px; font-size: 1.2rem; font-weight: bold; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .num-btn:active { background: var(--cover); transform: scale(0.9); }
+        .num-btn.special { font-size: 0.9rem; background: #f0f0f0; border-radius: 12px; }
+
+        .envelope-wrapper { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2000; text-align: center; }
+        .envelope { width: 300px; height: 200px; background: var(--env-bg); position: relative; border-radius: 4px; box-shadow: 0 15px 35px rgba(0,0,0,0.7); cursor: pointer; }
+        .envelope::after { content: ""; position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 150px solid transparent; border-right: 150px solid transparent; border-top: 110px solid #e3d3ac; }
+        .rose-seal { position: absolute; top: 80px; left: 50%; transform: translateX(-50%); font-size: 50px; z-index: 10; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; justify-content: center; align-items: center; padding: 15px; }
+        .letter-popup { background: var(--paper); width: 100%; max-width: 400px; height: 85vh; padding: 25px; border-radius: 8px; text-align: center; display: flex; flex-direction: column; box-shadow: 0 0 40px var(--accent); }
+
+        #musicBtn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 50%; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div id="musicBtn">🎵</div>
+<audio id="bgMusic" loop>
+    <source src="data:audio/mpeg;base64, type="audio/mpeg">
+</audio>
+
+<div class="container" id="main-container">
+    <div id="book">
+        <div class="page -cover" data-density="hard" data-date="Cover">
+            <div class="page-content">
+                <div style="font-family: 'Dancing Script'; font-size: 4.5rem;">M & T</div>
+                <div id="daysCounter" style="font-style: italic; margin-bottom: 10px;">Calculating...</div>
+                <div style="font-size: 3rem;">❤️</div>
+                <h2 style="margin-top: 15px;">Our Love Book</h2>
+            </div>
+        </div>
+
+        <div class="page" data-date="23 Sept">
+            <div class="page-content">
+                <div class="page-date-header">23 September</div>
+                <div class="scroll-text">Baby...you're soooooo goddamn perfect, you're literally so beautiful and pretty and gorgeous i can't even look at you without falling more in love. 
+
+And that's just the tip of the iceberg, you are so fun to be around I love your humour and how sweet you are, you're understanding and caring. And don't even get me started on those eyes and that smile and that laugh and that voice. 
+
+You're just perfect so goddamn perfect. And I'm so proud of how strong you are when problems cross your way. I'm so so so lucky to have every met someone like you let alone call you mine.</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="8 Oct">
+            <div class="page-content">
+                <div class="page-date-header">8 October</div>
+                <div class="scroll-text">Heyyyyyy babyy youre asleep rn and I'll most probably be asleep when you read this 😭. I love youuu soooo much I can't begin to describe how much you mean to me. 
+
+I genuinely don't understand how someone I didn't know basically a month ago can make me feel so loved and noticed. But im so glad you do, you mean everything to me. Your perfection is unlike anyone I have ever encountered. Your beauty, from your radiant smile that illuminates everything around you, to your eyes that resemble warm, inviting pools of honey, and that's the thing, most people just have the looks but your perfection goes deeper than that, you're kind and sweet and funny,my type of funny and you are so caring while still having that drive and perseverance to get through any hardships that come your way. 
+
+It's really admirable and it doesn't go unnoticed well not by me atleast. It may be early for this considering we not dating yet and you want to wait until matric is done but I can't wait to live the rest of our lifes together and make you the happiest girl, my happy girl. Cause you deserve that and soo much more that I wish I could give you. Ik lifes been tough on you and I want to show you that it isn't always gonna be this hard to want to keep going. I'm so proud of how far you've come and who you are today, not alot of people would of been as perfect as you are if they were put in your situation. I just wanted to write this to try and cheer you up a bit , to make sure you know that you are loved like really loved even tho I'm not the best at expressing it I love you so much baby and I really miss you❤️❤️</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="16 Nov">
+            <div class="page-content">
+                <div class="page-date-header">16 November</div>
+                <div class="scroll-text">Heyyyyy my angel , I love you soooooo freaking much I can't even begin to describe it, I know stuff isn't really that easy on you right now and I'm not really helping by barely being here and when I am I'm exhausted, I'm soooooo freaking proud of who you are and how much you try. 
+
+I'm sorry I'm not here as often as I would like to be. Thank you for tolerating it ik it's difficult. I really don't want to lose you. I can't imagine a life without you. I want to give you everything and anything you desire cause you deserve that and sooo much more. 
+
+Ik things aren't always easy with your family and I really don't know how to help I feel useless when I see you in pain like that I really wish I could help but the only thing I can do is be here for you to listen and to understand you. i love you so goddamn much it's unexplained, you're so kind and gentle and caring but you aren't dull, you're fun to be around, and you are sooooooooo freaking adorable like it should be illegal. And your beauty is just like woah I should have not been able to pull that like how , your eyes and your smile just make me feel happy and that's something I haven't said or felt in a long while before I met you. You've become my safe haven and I never ever can lose you. Idk I'm writing this to cheer you up and just to express my love. I love you my princess ❤️</div>
+            </div>
+        </div>
+<div class="page" data-date="Nov 24th">
+    <div class="page-content" style="padding: 0;">
+        <canvas id="bouquet-bg" class="bouquet-canvas"></canvas>
+        
+        <div class="bouquet-overlay">
+            <button id="show-bouquet-btn">Surprise</button>
+            
+            <div id="bouquet-letter" class="hidden-element">
+                <h3 style="color: #ce7bff; margin-top: 0;">I Love You</h3>
+                <p>I can't describe how you make me feel no matter how many times I write stuff like this. You make me feel something I never felt before... you make me feel wanted. I am so lucky to have met you. You are everything I want in a girlfriend, a wife, and the mother of our future kids.</p>
+                <p>You are perfect, from the kindness in your personality to your humor... you're so drop-dead gorgeous it should be illegal. I love you, sweetheart, and I will never ever stop doing so. ❤️</p>
+                <button id="close-bouquet-btn" style="background: #ce7bff; border: none; border-radius: 10px; padding: 5px 15px; cursor: pointer;">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+        <div class="page" data-date="13 Dec">
+            <div class="page-content">
+                <div class="page-date-header">13 December</div>
+                <div class="scroll-text">Heyyyyy my baby. I love you so much, I don't know why but I just keep overthinking about losing you, I feel like I'm just not being good enough for you. I really can't lose you , we've known eachother for 134 days now and it's kinda crazy how in just that time I can't go without you. 
+
+I know I'm really difficult to deal with and I'm so sorry for that. I'm really trying to be better for you, cause you deserve someone who is perfect. I'm sorry that I can get really jealous about stuff, i hope that you do know , I trust you ,trust was never the reason why I get jealous of stuff. It's just I know how most boys work and you're mine I don't wanna share any of you with anybody, especially some boy, I know it sounds ludicrous and I know you have the ability to understand ones intentions and I need to respect that .I will get better cause you deserve that and so much more. I'm sorry that I've been making you feel as if you're been doing something wrong. I promise you, you have been doing nothing wrong. I just have a lot of kinks that I need to work out. 
+
+Mwahhh I love you soooo much. I can't wait till I can hold you in my arms again. And KISS you ,that I definitely can't wait for. You are sooooo perfect I have no clue how I pulled you, these next couple weeks are gonna be tough considering we are barely gonna talk after talking consistently for 4 months straight. But from my side I promise to never leave you unless you want me to or by you finding someone else .no matter how tough things get I will always fight for us. Safe travels my love mwahh❤️</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="25 Dec">
+            <div class="page-content">
+                <div class="page-date-header">25 December</div>
+                <div class="scroll-text">Hey my baby , happy one month, it's crazy we met on the 2nd of August, not in the most conventional way tbh 😭 but whoooo careess I met the love of my life and I never want to look back , I'm so goddamn lucky to have even caught a glimpse at you , nonetheless I've gotten to know you for 4 months already and even better I get to call you my GIRLFRIEND , my so beautiful girlfriend for a whole month already. 
+
+It's purely unbelievable to me and I can't even begin to describe how amazing you are. Thank you for being who you are , ik it's difficult, ik sometimes you don't feel heard , ik sometimes you just don't wanna be here . But I will always, always be here for you to support and love you . I'm never ever letting go of you. You make me feel seen , you make me feel heard and for the first time in my life you make me feel like I belong somewhere, with someone, with you.
+
+It's weird I've never really been excited for Christmas before but this year it's very different, I get to celebrate being with you for a whole month I'm such a lucky guy. Thank you for dealing with me and being patient with me I really appreciate it. I love you soo much. I can't wait to grow old and grey with you , with our kids running around. And we going with all our vrooms. I love your laugh and smile and I'm so happy that I'm the reason for it sometimes. I love your determination. I love you and I'm so freaking proud of you and who you are. Happy 1 month my love, to many more months and too many more years. Till death do us part. I love you my princess ❤️</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="1 Jan">
+            <div class="page-content">
+                <div class="page-date-header">1 January 2026</div>
+                <div class="scroll-text">Happy new year my babyyy. I'm so lucky to go into this year with you , I love you so much. This year is gonna be really hectic for you cause of matric , I'm gonna be right there with you through all of it okay. I know ive not been the best, no matter how much you say that I haven't. I know I haven't and I'm trying to be better for you i really am, I'm sorry that Im bringing this stuff onto us in the next year well this year actually but yeah , I love you so much and so lucky to have you . Thank you for being patient with me and being here for me. I will be better the better you deserve. You deserve everything and so much more, and I will do my best to give it to you , id do anything for you my princess. You are everything to me and I can't emphasize it enough. Oh and you are drop dead gorgeous, just have to put that in there. Happy new year my love, to many more with you my mi amor.❤️❤️❤️❤️❤️</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="13 Jan">
+            <div class="page-content">
+                <div class="page-date-header">13 January 2026</div>
+                <div class="scroll-text">heyy my baby, you're asleep right now and I just wanted to write this. I love you so much and you mean everything to me, I'm so lucky to have met someone like you nonetheless you, the same person I get to call my girlfriend, the same person I get to call my future wife, the same person I get to call the mother of my kids, the same person I want to grow old with, you . I couldn't have asked for more, I couldn't have asked for better cause you are the best thing that has ever happened to me.
+
+I love you so much, I want to do everything with you. you are so pretty and I know you have been overthinking about it recently, I would say its absurd but I know how hard it is so rather here's this : your hair , the sun encapsulates its beauty that was subtly hidden in the shadows , it doesn't want attention but gets it without trying , its soft like its owner.
+
+your eyes , a deep light brown, an ocean of honey and cinnamon, a fire that I'm addicted to but its not just warm it doesn't hurt it cares and is kind ,they symbolize innocence, i cant get enough , i don't want to get enough , they speak to me, they say feelings that words could never construct , they are my home.
+
+your nose , now people would think what would you possibly say about a nose, but when it comes to you anything is possible, it not appreciated enough ,it adds to an already perfect face it highlights features that already stood out but it still competes and projects to the lucky viewer , it encapsulates your beauty, it summarizes perfection, it demonstrates how lucky i am.
+
+your smile , it makes me feel exactly how your eyes look, warm, happy, at home , finally loved , finally cared for , finally belong somewhere, it lights up not just my day , not just my week, not just my year, not just my present, not just my past, but my future as well, it makes me want to be a better person, it makes every single struggle i went through in my life worth it.
+
+your body , its a temple that makes an atheist want to visit, its a language that everyone wants to learn yet I'm the only one that will understand, it makes a man weak, its elegant and sophisticated while being beautiful, it has curves and features even mother earth would be jealous off. and I will never ever leave you okay, you are perfect baby , physically , emotionally and mentally, I am so lucky to have you.
+
+i know it hasn't been the easiest couple of weeks for us and I'm at fault I'm sorry but we will get out of it and in saying that it hasn't been the worst its just been a few disagreements on a couple of things and we will get past it. you are starting school again just now and if I'm being honest this is most probably gonna be the worst year of your life, its not gonna be easy and it is gonna take a lot from you especially with your family. but i will be here with you through every step of the way, ill help you study, ill help you take breaks, ill be for you when you cant take it anymore, ill help you escape when you need too, ill be there for you. i will do my best to help. i love you so much my princess, my wifey, my good girl, the love of my life.</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="Locked" data-density="hard">
+            <div class="page-content">
+                <div class="lock-container">
+                    <h2 style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--accent); margin-bottom: 10px;">For Your Eyes Only</h2>
+                    <div id="pin-display" class="pin-display"></div>
+                    <div class="numpad">
+                        <button class="num-btn" onclick="pressNum('1')">1</button>
+                        <button class="num-btn" onclick="pressNum('2')">2</button>
+                        <button class="num-btn" onclick="pressNum('3')">3</button>
+                        <button class="num-btn" onclick="pressNum('4')">4</button>
+                        <button class="num-btn" onclick="pressNum('5')">5</button>
+                        <button class="num-btn" onclick="pressNum('6')">6</button>
+                        <button class="num-btn" onclick="pressNum('7')">7</button>
+                        <button class="num-btn" onclick="pressNum('8')">8</button>
+                        <button class="num-btn" onclick="pressNum('9')">9</button>
+                        <button class="num-btn special" onclick="clearPin()">Clear</button>
+                        <button class="num-btn" onclick="pressNum('0')">0</button>
+                        <button class="num-btn special" style="background:var(--accent); color:white;" onclick="checkPin()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="page" data-date="1 Feb">
+            <div class="page-content">
+                <div class="page-date-header">1 February</div>
+                <div class="scroll-text"><strong>Honey & Cinnamon</strong>
+so for valentines I decided I should document every day of Feb. until today well today in the future of course you will be reading it on the 14th. I will be writing a poem every day for you and I'm trying to learn how to compose a music soundtrack so I can make a sort of beat for you while you can read these paragraphs and poems but so far its not looking the best I hope I am done by the end of this but I cant guarantee it. today we finally moved on from the whole fighting thing and I hope it is the last one for a while cause I miss talking to my baby and having fun with you. we sat and we talked about it maturely and I'm so proud of us for that. so here's the poem 
+
+
+I’ve watched the sun set in the west, And seen the stars put night to rest, But nothing holds the light as true As those two worlds inside of you.
+
+They aren't just brown; they’re something more— Like honey pooled on a golden shore, A dash of cinnamon, a spark of heat, A spice that makes the world feel sweet.
+
+There is a fire within that gaze, A flickering, addictive blaze; I warm my hands beside the glow Of secrets only I should know.
+
+You do not need a single word, For in your look, the truth is heard. They speak of kindness, home, and grace, The quiet logic of your face.
+
+So let the world keep spinning by, I’ll find my peace beneath your sky. For all the love I’ll ever need Is in those eyes I’ve learned to read.
+
+
+I will not lie I will be writing these with inspiration from other pieces but I am writing these for you I'm not just copying it from another poet 
+
+and today I finally installed Fl studios where I will be making the beat thingy I hope that goes well. I love youuuu. hint : clover </div>
+            </div>
+        </div>
+
+        <div class="page" data-date="2 Feb">
+            <div class="page-content">
+                <div class="page-date-header">2 February</div>
+                <div class="scroll-text"><strong>The Second of August</strong>
+heyyy my love sooo today was better wayyy better we actually are being us again I missed it so much I cant describe how happy you make me. its indescribable, today you are worrying about a geo test that you are writing tomorrow  that you will forget about in a couple weeks. I'm writing this to show you that you what you are stressed about right now isn't as big as you think it is and that stress that you are put under is just there to ensure that you get done with what you need to otherwise you will not do your best. and I know you will do your best right now you are studying while I write this you think I'm doing work right now and I apologize for lying to you about that but its a good lie right(crying emoji, I'm writing on my laptop right now so this is the best I can do for emojis , another crying emoji) andddd is the poem of the day 
+
+
+The world was turning just the same, A quiet day without a name. I didn’t know as the sun went down, That my whole life was turning 'round.
+
+A notification, a simple blue light, Broke through the stillness of the evening. A "random cutie" added me— A stranger then, but soon to be The only face I’d ever need, The book I’d finally learn to read.
+
+I didn’t know that digital spark Would light a fire within the dark, Or that the girl behind the screen Was the missing piece of every dream.
+
+From yearning for a love unknown, To finding a heart to call my own, That August day, the dice were cast— The "vow" was made, the search was past.
+
+Now I look back at where we began, To the day I became a better man. It started with a click, a chance, a sign— The day my wife-to-be became mine.
+
+
+
+it was so hard to write this while talking to you(crying emoji) anddd im gonna try and continue with the beat when you fall asleep by watching some youtube vids on how to even start making one. I cant add vocals cause my voice is dodo on a stick but I love youuuuu. hint : gold 
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="3 Feb">
+            <div class="page-content">
+                <div class="page-date-header">3 February</div>
+                <div class="scroll-text"><strong>Her Eyes in Theirs</strong>
+heyyy my angel soo we ended up arguing again i dont really think it is arguing its more of both of us making mistakes and us not knowing how to fix it. i love you so much and i dont know what i will do without you and i dont want to imagine a life without you . ik we are having our ups and downs and recently more downs , but no matter what i will always love you and be with you. im not sure on how you feel about it but after every one of these fights i feel closer to you, i feel a stronger connection between me and you. and ik you are upset rn and mad and i really hope i can change it, the poem for today iss : 
+
+
+I look at you and see the map Of every joy and every trap We’ve navigated hand in hand, Building our life upon this sand. But when I think of what’s to come, Of tiny feet and the beat of a drum, My only prayer, my constant plea, Is for the ghosts of you I’ll see.
+
+I hope they have your honeyed gaze, To guide them through the winter haze. Those eyes that speak when words are thin, Showing the strength that lies within. I want to see that cinnamon spark Lighting their way throughout the dark, So when they look at me, I’ll find The girl who changed my heart and mind.
+
+But more than color, more than light, I hope they keep your sense of right. I hope your compass, true and deep, Is the sacred vow they learn to keep. To have your kindness, soul, and grace, Mirrored upon a brand new face.
+
+For if our children carry through The spirit that defines just you, Then I will know I’ve done my part— To give the world your perfect heart.
+
+i wont be able to work on the beat thingy for a couple days now cause im a bit busy with everything but i love you so much. hint : wrist</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="4 Feb">
+            <div class="page-content">
+                <div class="page-date-header">4 February</div>
+                <div class="scroll-text"><strong>The Lucky One</strong>
+heyy sweetheart , today was better we weren't as on edge but i can still feel that you are not okay and im trying to help i just dont know if i am , but im trying and i know that you are too and im so proud of you for trying, thank you for being patient with me thank you for that so much , i know that its tough especially with everything going on but i want you to know that i love you so much and i truly appreciate you and everything you do for me. im really scared for uni at this point and im sorry that its seeping through when i talk you really do make me feel loved and for the first time in my life i feel wanted somewhere. heres the poem of today: 
+
+
+I look at you and have to smile, Knowing that for every mile, There’s a man who’d give his soul away Just to hear the things you say. Any man would be lucky, it’s true, To catch a single glimpse of you, To walk beside your light and grace, And find their heaven in your face.
+
+But here is where the story twists, A detail that the world has missed: It’s a crying shame for all the rest, For those who haven't been so blessed. Because you’re mine—entirely, The greatest gift assigned to me.
+
+I’m not a man who likes to share, The gold I found, the jewel so rare. They can look from far, they can admire, The warmth of your addictive fire, But let them know, and let it be known: This queen sits on a private throne.
+
+So sorry to the world at large, But I’m the lucky guy in charge. I’ve locked the door and kept the key— You belong to no one else but me.
+
+i love you sooo much im not really sure about this poem but i tried to encapsulate it (crying emoji) mwah. hint : lucky 
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="5 Feb">
+            <div class="page-content">
+                <div class="page-date-header">5 February</div>
+                <div class="scroll-text"><strong>The Temple</strong>
+heyy my angel im leaving tomorrow its actually crazy that the holidays are all over and i got uni on Monday its gonna be really busy so i dont think ill be able to work on that beat thing for a while. but i will continue to write this and the poems for you. we still are having our discussions and it really does seem like its in my fault but i hope that we will be able to fix it soon , i love you so much and im really sorry for all the stuff that is going on, here is todays poem
+
+
+They say the soul is hidden deep, In promises the heart must keep. But looking at the way you’re made— In light, in curves, in subtle shade— I see a truth the world forgot, A masterpiece that time did not.
+
+Your beauty is a sacred thing, The kind that makes the silent sing. A structure built of grace and bone, A sanctuary I’ve called my home. It’s elegant, it’s sharp, it’s refined, A vision that could heal the blind.
+
+If faith is built on what we see, Then you’re the only deity. For you’re a temple, bright and grand, Not built by any human hand; A shrine so perfect, soul and skin, That even those who don’t believe in sin Would pause before your open door, And find a god to hunger for.
+
+An atheist would walk these halls, And find a peace within your walls. For looking at the way you shine, Is proof enough that life’s divine.
+
+
+i kinda like this one ( crying emoji ) i love you soooooooo much hint : picture
+
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="6 Feb">
+            <div class="page-content">
+                <div class="page-date-header">6 February</div>
+                <div class="scroll-text"><strong>The Surge</strong>
+heyy my angell i love you sooo much, its been really busy today and i am trying to write the poem i dont know how well it will come out but i hope it comes out good enough. i came back to Joburg today and im finally closer to you again. and somehow we still ended up arguing about the dumbest things (crying emoji) , im so sorry for how things are going right now and i wont be able to make it long as it usually is but here is the poem my love i love you so much : 
+
+
+
+The room is still, the night is calm, I’m resting in your steady palm. I think I know the rhythm well, Underneath your quiet spell— But then I see that certain spark, A lightning bolt across the dark.
+
+And suddenly, the peace is gone, A frantic, wild, and chaotic dawn! A surge of energy, fast and bright, Exploding in the middle of the night. You’re a whirlwind, you’re a sudden storm, In a beautiful and hectic form.
+
+I never know just when it’s coming, The laughter or the finger-drumming, The "attack" of life, the sudden zest, That puts my patience to the test. One minute soft, the next a blur— There’s simply no predicting her.
+
+But I love the chaos, I love the noise, I love the way you lose your poise. For in that rush, I clearly see The electricity you give to me. So let it hit, that random power— I’ll take the surge at any hour.
+
+i dont know about this one was a bit rushed but i hope its okay for you i love you soo much. hint : links
+
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="7 Feb">
+            <div class="page-content">
+                <div class="page-date-header">7 February</div>
+                <div class="scroll-text"><strong>The Vow</strong>
+my baby hiiiii i love you so much im so sorry for last night and today with my phone not charging and us barely talking. im really sorry for it and i know i sound like a broken record but i really am sorry. its been so busy and we are both stressed but we will work this out. I love you soooooo much the writing on Monday will be a bit longer cause right now im really tired but i love you so much and how and here is your poem 
+
+
+I was a version of myself I knew, Before the day the world was turned by you. A man who walked a path of "good enough," With edges jagged and a heart grown rough. But then you arrived, like a sudden light, And suddenly my future didn't look so bright— Because I saw the gold within your soul, And knew I wasn't worthy of the role.
+
+That August day, I looked into the glass, And watched the man I used to be just pass. I made a promise, silent and sincere, To cast away the doubt and kill the fear. I vowed to grow, to sharpen every edge, To stand upon a higher, firmer ledge.
+
+Not because you asked for change or height, But because a star deserves a sky that’s right. I wanted to be the ground where you could stand, The strength you’d find when reaching for a hand. I traded every vice for every grace, Just for the hope of looking at your face.
+
+And every day I’m climbing, stone by stone, To build a man I’m proud to call your own. For you’re the prize at every journey’s end, The wife, the love, the lover, and the friend.
+
+here you go my angelll i love youuu so much , hint : white lie
+
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="8 Feb">
+            <div class="page-content">
+                <div class="page-date-header">8 February</div>
+                <div class="scroll-text"><strong>The Vroom-Vroom Future</strong>
+hiiiiii my baby today im back in Joburg officially and we can finally go back to the way it was i love you sooooo much and i cant wait to see you again i love youuuuuuu , and we are getting closer to the 14thhh ,its gonna be short again but ill make a longer one tomorrow i love you here it issss. and its gonnna be back to normal were we are talking like normal againnn. 
+
+
+
+The Vroom-Vroom Future
+They say that growing old means slowing down, To quiet nights and a sleepy town. To rocking chairs on a wooden floor, And leaving the keys beside the door. But they don’t know the life we’ve planned, The speed we’ll keep across this land.
+
+I see us years from the present day, With hair that’s turning a distinguished grey. But we won’t be sitting on a porch at rest, We’ll be putting the engine to the test. A blur of metal, a streak of light, Chasing the sun into the night.
+
+With "vroom-vroom" echoes and a roar of pride, With you right there on the passenger side. Our kids in the back with your cinnamon eyes, Watching the world as it quickly flies. Showing them life isn’t meant to be slow, But a journey of places only we get to go.
+
+We’ll be the coolest pair the world has seen, Still living the dreams of twenty-six and eighteen. For as long as the fuel and the love hold true, I’ll spend every "vroom" in the world with you.
+
+
+
+mwahhhhh i love youuuuu . hint : mom, again im so sorry its short again
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="9 Feb">
+            <div class="page-content">
+                <div class="page-date-header">9 February</div>
+                <div class="scroll-text"><strong>The Safe Haven</strong>
+hii my baby i love youuuuuuu , i miss you so much. im back at uni againnn, and i did a stupid again i said something dumb about your clothes im sorry i really am just a fuck up and i dont understand how you still love me , but im so glad you do ,i really dont want this to just be us fighting i want to talk about how much i love you and i really do love you so muchh, i love everything about you love your persona, your personality and your beauty there is so much good things to talk about you and i can sit and look and talk to you for hours, if im being honest that beat thing is not happening i really dont know how too i will try to learn it for you but i dont think it will be happening by the 14th, i really hope i will be able to give this to you in person but if not i hope i still get to see that smile that i love so much while you read this. i really wanna take you for a drive while we talk and go to someplace to eat it doesnt even have to be fancy just has to be with you and im happy i really want that and i cant wait sooo here is the poem of the day 
+
+The Safe Haven
+The world outside is a frantic noise, A theft of peace and a test of poise. With the weight of the year and the pressure of home, And the weary paths that we’re forced to roam. It’s a constant hum, a relentless tide, With nowhere for a heart to hide— Until I hear the sound of your name, And the wild world suddenly grows tame.
+
+You are the "hush" in a crowded room, The silver light in the gathering gloom. When the stress of the day begins to climb, You’re the quiet pause in the rush of time. I don't need a fortress of stone or steel, To guard the way that you make me feel; I just need the sanctuary of your hand, To find my footing on solid land.
+
+life will scream and the storms will blow, And life will move faster than we can know. But I’ll step inside the peace you give, The only space where I truly live. Safe from the static, safe from the cold, Within the story that we’ve told.
+
+Let the world be loud, let the chaos fly, As long as I’m under your quiet sky. For in the wreckage, the heat, and the blue, I’m finally home when I’m with you.
+
+i love you soooo much here you goo . hint :  van cleef 
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="10 Feb">
+            <div class="page-content">
+                <div class="page-date-header">10 February</div>
+                <div class="scroll-text"><strong>The Navigator’s Compass</strong>
+hiiii my angel 4 days lefttttt i love you so much , you asked your parents today i hope it goes well from what im hearing there are alot of conditions i expected that but i did nnot expect her to be with us but i hope everything goes okay. but most importantly i hope everything at school turns out okay especially with you design teacher. i love you so much . im still so excited cause this is gonna be my first valentine none the less with you the love of my life i really can not wait. you make me feel ways that i didn't know i could feel. i will work on the music thingy in the backround but i dont think it will work out so well so ima start designing one of those html things for you so that you can read these on, coding has alway been easier for me ( crying emoji) andddd here is the poem of the day 
+
+The Navigator’s Compass
+In a world that’s often losing its way,
+Where the colors of right turn to shades of grey,
+I watch how you walk with a steady stride,
+With a grace that you never have to hide.
+It’s not just the curve of a smile I see,
+Or the light in your eyes that captures me;
+It’s the hidden needle, the quiet spark—
+The compass you carry through the dark.
+
+Your beauty is deep, but your heart is deeper,
+A promise of truth that you’re proud to be keeper.
+In every choice and in every word,
+The song of your spirit is clearly heard.
+You know where you stand when the winds begin,
+Refusing to break or to fold within;
+An integrity forged in a golden flame,
+That puts every other girl to shame.
+
+Most look at the surface, the shine, and the glow,
+But I love the direction you choose to go.
+For a face may change as the years fly past,
+But a compass like yours is built to last.
+You’re my North Star when the map is torn,
+The clearest light that I’ve ever sworn.
+
+I’m lucky to love you, it’s true, my queen,
+For the rarest beauty is the one unseen—
+The strength of your soul and the truth of your mind,
+The steadiest compass I’ll ever find.
+
+i love you sooo much this one is a bit of a longer one i cant think of any hints rn so figure it out (crying emoji)
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="11 Feb">
+            <div class="page-content">
+                <div class="page-date-header">11 February</div>
+                <div class="scroll-text"><strong>The Infinite Argument</strong>
+heyyy my angel i lovee you sooooo much i cant wait to see you well at this point we are not sure but i really hope so, but you have school tooo focus on , also i know i might seen reallt busy , its cause of these poems its really difficult to come up with so i hope that reflects in these writings. today was an interesting day we are on and off all the time i say they put us on a documentary on national geographic. i just realized that you might be reading this next to me so i dont think that it was a good i dea to put the hints (crying emoji) i guess thats what happens when you do stuff over two weeks but heyyyy we are 3 days away from our first valentine anddd here is the poem of the dayy.
+
+
+The Infinite Argument
+It’s the only war we’ll ever wage,
+A story written on every page.
+I look at you and I breathe the word,
+The truest thing that I’ve ever heard:
+"You’re perfect," I say, with a heavy heart,
+A masterpiece in every part.
+
+And you shake your head with a modest sigh,
+With a "No, I’m not" in your honeyed eye.
+You list the flaws that you think you see,
+The tiny cracks that are hidden from me.
+You claim that perfection is far away,
+And we go back and forth in this sweet delay.
+
+But here is the secret, the trick of the light:
+The beauty of us is that we’re both right.
+You’re right that you’re human, with flaws and with fears,
+With a heart that has weathered the salt of the tears.
+But I’m right because perfection isn't a line,
+It’s the way that your spirit and my heart entwine.
+
+It’s the way your "imperfection" is tailored for me,
+The exact type of soul that I needed to see.
+So keep saying "no," and I’ll keep saying "yes,"
+I’ll spend my whole life in this game of chess.
+For if being "flawed" makes you look like you do,
+Then I’ll take the "imperfect" version of you.
+
+i love youuuuuu oh and i thought of a new hint : chicken buttttt
+
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="12 Feb">
+            <div class="page-content">
+                <div class="page-date-header">12 February</div>
+                <div class="scroll-text"><strong>The Night Owl</strong>
+babyyyyyyy its decided im going to see you on valentines dayyy i cant wait i really cant wait to just be with you . and thats gonna be IN TWO DAYS. also ill send this too you on valentines morning , i dont know why im tell you this if you are already reading it now but yeahhhhh. i cant lie im really surprised your mother said yess and im so nervous to meet her but i cant wait to see you again. and you said you did amazing on your geo test like i said earlier in this texts if im not mistaken , sooooo im right , i love you soooo much here is your next poem 
+
+
+
+The Night Owl
+The world has finally gone to sleep,
+Into a silence dark and deep.
+The clock is ticking on the wall,
+As shadows stretch across the hall.
+And while you’re drifting, far away,
+Lost in the dreams of another day,
+I’m sitting here within the blue,
+Composing worlds of love for you.
+
+You’ll never know the way you look,
+Like a peaceful page in a quiet book;
+With every worry smoothed away,
+Safe from the trials of the day.
+It’s in these hours, still and late,
+That I can sit and contemplate
+How lucky I must truly be—
+That you chose to dream of me.
+
+I write these words for you to find,
+A morning gift to ease your mind.
+So when you wake and see the light,
+You’ll know I guarded you all night.
+My heart stays up to keep the watch,
+To fix the spirit, to heal the notch.
+
+Sleep on, my love, in quiet rest,
+While I write out how I’ve been blessed.
+For though you’re silent, still, and deep,
+I love you even in your sleep.
+
+im running out of ideas if you can see but i hope you like it i love youuuu 
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="13 Feb">
+            <div class="page-content">
+                <div class="page-date-header">13 February</div>
+                <div class="scroll-text"><strong>The Kinks and the Cure</strong>
+babbyyyyy its tommmorrowww i get to see you tommmorow i cant wait i really cant, im really nervous to meet your mum but i get to seeee youuuuu, and we get to be together and do stuff together i really cant wait , i misss you sooooo much and you are all im thinking about right now, ima right your poem now mwahhhh :
+
+The Kinks and the Cure
+I came to you with jagged lines,
+With shadows cast and tangled vines.
+A heart that carries heavy things,
+The weight that overthinking brings.
+I know I’m difficult to hold,
+A story that’s not always gold;
+I have my kinks, my fears, my pride,
+The parts of me I tried to hide.
+
+I get defensive, I get loud,
+I let the jealousy weave a cloud—
+Not because I doubt your heart,
+But because I fear the world will part
+The only light I’ve ever known,
+The greatest grace I’ve ever shown.
+I’m a work in progress, rough and new,
+Trying to be the man for you.
+
+But you—you are the quiet cure,
+A love that’s patient, deep, and pure.
+You don’t recoil or turn away,
+You hear the things I cannot say.
+You see the "kinks" and understand,
+And simply reach to take my hand.
+Your kindness is the steady flame,
+That puts my frantic mind to shame.
+
+I’m fixing every broken part,
+Within the workshop of my heart.
+And every day I’m growing sure,
+That you’re the reason and the cure.
+So thank you for the grace you’ve lent,
+To a man who’s still a work in progress, but content.
+
+
+mwahhhhh i hope you like itttt
+</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="14 Feb">
+            <div class="page-content">
+                <div class="page-date-header">14 February - Happy Valentine's Day</div>
+                <div class="scroll-text"><strong>The First Valentine</strong>
+my princess, my love . happy valentines day , its our first one, one of many many more . it is soooo crazy im so excited , im writing this on the 13th so that you can read it tomorrow but im so excited to see you tomorrow , to experience valentines with you i really cant wait. i am going to make this poem really long and i love you soooo much. i cant wait to hold you tommmorow and not in secret like last time actually be with you im really excited  
+
+The First Valentine
+The screen was still, the button waited there,
+A tiny "Yes" suspended in the air.
+I’d poured my soul into these digital pages,
+A heart laid bare across the modern stages,
+Waiting for the click, the softest sound,
+To tell me that my life was finally found.
+And when you pressed it, when you chose to stay,
+You turned a Tuesday to a holy day.
+You weren’t just saying "yes" to flowers and wine,
+You were signing up to be my Valentine—
+The first I’ve ever held, the first I’ve known,
+A title kept for you, and you alone.
+
+Most men have ghosts they’ve walked with in the past,
+Long lines of lovers never meant to last,
+A list of names that faded into gray,
+Before they found the one who’d truly stay.
+But me? I’ll have a different tale to tell,
+A story where the timing worked out well.
+When our future kids are gathered ‘round my knee,
+And ask about the way things used to be,
+I’ll look at you—still shining, still my queen—
+And tell them of the girl of 2025.
+
+I’ll tell them how I waited, how I grew,
+How I saved every "first" in life for you.
+I’ll say, "I didn't waste my heart on 'good enough,'
+Or settle for a hollow, fleeting love.
+I waited for the honey in her eyes,
+The moral compass and the random sighs.
+I waited for the surge, the car, the grace,
+Until I finally saw your mother's face."
+I’ll tell them how that August add-request
+Became the day that I was truly blessed,
+And how, on the day the first red roses grew,
+My very first 'I love you' went through.
+
+It’s a rare and sacred thing to get it right,
+To find your North Star in the middle of the night
+Without a single detour or a wrong-way turn,
+With only one bright fire left to burn.
+You are my first Valentine, my start,
+The only one who ever held the blueprint to my heart.
+So thank you for the 'Yes,' for the click, for the sign,
+For making sure you’re my forever Valentine.
+
+happy valentines my love , to many many many more ❤️</div>
+            </div>
+        </div>
+<div class="page" data-date="3 Month Anniversary" style="background: linear-gradient(135deg, #fdf6e3 0%, #fff3d0 100%); border: 3px solid #d4af37; box-shadow: inset 0 0 50px rgba(212, 175, 55, 0.2);">
+            <div class="page-content">
+                <div class="page-date-header" style="color: #b8860b; border-bottom: 2px solid #d4af37; text-align: center;">25th February — Our 3rd Month</div>
+                
+                <div class="scroll-text" style="color: #5c4300; font-family: 'EB Garamond', serif; line-height: 1.8;">
+                    <span style="font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #b8860b; display: block; margin-bottom: 15px;">Hey my baby,</span>
+                    
+                    Crazy right? It's been 3 months. It just flew by, but I never go a day without being happy that I'm yours and I've been yours for 3 months now. And I can't wait to celebrate every this and sooo many more with you. I love you soo much and I'm so lucky to call you mine and I will never ever take that for granted. 
+
+                    The 25th was always just another day to me and now it is the day where I get to celebrate the most precious person in my life, **you**. 
+
+                    My future wife, yk id say we got through the hardest part in any relationship. And guess what? We are still here loving each other to the most we can. Sure we get busy, but that never stops us from making time for each other. 
+
+                    These 3 months with you have been the best time of my life. I actually want to have a future for once—a future with you, **our future**. A future with everything we ever dreamed of, with all the assets and animals and most importantly our little ones that will be so proud to call you mom. They will be the only ones to have a mother that still has morals instilled in her and is so freaking kind and patient... and insanely pretty <span style="font-style: italic; color: #e91e63;">(MILF ;) )</span>.
+
+                    <div style="text-align: center; margin-top: 25px; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #b8860b;">
+                        So my pretty girl, happy anniversary to many many more till death do us part. I love you.
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 10px; font-size: 1.2rem; opacity: 0.6;">
+                    ✨ ⚜️ ✨
+                </div>
+            </div>
+        </div>
+<div class="page" data-date="Today">
+            <div class="page-content">
+                <div class="page-date-header">March 5th</div>
+                <div class="scroll-text">
+                    <span style="font-family: 'Dancing Script', cursive; font-size: 1.5rem; display: block; margin-bottom: 10px; color: var(--rose);">Hey my baby,</span>
+                    
+                    You are sleeping rn and I cant really sleep, and I haven't really written one of these just cause in a while so here we are. 
+
+                    I'm really sorry for today. You told me that the little things like this mean a lot to you and I cant describe how happy that makes me feel. My whole life I just feel like my efforts have always gone under the radar, but when you came into my life it just felt like I've been noticed for once and actually appreciated. 
+
+                    I love you so much. I know your parents aren't the best—not in the slightest—but I will always do my best to make my princess feel seen, feel heard, feel loved and to be appreciated. That's my job as your boyfriend and I will always, no matter what I'm going through, I will always fulfill that cause you always help me no matter what my princess. 
+
+                    I pinky promise I will never leave you—not unless its another man—I will never ever leave or give up on you. Thank you for always being there for me my angel. I really appreciate you sooo freaking much I love you soo much.
+
+                    <div style="text-align: center; margin-top: 20px; font-size: 1.5rem;">🌙✨</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page -cover" data-density="hard" data-date="End">
+            <div class="page-content">
+                <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" id="prevBtn">←</button>
+    <div id="current-date-display">Cover</div>
+    <button class="nav-btn" id="nextBtn">→</button>
+</div>
+
+<div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope" onclick="openLetter()"><div class="rose-seal">🌹</div></div>
+</div>
+
+<div class="modal" id="letterModal">
+    <div class="letter-popup">
+        <h2 style="font-family: 'Dancing Script'; font-size: 2.2rem; color: var(--accent);">My Princess,</h2>
+        <div class="scroll-text">
+            <p>agh were do I even start this . you know I cant ever emphasise this enough. I'm lucky to have you, any man would be lucky to have you. its just a shame that you're mine and I'm not sharing. I can sit here and say sorry for everything I've put you through so far but that's not what I want this to be.when I was a kid I used to look at my mum and dad and look at the love in their eyes and how well they treat each other, I wanted that type of love. sure I thought girls were disgusting at my age of 6 but I wanted that I wanted to be loved and somehow I've gone my whole life yearning for it until the 2nd of august 2025,when some random cutie added me, the day I met my wife , the love of my life, the day I met you. the day I vowed to be a better man just so I can have a chance with you, so that my kids can have your eyes . and today I can sit here and say our kids will have your eyes, our kids, I'm so lucky to say that, I'm so lucky to have a partner like you someone who has a moral compass, who is beautiful  and someone who I can always trust. I never have to worry about your intentions. just have to worry if I'm gonna get attacked by a random surge of energy.and I love it I love everything about you. I always say you are perfect and you always say no and we are both right. you have flaws but none like any other human. they vocalize your beauty. I fell in love with your flaws before I even met them, perfection may be impossible but your flaws prove that flaws aren't bad things but rather what make you, you and too be honest you princess are perfect.</p>
+            <p>you are what every person would look for in a partner, perfection hidden away waiting for someone to find it and I'm the lucky guy who found you and i never want to take granted of that so in saying that. I've never had a valentine , I've never got to experience that day with a lover and i would love to tell our kids you were my first valentine.</p>
+            <p style="text-align: center; font-weight: bold; font-size: 1.4rem; color: var(--accent); margin-top: 20px;">so would you my love like to be my valentine.</p>
+        </div>
+        <div style="display:flex; gap:20px; justify-content:center; margin-top:15px; flex-shrink: 0;">
+            <button class="nav-btn" style="width:100px; border-radius:20px; background:var(--accent);" onclick="celebrate()">YES</button>
+            <button class="nav-btn" style="width:100px; border-radius:20px; background:#ccc;" onclick="alert('No is not an option! ❤️')">NO</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Bouquet Animation Logic
+const bCanvas = document.getElementById("bouquet-bg");
+const bCtx = bCanvas.getContext("2d");
+let bDots = [];
+let bForming = false;
+
+class BouquetDot {
+    constructor(tX, tY, isStem) {
+        this.tX = tX; this.tY = tY; this.isStem = isStem;
+        this.reset();
+    }
+    reset() {
+        this.x = Math.random() * bCanvas.width;
+        this.y = Math.random() * bCanvas.height;
+        this.size = Math.random() * 2;
+        this.sX = (Math.random() - 0.5) * 0.5;
+        this.sY = (Math.random() - 0.5) * 0.5;
+    }
+    update() {
+        if (bForming) {
+            this.x += (this.tX - this.x) * 0.03;
+            this.y += (this.tY - this.y) * 0.03;
+        } else {
+            this.x += this.sX; this.y += this.sY;
+        }
+    }
+    draw() {
+        bCtx.beginPath();
+        bCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        bCtx.fillStyle = bForming ? (this.isStem ? '#502882' : '#ff96ff') : '#b45bff';
+        bCtx.fill();
+    }
+}
+
+function initBouquet() {
+    bCanvas.width = 400; bCanvas.height = 600; // Matches book page size
+    bDots = [];
+    for(let i=0; i<200; i++) {
+        const isStem = i < 30;
+        const tX = isStem ? 200 : 200 + (Math.random()-0.5)*100;
+        const tY = isStem ? 500 - (Math.random()*100) : 350 + (Math.random()-0.5)*100;
+        bDots.push(new BouquetDot(tX, tY, isStem));
+    }
+}
+
+function animateBouquet() {
+    bCtx.fillStyle = 'rgba(0,0,0,0.1)';
+    bCtx.fillRect(0,0,bCanvas.width, bCanvas.height);
+    bDots.forEach(d => { d.update(); d.draw(); });
+    requestAnimationFrame(animateBouquet);
+}
+
+document.getElementById('show-bouquet-btn').onclick = () => {
+    bForming = true;
+    document.getElementById('show-bouquet-btn').classList.add('hidden-element');
+    setTimeout(() => document.getElementById('bouquet-letter').classList.remove('hidden-element'), 1000);
+};
+
+document.getElementById('close-bouquet-btn').onclick = () => {
+    bForming = false;
+    document.getElementById('bouquet-letter').classList.add('hidden-element');
+    document.getElementById('show-bouquet-btn').classList.remove('hidden-element');
+};
+
+initBouquet();
+animateBouquet();
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.2; 
+    let isPlaying = false;
+    let currentPin = "";
+
+    function pressNum(num) {
+        if (currentPin.length < 4) { currentPin += num; updatePinDisplay(); }
+    }
+    function clearPin() { currentPin = ""; updatePinDisplay(); }
+    function updatePinDisplay() { document.getElementById('pin-display').innerText = "•".repeat(currentPin.length); }
+    
+    function checkPin() {
+        if(currentPin === "2511") { document.getElementById('envelopeWrapper').style.display = "block"; } 
+        else { alert("Wrong code! ❤️"); clearPin(); }
+    }
+
+    const pageFlip = new St.PageFlip(document.getElementById('book'), {
+        width: 350, height: 520, size: "stretch", minWidth: 320, maxWidth: 450, 
+        minHeight: 480, maxHeight: 650, showCover: true, usePortrait: true,
+        mobileScrollSupport: false, useMouseEvents: true
+    });
+    pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+    function openLetter() {
+        document.getElementById('envelopeWrapper').style.display = "none";
+        document.getElementById('letterModal').style.display = "flex";
+    }
+
+    function celebrate() {
+        document.getElementById('letterModal').style.display = "none";
+        const purples = ['#7e57c2', '#b39ddb', '#4a148c', '#d1c4e9'];
+        confetti({ particleCount: 250, spread: 80, origin: { y: 0.6 }, colors: purples });
+
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const loveText = document.createElement('div');
+                loveText.innerHTML = "I LOVE YOU";
+                loveText.style.cssText = `position:fixed; left:${Math.random()*100}vw; top:${Math.random()*100}vh; color:${purples[Math.floor(Math.random()*purples.length)]}; font-size:${Math.random()*25+20}px; font-weight:bold; font-family:'Dancing Script',cursive; z-index:5000; pointer-events:none; white-space:nowrap; animation:fadeOut 2.5s forwards;`;
+                document.body.appendChild(loveText);
+                setTimeout(() => loveText.remove(), 2500);
+            }, i * 40); 
+        }
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
+    document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
+    
+    pageFlip.on('flip', (e) => { 
+        document.getElementById('current-date-display').innerText = document.querySelectorAll('.page')[e.data].getAttribute('data-date');
+        if (!isPlaying) { audio.play().then(() => isPlaying = true).catch(() => {}); }
+    });
+
+  // This version ensures the count feels right and handles different time zones
+    // FIXED COUNTER LOGIC
+    function updateCounter() {
+        const start = new Date("2025/08/02"); // Use slashes for better browser support
+        const today = new Date();
+        const diffTime = Math.abs(today - start);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const display = document.getElementById('daysCounter');
+        if (display) {
+            display.innerText = diffDays + " Days Together";
+        }
+    }
+    updateCounter();
+
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-particle';
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }, 600);
+
+    // IMPROVED SCROLLING LOGIC
+    // This allows the scroll-text areas to be scrolled without triggering the book flip
+    document.querySelectorAll('.scroll-text').forEach(el => {
+        el.addEventListener('touchstart', (e) => {
+            // Only stop propagation if the element is actually scrollable
+            if (el.scrollHeight > el.clientHeight) {
+                e.stopPropagation();
+            }
+        }, { passive: true });
+        
+        el.addEventListener('touchmove', (e) => {
+            if (el.scrollHeight > el.clientHeight) {
+                e.stopPropagation();
+            }
+        }, { passive: true });
+    });
+</script>
+</body>
+</html>
