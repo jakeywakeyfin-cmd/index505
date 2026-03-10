@@ -1369,11 +1369,38 @@ document.getElementById('close-birthday').onclick = function() {
     document.getElementById('star-field').innerHTML = '';
     document.getElementById('purple-hearts-container').innerHTML = '';
 };
+// --- BIRTHDAY PAGE LOGIC ---
+const bdayTrigger = document.getElementById('birthday-trigger');
+const bdayBox = document.getElementById('birthday-letter-box');
+const bdayWrap = document.getElementById('bday-trigger-wrap');
+const bdayClose = document.getElementById('close-birthday');
 
+if (bdayTrigger) {
+    bdayTrigger.onclick = function() {
+        bdayWrap.style.display = 'none'; // Hide the button
+        bdayBox.style.display = 'block'; // Show the letter
+        
+        // Confetti Burst
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#4a148c', '#9b59b6', '#ffffff']
+        });
+    };
+}
+
+if (bdayClose) {
+    bdayClose.onclick = function() {
+        bdayBox.style.display = 'none';
+        bdayWrap.style.display = 'block';
+    };
+}
 </script>
 </body>
 
 </html>
+
 
 
 
