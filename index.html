@@ -1053,7 +1053,7 @@ audio.volume = 0.4;
     function checkPin() {
     if(currentPin === "2511") {
         // Changed from 'envelopeWrapper' to 'envelope-wrapper'
-        document.getElementById('envelope-wrapper').style.display = "block"; 
+        document.getElementById('envelopeWrapper').style.display = "block"; 
     } else {
         alert("Wrong code! ❤️");
         clearPin();
@@ -1104,9 +1104,6 @@ audio.volume = 0.4;
 });
 
 // Helper for the "Envelope" buttons
-function openLetter() {
-    document.getElementById('envelope-wrapper').style.display = "none";
-    document.getElementById('letterModal').style.display = "flex";
 }
 
   // This version ensures the count feels right and handles different time zones
@@ -1369,4 +1366,5 @@ document.getElementById('close-birthday').onclick = function() {
 </body>
 
 </html>
+
 
