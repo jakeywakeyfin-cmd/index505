@@ -818,7 +818,7 @@ happy valentines my love , to many many many more ❤️</div>
                 </div>
             </div>
         </div>
-<div class="page" data-date="Today">
+<div class="page" data-date="5 mar">
             <div class="page-content">
                 <div class="page-date-header">5 March</div>
                 <div class="scroll-text">
@@ -854,7 +854,8 @@ happy valentines my love , to many many many more ❤️</div>
                 <button id="birthday-trigger" style="padding: 12px 35px; background: #4a148c; color: white; border: 1px solid #9b59b6; border-radius: 25px; cursor: pointer; font-family: 'Dancing Script'; font-size: 1.4rem;">Happy birthdayy!</button>
             </div>
 
-            <div id="birthday-letter-box" style="display: none; width: 85%; height: 45%; margin-top: 120px; overflow-y: auto; padding: 20px; text-align: center; scrollbar-width: none; -ms-overflow-style: none; z-index: 100; position: relative; background: rgba(0,0,0,0.7); border: 1px solid #9b59b6; border-radius: 15px;">
+  <div id="birthday-letter-box" style="display: none; width: 85%; max-height: 70%; margin-top: 80px; overflow-y: scroll; padding: 20px; text-align: center; z-index: 100; position: relative; background: rgba(0,0,0,0.9); border: 2px solid #9b59b6; border-radius: 15px; -webkit-overflow-scrolling: touch;">
+      scrollbar-width: none; -ms-overflow-style: none; z-index: 100; position: relative; background: rgba(0,0,0,0.7); border: 1px solid #9b59b6; border-radius: 15px;">
                 <div style="font-family: 'EB Garamond'; font-size: 1.3rem; line-height: 1.8; color: #ffffff;">
                     <p style="font-family: 'Dancing Script'; font-size: 2.5rem; color: #ce7bff; margin-bottom: 20px; text-shadow: 0 0 10px #4a148c;">Happy Birthday, My Angel</p>
                     
@@ -1363,9 +1364,38 @@ document.getElementById('close-birthday').onclick = function() {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById('star-field').innerHTML = '';
     document.getElementById('purple-hearts-container').innerHTML = '';
-};</script>
+};
+    // --- BIRTHDAY PAGE LOGIC ---
+const bdayTrigger = document.getElementById('birthday-trigger');
+const bdayBox = document.getElementById('birthday-letter-box');
+const bdayWrap = document.getElementById('bday-trigger-wrap');
+const bdayClose = document.getElementById('close-birthday');
+
+if (bdayTrigger) {
+    bdayTrigger.onclick = function() {
+        bdayWrap.style.display = 'none'; // Hide the button
+        bdayBox.style.display = 'block'; // Show the letter
+        
+        // Confetti Burst
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#4a148c', '#9b59b6', '#ffffff']
+        });
+    };
+}
+
+if (bdayClose) {
+    bdayClose.onclick = function() {
+        bdayBox.style.display = 'none';
+        bdayWrap.style.display = 'block';
+    };
+}
+</script>
 </body>
 
 </html>
+
 
 
