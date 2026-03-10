@@ -8,6 +8,81 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
     <style>
+/* Starry Background Effect */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle var(--duration) infinite ease-in-out;
+    z-index: 1;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Purple Floating Heart Style */
+.purple-floating-heart {
+    position: absolute;
+    color: #9b59b6; /* Deep Purple */
+    font-size: 24px;
+    text-shadow: 0 0 10px rgba(155, 89, 182, 0.8);
+    pointer-events: none;
+    z-index: 15;
+    animation: floatUpHeart var(--duration) linear forwards;
+}
+
+@keyframes floatUpHeart {
+    0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-110vh) scale(1.5) rotate(45deg); opacity: 0; }
+}
+#photo-hearts-container { position: absolute; width: 100%; height: 100%; pointer-events: none; }
+.floating-photo-heart {
+    position: absolute;
+    width: 80px; height: 80px;
+    background-size: cover;
+    background-position: center;
+    clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
+    border: 2px solid #ff85a2;
+    animation: floatBirthday 8s linear infinite;
+}
+
+@keyframes floatBirthday {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-20vh) rotate(20deg); opacity: 0; }
+}
+/* Add this to your existing CSS block */
+.st-ignore {
+    touch-action: none !important;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.match-tile {
+    width: 80px; height: 80px;
+    background: var(--accent);
+    color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; border-radius: 10px;
+    cursor: pointer;
+    transition: 0.6s transform;
+    transform-style: preserve-3d;
+    position: relative;
+    touch-action: none;
+}
+
+.match-tile.flipped { transform: rotateY(0deg); background: var(--rose); }
+.match-tile.back { transform: rotateY(180deg); }}
+@keyframes floatUp {
+    0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-120vh) scale(1.2) rotate(20deg); opacity: 0; }
+}
 /* Digital Bouquet Page Styles */
 .bouquet-canvas {
     position: absolute;
@@ -131,15 +206,35 @@
         .letter-popup { background: var(--paper); width: 100%; max-width: 400px; height: 85vh; padding: 25px; border-radius: 8px; text-align: center; display: flex; flex-direction: column; box-shadow: 0 0 40px var(--accent); }
 
         #musicBtn { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 50%; cursor: pointer; }
+.music-option {
+        padding: 10px; 
+        cursor: pointer; 
+        transition: 0.3s; 
+        border-radius: 8px;
+    }
+    .music-option:hover {
+        background: rgba(155, 89, 182, 0.3);
+        color: #ce7bff;
+    }
     </style>
 </head>
 <body>
 
-<div id="musicBtn">🎵</div>
-<audio id="bgMusic" loop>
-    <source src="data:audio/mpeg;base64, type="audio/mpeg">
-</audio>
+<div id="music-control" style="position: fixed; top: 20px; right: 20px; z-index: 1000; cursor: pointer; background: rgba(74, 20, 140, 0.8); padding: 10px; border-radius: 50%; border: 1px solid #9b59b6; box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);">
+    <span id="music-icon" style="font-size: 24px;">🎵</span>
+</div>
 
+<div id="music-menu" style="display: none; position: fixed; top: 80px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
+    <p style="margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #4a148c; padding-bottom: 5px; color: #ce7bff;">Choose Our Vibe</p>
+    
+    <div class="music-option" onclick="selectMusic('wontletgo')">Song Title 1</div>
+    <div class="music-option" onclick="selectMusic('wantisyou')">Song Title 2</div>
+    <div class="music-option" onclick="selectMusic('wayyouare')">Song Title 3</div>
+    
+    <div class="music-option" onclick="selectMusic('none')" style="color: #ff85a2; border-top: 1px solid #4a148c; margin-top: 5px;">No Music</div>
+</div>
+
+<audio id="bg-music" loop></audio>
 <div class="container" id="main-container">
     <div id="book">
         <div class="page -cover" data-density="hard" data-date="Cover">
@@ -740,8 +835,72 @@ happy valentines my love , to many many many more ❤️</div>
                 </div>
             </div>
         </div>
+<div class="page" data-date="11 March" style="background: #000000 !important; color: #f3e5f5; position: relative; overflow: hidden;">
+    <div class="page-content" style="display: flex; flex-direction: column; height: 100%; padding: 0; background: #000000 !important;">
+        
+        <div class="page-date-header" style="color: #9b59b6; border-bottom: 1px solid rgba(155, 89, 182, 0.4); z-index: 10; position: relative; background: #000000; text-align: center; width: 100%;">11 March</div>
+        
+        <div id="star-field" style="position: absolute; inset: 0; z-index: 1; pointer-events: none;"></div>
 
-        <div class="page -cover" data-density="hard" data-date="End">
+        <canvas id="birthday-canvas" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></canvas>
+        
+        <div id="purple-hearts-container" style="position: absolute; inset: 0; z-index: 3; pointer-events: none;"></div>
+
+        <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; position: relative; z-index: 5;">
+            
+            <div id="bday-trigger-wrap" style="margin-top: 150px; text-align: center;">
+                <p style="font-family: 'EB Garamond'; font-style: italic; color: #b39ddb; margin-bottom: 20px;">For the girl who owns my heart...</p>
+                <button id="birthday-trigger" style="padding: 12px 35px; background: #4a148c; color: white; border: 1px solid #9b59b6; border-radius: 25px; cursor: pointer; font-family: 'Dancing Script'; font-size: 1.4rem;">Open My Heart</button>
+            </div>
+
+            <div id="birthday-letter-box" style="display: none; width: 85%; height: 45%; margin-top: 120px; overflow-y: auto; padding: 20px; text-align: center; scrollbar-width: none; -ms-overflow-style: none; z-index: 100; position: relative; background: rgba(0,0,0,0.7); border: 1px solid #9b59b6; border-radius: 15px;">
+                <div style="font-family: 'EB Garamond'; font-size: 1.3rem; line-height: 1.8; color: #ffffff;">
+                    <p style="font-family: 'Dancing Script'; font-size: 2.5rem; color: #ce7bff; margin-bottom: 20px; text-shadow: 0 0 10px #4a148c;">Happy Birthday, My Angel</p>
+                    
+                    <div id="your-letter-text">
+                        <p>To my favorite person,</p>
+                        <p>[INSERT YOUR LETTER HERE]</p>
+                        <br>
+                        <p style="color: #9b59b6; font-size: 1.5rem;">💜 Forever Yours 💜</p>
+                    </div>
+                    
+                    <button id="close-birthday" style="margin-top: 40px; padding: 10px 25px; background: rgba(74, 20, 140, 0.6); border: 1px solid #9b59b6; color: #ffffff; border-radius: 15px; cursor: pointer;">Close & Return</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Star Animation - Static white stars that twinkle */
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle var(--duration) infinite ease-in-out;
+}
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Purple Floating Heart Style */
+.purple-heart {
+    position: absolute;
+    color: #9b59b6; 
+    font-size: 22px;
+    text-shadow: 0 0 10px rgba(155, 89, 182, 0.8);
+    opacity: 0;
+    animation: floatPurple 7s linear forwards;
+}
+@keyframes floatPurple {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+</style><div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
             </div>
@@ -841,9 +1000,45 @@ document.getElementById('close-bouquet-btn').onclick = () => {
 
 initBouquet();
 animateBouquet();
-    const audio = document.getElementById('bgMusic');
-    audio.volume = 0.2; 
-    let isPlaying = false;
+ const musicBtn = document.getElementById('music-control');
+const musicMenu = document.getElementById('music-menu');
+const audio = document.getElementById('bg-music');
+const musicIcon = document.getElementById('music-icon');
+
+// Toggle the menu when clicking the button
+musicBtn.onclick = function(e) {
+    e.stopPropagation(); 
+    musicMenu.style.display = (musicMenu.style.display === 'none' || musicMenu.style.display === '') ? 'block' : 'none';
+};
+
+// Function to handle selection
+function selectMusic(songFile) {
+    const audio = document.getElementById('bg-music');
+    const musicIcon = document.getElementById('music-icon');
+    const musicMenu = document.getElementById('music-menu');
+
+    if (songFile === 'none') {
+        audio.pause();
+        audio.src = "";
+        musicIcon.innerHTML = "🔇";
+    } else {
+        // Adding './' helps GitHub Pages locate the file in the same directory
+        audio.src = './' + songFile; 
+        audio.play().catch(e => {
+            console.log("Music will start once you interact with the page!");
+        });
+        musicIcon.innerHTML = "🎵";
+    }
+    musicMenu.style.display = 'none';
+}
+
+// Close menu if clicking outside
+document.addEventListener('click', function(event) {
+    if (!musicMenu.contains(event.target) && !musicBtn.contains(event.target)) {
+        musicMenu.style.display = 'none';
+    }
+});   
+audio.volume = 0.2;
     let currentPin = "";
 
     function pressNum(num) {
@@ -853,9 +1048,14 @@ animateBouquet();
     function updatePinDisplay() { document.getElementById('pin-display').innerText = "•".repeat(currentPin.length); }
     
     function checkPin() {
-        if(currentPin === "2511") { document.getElementById('envelopeWrapper').style.display = "block"; } 
-        else { alert("Wrong code! ❤️"); clearPin(); }
+    if(currentPin === "2511") {
+        // Changed from 'envelopeWrapper' to 'envelope-wrapper'
+        document.getElementById('envelope-wrapper').style.display = "block"; 
+    } else {
+        alert("Wrong code! ❤️");
+        clearPin();
     }
+}
 
     const pageFlip = new St.PageFlip(document.getElementById('book'), {
         width: 350, height: 520, size: "stretch", minWidth: 320, maxWidth: 450, 
@@ -888,10 +1088,23 @@ animateBouquet();
     document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
     document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
     
-    pageFlip.on('flip', (e) => { 
-        document.getElementById('current-date-display').innerText = document.querySelectorAll('.page')[e.data].getAttribute('data-date');
-        if (!isPlaying) { audio.play().then(() => isPlaying = true).catch(() => {}); }
-    });
+   pageFlip.on('flip', (e) => {
+    // Update the date display at the bottom
+    const pages = document.querySelectorAll('.page');
+    const dateText = pages[e.data].getAttribute('data-date');
+    document.getElementById('current-date-display').innerText = dateText;
+
+    // Trigger stars specifically for the March 11 page
+    if (dateText === "11 March") {
+        createStars();
+    }
+});
+
+// Helper for the "Envelope" buttons
+function openLetter() {
+    document.getElementById('envelope-wrapper').style.display = "none";
+    document.getElementById('letterModal').style.display = "flex";
+}
 
   // This version ensures the count feels right and handles different time zones
     // FIXED COUNTER LOGIC
@@ -933,6 +1146,223 @@ animateBouquet();
             }
         }, { passive: true });
     });
-</script>
+let flippedTiles = [];
+let matchedCount = 0;
+
+function initGame() {
+    const grid = document.getElementById('match-grid');
+    if(!grid) return;
+    grid.innerHTML = '';
+    flippedTiles = [];
+    matchedCount = 0;
+    
+    const letters = ['M', 'M', 'T', 'T'];
+    const shuffled = letters.sort(() => Math.random() - 0.5);
+
+    shuffled.forEach((char) => {
+        const tile = document.createElement('div');
+        tile.className = 'match-tile back';
+        tile.dataset.value = char;
+        tile.innerHTML = '?';
+
+        // Event listener that blocks the book from flipping
+        const handleInteraction = (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Stops PC flip
+            if (flippedTiles.length < 2 && tile.classList.contains('back')) {
+                tile.classList.remove('back');
+                tile.classList.add('flipped');
+                tile.innerHTML = tile.dataset.value;
+                flippedTiles.push(tile);
+                if (flippedTiles.length === 2) setTimeout(checkMatch, 600);
+            }
+        };
+
+        tile.addEventListener('mousedown', handleInteraction);
+        tile.addEventListener('touchstart', handleInteraction, {passive: false});
+        grid.appendChild(tile);
+    });
+}
+
+function checkMatch() {
+    const [t1, t2] = flippedTiles;
+    if (t1.dataset.value === t2.dataset.value) {
+        matchedCount++;
+        if (matchedCount === 2) triggerWinSequence();
+    } else {
+        t1.classList.add('back'); t1.classList.remove('flipped'); t1.innerHTML = '?';
+        t2.classList.add('back'); t2.classList.remove('flipped'); t2.innerHTML = '?';
+    }
+    flippedTiles = [];
+}
+
+function triggerWinSequence() {
+    document.getElementById('game-container').style.opacity = '0';
+    setTimeout(() => {
+        document.getElementById('game-container').style.display = 'none';
+        document.getElementById('heart-dust-canvas').style.opacity = '1';
+        document.getElementById('dust-letter').style.display = 'block';
+        startHeartDust();
+    }, 500);
+}
+
+function createFloatingHeart(src) {
+    const container = document.getElementById('floating-hearts');
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `position:absolute; left:${Math.random()*70 + 15}%; bottom:-100px; width:80px; height:80px; background:url(${src}); background-size:cover; clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'); animation: floatUp 6s linear forwards; border:2px solid white;`;
+    container.appendChild(wrapper);
+}
+
+// Simple Particle Heart Animation
+function startHeartDust() {
+    const canvas = document.getElementById('heart-dust-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+    let particles = [];
+
+    for(let i=0; i<300; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2,
+            targetX: 0, targetY: 0
+        });
+    }
+
+    function animate() {
+        ctx.fillStyle = 'rgba(0,0,0,0.1)';
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        particles.forEach(p => {
+            // Logic to pull particles into a heart shape
+            let t = Math.random() * Math.PI * 2;
+            let hX = 160 * Math.pow(Math.sin(t), 3);
+            let hY = -(130 * Math.cos(t) - 50 * Math.cos(2*t) - 20 * Math.cos(3*t) - 10 * Math.cos(4*t));
+            p.x += ( (canvas.width/2 + hX) - p.x) * 0.02;
+            p.y += ( (canvas.height/2 + hY) - p.y) * 0.02;
+            ctx.fillStyle = '#ffb7d5';
+            ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+function resetGame() {
+    matchedCount = 0;
+    document.getElementById('game-container').style.display = 'flex';
+    document.getElementById('heart-dust-canvas').style.opacity = '0';
+    document.getElementById('dust-letter').classList.add('hidden-element');
+    initGame();
+}
+
+initGame(); // Initialize on load
+let bdayAnimationId;
+
+// Function to generate background stars
+function createStars() {
+    const starField = document.getElementById('star-field');
+    starField.innerHTML = '';
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        starField.appendChild(star);
+    }
+}
+
+document.getElementById('birthday-trigger').onclick = function() {
+    createStars(); // Fill the background with stars when clicked
+    const triggerWrap = document.getElementById('bday-trigger-wrap');
+    const letterBox = document.getElementById('birthday-letter-box');
+    const canvas = document.getElementById('birthday-canvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+    triggerWrap.style.display = 'none';
+    letterBox.style.display = 'block';
+    
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let particles = [];
+    const message = "Happy Birthday!";
+    const textVerticalPos = canvas.height * 0.12; 
+    let fontSize = canvas.width / 7.5;
+    if (fontSize > 85) fontSize = 85;
+
+    ctx.font = `bold ${fontSize}px 'Dancing Script'`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "white";
+    ctx.fillText(message, canvas.width / 2, textVerticalPos);
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let y = 0; y < canvas.height; y += 3) {
+        for (let x = 0; x < canvas.width; x += 3) {
+            const index = (y * canvas.width + x) * 4;
+            if (imageData[index + 3] > 128) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    tx: x, ty: y,
+                    size: Math.random() * 1.5 + 0.5,
+                    color: Math.random() > 0.4 ? '#ce7bff' : '#ffffff',
+                    speed: 0.03 + Math.random() * 0.04
+                });
+            }
+        }
+    }
+
+    function animateBday() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.x += (p.tx - p.x) * p.speed;
+            p.y += (p.ty - p.y) * p.speed;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        bdayAnimationId = requestAnimationFrame(animateBday);
+    }
+    animateBday();
+
+    // Purple Heart Spawner
+    const heartContainer = document.getElementById('purple-hearts-container');
+    const heartInterval = setInterval(() => {
+        if (letterBox.style.display === 'none') { clearInterval(heartInterval); return; }
+        const h = document.createElement('div');
+        h.className = 'purple-heart';
+        h.innerHTML = '💜';
+        h.style.left = Math.random() * 100 + '%';
+        h.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        heartContainer.appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+    }, 700);
+
+    confetti({
+        particleCount: 150, spread: 70, origin: { y: 0.4 },
+        colors: ['#4a148c', '#9b59b6', '#ffffff']
+    });
+};
+
+document.getElementById('close-birthday').onclick = function() {
+    cancelAnimationFrame(bdayAnimationId);
+    document.getElementById('birthday-letter-box').style.display = 'none';
+    document.getElementById('bday-trigger-wrap').style.display = 'block';
+    const canvas = document.getElementById('birthday-canvas');
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('star-field').innerHTML = '';
+    document.getElementById('purple-hearts-container').innerHTML = '';
+};</script>
 </body>
+
 </html>
