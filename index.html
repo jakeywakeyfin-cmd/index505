@@ -224,18 +224,19 @@
     <span id="music-icon" style="font-size: 24px;">🎵</span>
 </div>
 
-<div id="music-menu">
-    <button onclick="selectMusic('wontletgo')">I Won't Let Go</button>
-    <button onclick="selectMusic('wantisyou')">All I Want Is You</button>
-    <button onclick="selectMusic('wayyouare')">Just The Way You Are</button>
-    <button onclick="selectMusic('none')">Stop Music</button>
+<div id="music-menu" style="display: none; position: fixed; top: 80px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
+    <p style="margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #4a148c; padding-bottom: 5px; color: #ce7bff;">Choose Our Vibe</p>
+
+
+    <div class="music-option" onclick="selectMusic('wontletgo.mp3')">say you wont let go </div>
+    <div class="music-option" onclick="selectMusic('wantisyou.mp3')">all i want is you</div>
+    <div class="music-option" onclick="selectMusic('wayyouare.mp3')">just the way you are</div>
     
-    <div style="border-top: 1px solid #444; margin-top: 10px; padding-top: 10px;">
-        <span style="font-size: 0.8em; color: white; display: block; margin-bottom: 5px;">Volume</span>
-        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.4" 
-               style="width: 100%; cursor: pointer; accent-color: #9b59b6;">
-    </div>
-</div>
+    <div class="music-option" onclick="selectMusic('none')" style="color: #ff85a2; border-top: 1px solid #4a148c; margin-top: 5px;">No Music</div>
+    <div>
+
+
+
 
 <audio id="bg-music" loop></audio>
 <div class="container" id="main-container">
@@ -1091,11 +1092,12 @@ document.addEventListener('click', function(event) {
     document.getElementById('prevBtn').addEventListener('click', () => pageFlip.flipPrev());
     document.getElementById('nextBtn').addEventListener('click', () => pageFlip.flipNext());
     
-  pageFlip.on('flip', (e) => {
-    const pages = document.querySelectorAll('.page');
-    // It looks at the "data-date" you wrote on each <div> tag
+
+   pageFlip.on('flip', (e) => {
+    // Update the date display at the bottom
     const dateText = pages[e.data].getAttribute('data-date');
-    const display = document.getElementById('current-date-display');
+    document.getElementById('current-date-display').innerText = dateText;
+
     
     if (display) {
         display.innerText = dateText || "Cover";
@@ -1371,25 +1373,11 @@ document.getElementById('close-birthday').onclick = function() {
     document.getElementById('purple-hearts-container').innerHTML = '';
 };
     // --- VOLUME SLIDER LOGIC ---
-const volumeSlider = document.getElementById('volume-slider');
 
-if (volumeSlider) {
-    // This runs every time she moves the slider
-    volumeSlider.addEventListener('input', (e) => {
-        const volumeValue = e.target.value;
-        audioPlayer.volume = volumeValue;
-        
-        // Optional: Change the icon if muted
-        if (volumeValue == 0) {
-            musicIcon.innerHTML = "🔇";
-        } else {
-            musicIcon.innerHTML = "🎵";
-        }
-    });
-}
 </script>
 </body>
 
 </html>
+
 
 
