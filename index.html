@@ -227,9 +227,9 @@
 <div id="music-menu" style="display: none; position: fixed; top: 80px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
     <p style="margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #4a148c; padding-bottom: 5px; color: #ce7bff;">Choose Our Vibe</p>
     
-    <div class="music-option" onclick="selectMusic('wontletgo')">Song Title 1</div>
-    <div class="music-option" onclick="selectMusic('wantisyou')">Song Title 2</div>
-    <div class="music-option" onclick="selectMusic('wayyouare')">Song Title 3</div>
+    <div class="music-option" onclick="selectMusic('wontletgo.mp3')">say you wont let go </div>
+    <div class="music-option" onclick="selectMusic('wantisyou.mp3')">all i want is you</div>
+    <div class="music-option" onclick="selectMusic('wayyouare.mp3')">just the way you are</div>
     
     <div class="music-option" onclick="selectMusic('none')" style="color: #ff85a2; border-top: 1px solid #4a148c; margin-top: 5px;">No Music</div>
 </div>
@@ -1038,7 +1038,7 @@ document.addEventListener('click', function(event) {
         musicMenu.style.display = 'none';
     }
 });   
-audio.volume = 0.2;
+audio.volume = 0.4;
     let currentPin = "";
 
     function pressNum(num) {
@@ -1366,3 +1366,4 @@ document.getElementById('close-birthday').onclick = function() {
 </body>
 
 </html>
+
