@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <title>M & T - Our Love Book</title>
-    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+    <script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
     <style>
@@ -78,7 +78,7 @@
 }
 
 .match-tile.flipped { transform: rotateY(0deg); background: var(--rose); }
-.match-tile.back { transform: rotateY(180deg); }}
+.match-tile.back { transform: rotateY(180deg); }
 @keyframes floatUp {
     0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
     100% { transform: translateY(-120vh) scale(1.2) rotate(20deg); opacity: 0; }
@@ -1407,4 +1407,5 @@ document.addEventListener('click', (event) => {
 </body>
 
 </html>
+
 
