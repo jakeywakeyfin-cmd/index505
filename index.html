@@ -1362,7 +1362,49 @@ document.getElementById('close-birthday').onclick = function() {
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     document.getElementById('star-field').innerHTML = '';
     document.getElementById('purple-hearts-container').innerHTML = '';
-};</script>
+};
+    // --- MUSIC SYSTEM LOGIC ---
+const musicBtn = document.getElementById('music-control');
+const musicMenu = document.getElementById('music-menu');
+const audioPlayer = document.getElementById('bg-music');
+const musicIcon = document.getElementById('music-icon');
+
+// Toggle Menu visibility
+if (musicBtn) {
+    musicBtn.onclick = function(e) {
+        e.stopPropagation();
+        const isHidden = musicMenu.style.display === 'none' || musicMenu.style.display === '';
+        musicMenu.style.display = isHidden ? 'block' : 'none';
+    };
+}
+
+// Function to handle song selection
+function selectMusic(songFile) {
+    if (songFile === 'none') {
+        audioPlayer.pause();
+        audioPlayer.src = "";
+        musicIcon.innerHTML = "🔇";
+    } else {
+        // Pathing for GitHub: assumes files are in the same folder as the HTML
+        audioPlayer.src = './' + songFile + '.mp3'; 
+        audioPlayer.play().then(() => {
+            musicIcon.innerHTML = "🎵";
+        }).catch(err => {
+            console.log("Autoplay blocked. User must click first.");
+            alert("Please click anywhere on the page first, then try the song again!");
+        });
+    }
+    musicMenu.style.display = 'none';
+}
+
+// Close menu when clicking anywhere else
+document.addEventListener('click', (event) => {
+    if (musicMenu && !musicMenu.contains(event.target) && !musicBtn.contains(event.target)) {
+        musicMenu.style.display = 'none';
+    }
+});
+</script>
 </body>
 
 </html>
+
