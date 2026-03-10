@@ -173,18 +173,19 @@
         
         /* FIXED SCROLLING */
         .scroll-text { 
-            flex-grow: 1; 
-            overflow-y: auto !important; 
-            overflow-x: hidden;
-            padding-right: 10px; 
-            line-height: 1.6; 
-            font-size: 1.15rem; 
-            white-space: pre-wrap; 
-            text-align: left; 
-            -webkit-overflow-scrolling: touch !important; 
-            touch-action: pan-y !important; /* Forces vertical touch scrolling */
-        }
-
+    flex-grow: 1; 
+    overflow-y: auto !important; 
+    overflow-x: hidden;
+    padding-right: 10px; 
+    line-height: 1.6; 
+    font-size: 1.15rem; 
+    white-space: pre-wrap; 
+    text-align: left; 
+    -webkit-overflow-scrolling: touch !important; 
+    /* ADD THE TWO LINES BELOW */
+    touch-action: pan-y !important; 
+    position: relative;
+}
         /* Custom scrollbar to make it look nicer */
         .scroll-text::-webkit-scrollbar { width: 5px; }
         .scroll-text::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
@@ -288,7 +289,7 @@ Ik things aren't always easy with your family and I really don't know how to hel
         <div class="bouquet-overlay">
             <button id="show-bouquet-btn">Surprise</button>
             
-          <div id="bouquet-letter" class="hidden-element scroll-text">
+         <div id="bouquet-letter" class="hidden-element scroll-text" style="touch-action: pan-y !important;">
                 <h3 style="color: #ce7bff; margin-top: 0;">I Love You</h3>
                 <p>I can't describe how you make me feel no matter how many times I write stuff like this. You make me feel something I never felt before... you make me feel wanted. I am so lucky to have met you. You are everything I want in a girlfriend, a wife, and the mother of our future kids.</p>
                 <p>You are perfect, from the kindness in your personality to your humor... you're so drop-dead gorgeous it should be illegal. I love you, sweetheart, and I will never ever stop doing so. ❤️</p>
@@ -856,7 +857,7 @@ happy valentines my love , to many many many more ❤️</div>
                 <button id="birthday-trigger" style="padding: 12px 35px; background: #4a148c; color: white; border: 1px solid #9b59b6; border-radius: 25px; cursor: pointer; font-family: 'Dancing Script'; font-size: 1.4rem;">Happy birthdayy!</button>
             </div>
 
-            <div id="birthday-letter-box" class="scroll-text" style="display: none; width: 85%; height: 20%; margin-top: 120px; overflow-y: auto; padding: 20px; text-align: center; scrollbar-width: none; -ms-overflow-style: none; z-index: 100; position: relative; background: rgba(0,0,0,0.7); border: 1px solid #9b59b6; border-radius: 15px;">
+           <div id="birthday-letter-box" class="scroll-text" style="display: none; width: 85%; height: 20%; margin-top: 120px; overflow-y: auto; touch-action: pan-y !important; padding: 20px; text-align: center; z-index: 100; position: relative; background: rgba(0,0,0,0.7); border: 1px solid #9b59b6; border-radius: 15px;">
                 <div style="font-family: 'EB Garamond'; font-size: 1.3rem; line-height: 1.8; color: #ffffff;">
                     <p style="font-family: 'Dancing Script'; font-size: 2.5rem; color: #ce7bff; margin-bottom: 20px; text-shadow: 0 0 10px #4a148c;">Happy Birthday, My Angel</p>
                     
@@ -1130,20 +1131,16 @@ audio.volume = 0.4;
 
     // IMPROVED SCROLLING LOGIC
     // This allows the scroll-text areas to be scrolled without triggering the book flip
-    document.querySelectorAll('.scroll-text').forEach(el => {
-        el.addEventListener('touchstart', (e) => {
-            // Only stop propagation if the element is actually scrollable
-            if (el.scrollHeight > el.clientHeight) {
-                e.stopPropagation();
-            }
-        }, { passive: true });
-        
-        el.addEventListener('touchmove', (e) => {
-            if (el.scrollHeight > el.clientHeight) {
-                e.stopPropagation();
-            }
-        }, { passive: true });
-    });
+  document.querySelectorAll('.scroll-text').forEach(el => {
+    el.addEventListener('touchstart', (e) => {
+        // This tells the page-flip library to ignore this specific touch
+        e.stopPropagation(); 
+    }, { passive: false }); // Change passive to false to allow interruption
+
+    el.addEventListener('touchmove', (e) => {
+        e.stopPropagation();
+    }, { passive: false });
+});
 let flippedTiles = [];
 let matchedCount = 0;
 
@@ -1364,6 +1361,7 @@ document.getElementById('close-birthday').onclick = function() {
 </body>
 
 </html>
+
 
 
 
