@@ -1014,22 +1014,24 @@ musicBtn.onclick = function(e) {
 // Function to handle selection
 function selectMusic(songFile) {
     const audio = document.getElementById('bg-music');
-    if (!audio) return; // Safety check: stops the crash if audio element is missing
+    const musicIcon = document.getElementById('music-icon');
+    const musicMenu = document.getElementById('music-menu');
 
     if (songFile === 'none') {
         audio.pause();
         audio.src = "";
+        musicIcon.innerHTML = "🔇";
     } else {
-        // We use a "try-catch" to prevent the book from freezing if the file is missing
-        try {
-            audio.src = './' + songFile + '.mp3';
-            audio.play().catch(e => console.log("User needs to click book first"));
-        } catch (error) {
-            console.error("Music error, but book will keep working!", error);
-        }
+        // Adding './' helps GitHub Pages locate the file in the same directory
+        audio.src = './' + songFile; 
+        audio.play().catch(e => {
+            console.log("Music will start once you interact with the page!");
+        });
+        musicIcon.innerHTML = "🎵";
     }
-    document.getElementById('music-menu').style.display = 'none';
+    musicMenu.style.display = 'none';
 }
+
 // Close menu if clicking outside
 document.addEventListener('click', function(event) {
     if (!musicMenu.contains(event.target) && !musicBtn.contains(event.target)) {
@@ -1364,4 +1366,3 @@ document.getElementById('close-birthday').onclick = function() {
 </body>
 
 </html>
-
