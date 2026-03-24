@@ -944,7 +944,54 @@ touch-action: pan-y;"
     90% { opacity: 1; }
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
-</style><div class="page -cover" data-density="hard" data-date="End">
+</style><!-- 25th March Matching Game Page -->
+<div class="page" data-date="25 March" style="background: #0a0a0a; color: #f5f0e8; position: relative; overflow: hidden;">
+    <div class="page-content" style="display: flex; flex-direction: column; height: 100%; padding: 15px 12px 10px; background: #0a0a0a; box-sizing: border-box;">
+
+        <div class="page-date-header" style="color: #d4af37; border-bottom: 1px solid rgba(212,175,55,0.4); font-family: 'Dancing Script', cursive; font-size: 1.3rem; letter-spacing: 1px; text-align: center; padding-bottom: 6px; margin-bottom: 10px; flex-shrink: 0;">
+            25th March
+        </div>
+
+        <!-- Game Container -->
+        <div id="march25-game" style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex-grow:1;">
+            <p style="font-family:'EB Garamond'; font-style:italic; color:#b8960c; font-size:0.95rem; text-align:center; margin:0 0 14px;">Find the matching pairs 💛</p>
+            <div id="march25-grid" style="display:grid; grid-template-columns: repeat(2,1fr); gap:14px; width:200px;"></div>
+            <p id="march25-hint" style="font-size:0.75rem; color:rgba(212,175,55,0.5); margin-top:12px; font-style:italic; text-align:center;">The perfect match💛</p>
+        </div>
+
+        <!-- Reveal Container (hidden initially) -->
+        <div id="march25-reveal" style="display:none; flex-direction:column; align-items:center; justify-content:flex-start; flex-grow:1; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; position:relative; z-index:5;">
+            <canvas id="march25-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none;"></canvas>
+            <div id="march25-letter" style="position:relative; z-index:10; width:90%; margin-top:8px; padding:16px; border-radius:12px; background:linear-gradient(145deg, rgba(10,8,2,0.97), rgba(20,16,4,0.97)); border:1px solid #d4af37; box-shadow: 0 0 25px rgba(212,175,55,0.3), inset 0 0 20px rgba(212,175,55,0.05);">
+                <!-- Gold monogram at top -->
+                <div style="text-align:center; margin-bottom:12px;">
+                    <span style="font-family:'Dancing Script',cursive; font-size:3rem; background: linear-gradient(180deg, #fff9e6 0%, #d4af37 40%, #fff8dc 60%, #b8860b 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 8px rgba(212,175,55,0.6)); display:inline-block; line-height:1;">M &amp; T</span>
+                    <div style="width:60%; margin:6px auto 0; height:1px; background:linear-gradient(to right, transparent, #d4af37, transparent);"></div>
+                </div>
+
+                <div style="font-family:'EB Garamond', serif; font-size:1rem; line-height:1.75; color:#f5f0e8; text-align:left;">
+                    <p style="margin:0 0 12px; font-style:italic; color:#d4af37; font-size:1.05rem;">My love,</p>
+
+                    <p style="margin:0 0 12px;">Heyy my angell , 4 months already. I feel like I am saying this every time but time does really fly with you. I feel so at home with you. my heart is finally in a place it belongs, I finally feel safe with someone. you handle me really well I know I am not the easiest to deal with but you somehow do it and I'm so grateful for that, I love you so much. I really don't know how I managed to get you as a girlfriend let alone keep you as one, you are so precious and perfect. ik you feel you aren't perfect but , I really think you are. you have flaws everyone does that's what makes us human, humans perfection isn't defined by the absence of imperfections but rather the astonishing ability to make those same imperfections disregarded by how amazing you are as a person and you do that like nothing I've seen before. you are perfect. </p>
+
+                    <p style="margin:0 0 12px;">you are everything I have ever needed in a partner and so much more and I am so grateful for that. I'm so grateful to have someone who loves me even though I know I am not the easiest to love, I know its insanely difficult and I don't know how it hasn't driven you up a wall yet but I am so glad that it hasn't.But happy 4 months my baby. Four months of you, four months of us, four months of the best thing that has ever happened to me. You are everything I didn't know I needed — your laugh, your warmth, the way you look at me like I'm actually worth something. I have never felt more seen in my life and I never want to go back to the way things were before you.</p>
+
+                    <p style="margin:0 0 12px;">Four months sounds short but these have been the fullest months of my life. Every hard day was easier because I knew I'd talk to you. Every happy moment was better because I got to share it with you. You are my person, my safe place, my home.</p>
+
+                    <p style="margin:0 0 12px;">I love you more than any of these words will ever be able to say, but I will spend every day trying to show you instead. Here is to four months, and to every single month after this one — all of them, forever, with you.</p>
+
+                    <div style="text-align:center; margin-top:18px;">
+                        <span style="font-family:'Dancing Script',cursive; font-size:1.6rem; background: linear-gradient(180deg, #ffffff 0%, #d4af37 50%, #ffffff 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">Always yours ❤️</span>
+                    </div>
+                </div>
+            </div>
+            <button onclick="resetMarch25Game()" style="margin: 12px 0 6px; padding:8px 20px; background:transparent; border:1px solid #d4af37; color:#d4af37; border-radius:20px; cursor:pointer; font-family:'EB Garamond'; font-size:0.9rem;">Play again</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
             </div>
@@ -1145,6 +1192,10 @@ audio.volume = 0.4;
     if (dateText === "11 March") {
         createStars();
     }
+    // Initialize March 25 game when landing on that page
+    if (dateText === "25 March") {
+        setTimeout(() => { if (document.getElementById('march25-grid')) initMarch25Game(); }, 100);
+    }
 });
 
 
@@ -1299,6 +1350,112 @@ function resetGame() {
 }
 
 initGame(); // Initialize on load
+
+// ── March 25 Matching Game ──────────────────────────────────
+let m25Flipped = [];
+let m25Matched = 0;
+let m25CanFlip = true;
+
+function initMarch25Game() {
+    const grid = document.getElementById('march25-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    m25Flipped = [];
+    m25Matched = 0;
+    m25CanFlip = true;
+    const letters = ['M', 'M', 'T', 'T'];
+    const shuffled = letters.sort(() => Math.random() - 0.5);
+    shuffled.forEach((char) => {
+        const tile = document.createElement('div');
+        tile.style.cssText = 'width:80px;height:80px;background:linear-gradient(135deg,#1a1500,#2a2000);border:1px solid #d4af37;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:"Dancing Script",cursive;font-size:2.4rem;cursor:pointer;user-select:none;touch-action:manipulation;color:rgba(212,175,55,0.4);box-shadow:0 0 8px rgba(212,175,55,0.15);';
+        tile.innerHTML = '?';
+        tile.dataset.value = char;
+        tile.dataset.revealed = 'false';
+        const handleFlip = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (!m25CanFlip) return;
+            if (tile.dataset.revealed === 'true') return;
+            if (m25Flipped.length >= 2) return;
+            tile.innerHTML = char;
+            tile.style.color = '#f5f0e8';
+            tile.style.background = 'linear-gradient(135deg,#2a1f00,#3d2d00)';
+            tile.style.boxShadow = '0 0 15px rgba(212,175,55,0.5)';
+            tile.style.borderColor = '#f5c842';
+            m25Flipped.push(tile);
+            if (m25Flipped.length === 2) { m25CanFlip = false; setTimeout(checkMarch25Match, 700); }
+        };
+        tile.addEventListener('mousedown', handleFlip);
+        tile.addEventListener('touchstart', handleFlip, { passive: false });
+        grid.appendChild(tile);
+    });
+}
+
+function checkMarch25Match() {
+    const [t1, t2] = m25Flipped;
+    const vals = [t1.dataset.value, t2.dataset.value].sort().join('');
+    if (vals === 'MT') {
+        t1.dataset.revealed = 'true'; t2.dataset.revealed = 'true';
+        t1.style.boxShadow = '0 0 18px rgba(212,175,55,0.7)';
+        t2.style.boxShadow = '0 0 18px rgba(212,175,55,0.7)';
+        m25Matched++; m25Flipped = []; m25CanFlip = true;
+        if (m25Matched === 2) setTimeout(triggerMarch25Reveal, 600);
+    } else {
+        setTimeout(() => {
+            [t1, t2].forEach(t => {
+                t.innerHTML = '?';
+                t.style.background = 'linear-gradient(135deg,#1a1500,#2a2000)';
+                t.style.color = 'rgba(212,175,55,0.4)';
+                t.style.borderColor = '#d4af37';
+                t.style.boxShadow = '0 0 8px rgba(212,175,55,0.15)';
+            });
+            m25Flipped = []; m25CanFlip = true;
+        }, 500);
+    }
+}
+
+function triggerMarch25Reveal() {
+    const g = document.getElementById('march25-game');
+    const r = document.getElementById('march25-reveal');
+    if (!g || !r) return;
+    g.style.display = 'none'; r.style.display = 'flex';
+    startMarch25Particles();
+}
+
+function startMarch25Particles() {
+    const canvas = document.getElementById('march25-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight;
+    const W = canvas.width, H = canvas.height;
+    const cols = ['#d4af37','#ffffff','#f5c842','#fffbe6'];
+    let particles = [];
+    for (let i = 0; i < 60; i++) {
+        particles.push({ x: Math.random()*W, y: Math.random()*H+H, vx:(Math.random()-0.5)*0.8, vy:-(Math.random()*1.2+0.4), size:Math.random()*3+1, color:cols[Math.floor(Math.random()*cols.length)], alpha:Math.random()*0.7+0.3 });
+    }
+    let frame = 0;
+    function animate() {
+        ctx.clearRect(0,0,W,H);
+        particles.forEach(p => {
+            p.x+=p.vx; p.y+=p.vy; p.alpha-=0.003;
+            if (p.y<-20||p.alpha<=0) { p.x=Math.random()*W; p.y=H+10; p.alpha=Math.random()*0.7+0.3; }
+            ctx.globalAlpha=p.alpha; ctx.fillStyle=p.color;
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
+        });
+        ctx.globalAlpha=1;
+        if (frame++<600) requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+function resetMarch25Game() {
+    document.getElementById('march25-game').style.display = 'flex';
+    document.getElementById('march25-reveal').style.display = 'none';
+    const canvas = document.getElementById('march25-canvas');
+    if (canvas) canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);
+    initMarch25Game();
+}
+if (document.getElementById('march25-grid')) initMarch25Game();
+
 let bdayAnimationId;
 
 // Function to generate background stars
