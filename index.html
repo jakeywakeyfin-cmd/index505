@@ -6,7 +6,7 @@
     <title>M & T - Our Love Book</title>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
     <style>
 /* Starry Background Effect */
 .star {
@@ -190,11 +190,11 @@ body {
     overflow-y: auto !important; 
     overflow-x: hidden;
     padding-right: 10px; 
-    line-height: 1.6; 
-    font-size: 1.15rem; 
+    line-height: 1.7; 
+    font-size: 1.2rem; 
     white-space: pre-wrap; 
     text-align: left;
-
+    font-family: 'Caveat', cursive;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
 }
@@ -822,7 +822,7 @@ happy valentines my love , to many many many more ❤️</div>
             <div class="page-content">
                 <div class="page-date-header" style="color: #b8860b; border-bottom: 2px solid #d4af37; text-align: center;">25th February — Our 3rd Month</div>
                 
-                <div class="scroll-text" style="color: #5c4300; font-family: 'EB Garamond', serif; line-height: 1.8;">
+                <div class="scroll-text" style="color: #5c4300; font-family: 'Caveat', cursive; line-height: 1.8;">
                     <span style="font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #b8860b; display: block; margin-bottom: 15px;">Hey my baby,</span>
                     
                     Crazy right? It's been 3 months. It just flew by, but I never go a day without being happy that I'm yours and I've been yours for 3 months now. And I can't wait to celebrate every this and sooo many more with you. I love you soo much and I'm so lucky to call you mine and I will never ever take that for granted. 
@@ -898,7 +898,7 @@ border: 1px solid #9b59b6;
 border-radius: 15px;
 touch-action: pan-y;"
 >
-                <div style="font-family: 'EB Garamond'; font-size: 1.3rem; line-height: 1.8; color: #ffffff;">
+                <div style="font-family: 'Caveat', cursive; font-size: 1.2rem; line-height: 1.8; color: #ffffff;">
                     <p style="font-family: 'Dancing Script'; font-size: 2.5rem; color: #ce7bff; margin-bottom: 20px; text-shadow: 0 0 10px #4a148c;">Happy Birthday, My Angel</p>
                     
                     <div id="your-letter-text">
@@ -971,7 +971,7 @@ touch-action: pan-y;"
                     <div style="width:60%; margin:6px auto 0; height:1px; background:linear-gradient(to right, transparent, #d4af37, transparent);"></div>
                 </div>
 
-                <div style="font-family:'EB Garamond', serif; font-size:1rem; line-height:1.75; color:#f5f0e8; text-align:left;">
+                <div style="font-family:'Caveat', cursive; font-size:1.2rem; line-height:1.75; color:#f5f0e8; text-align:left;">
                     <p style="margin:0 0 12px; font-style:italic; color:#d4af37; font-size:1.05rem;">My love,</p>
 
                     <p style="margin:0 0 12px;">Heyy my angell , 4 months already. I feel like I am saying this every time but time does really fly with you. I feel so at home with you. my heart is finally in a place it belongs, I finally feel safe with someone. you handle me really well I know I am not the easiest to deal with but you somehow do it and I'm so grateful for that, I love you so much. I really don't know how I managed to get you as a girlfriend let alone keep you as one, you are so precious and perfect. ik you feel you aren't perfect but , I really think you are. you have flaws everyone does that's what makes us human, humans perfection isn't defined by the absence of imperfections but rather the astonishing ability to make those same imperfections disregarded by how amazing you are as a person and you do that like nothing I've seen before. you are perfect. </p>
@@ -1157,6 +1157,8 @@ audio.volume = 0.4;
     });
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 	document.getElementById('book').addEventListener('touchmove', function(e) {
+    // Allow scrolling inside the march25 reveal letter
+    if (e.target.closest('#march25-reveal')) return;
     e.preventDefault();
 }, { passive: false });
 
