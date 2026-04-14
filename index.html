@@ -130,7 +130,7 @@
     max-height: 60%;
     overflow-y: auto;
 }
-        :root { --paper: #fdf6e3; --ink: #2c241a; --cover: #d1c4e9; --accent: #7e57c2; --rose: #e91e63; --env-bg: #f2e6c9; }
+        :root { --paper: #f5ead0; --ink: #2c241a; --cover: #d1c4e9; --accent: #7e57c2; --rose: #e91e63; --env-bg: #f2e6c9; }
         
         html, body {
     margin: 0;
@@ -180,7 +180,12 @@ body {
 
         #book { box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: var(--paper); }
         .page { padding: 30px 20px; background-color: var(--paper); color: var(--ink); border: 1px solid #d3bd9a; box-sizing: border-box; width: 100%; height: 100%; }
-        .page-content { height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+        .page-content { height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden;
+            background-image:
+                repeating-linear-gradient(to bottom, transparent, transparent 31px, rgba(180,150,100,0.08) 31px, rgba(180,150,100,0.08) 32px),
+                radial-gradient(ellipse at center, transparent 50%, rgba(160,120,60,0.09) 100%);
+        }
+        .page.-cover .page-content { background-image: none; }
         .page.-cover { background-color: var(--cover); color: #4a148c; display: flex; justify-content: center; align-items: center; text-align: center; border: 6px solid #b39ddb; }
         .page-date-header { font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: bold; border-bottom: 1px solid rgba(126, 87, 194, 0.2); padding-bottom: 5px; flex-shrink: 0; }
         
@@ -208,11 +213,93 @@ body {
     touch-action: pan-y; /* ✅ allows vertical scrolling on iPhone */
 }
 
-        /* Custom scrollbar to make it look nicer */
         .scroll-text::-webkit-scrollbar { width: 5px; }
         .scroll-text::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
+        /* ── Larger handwritten font ── */
+        .scroll-text { font-size: 1.35rem; line-height: 1.8; }
+
+        /* ── Drop cap on first letter of each entry ── */
+        .scroll-text::first-letter {
+            font-size: 3.2rem;
+            font-family: 'Dancing Script', cursive;
+            float: left;
+            line-height: 0.75;
+            margin-right: 6px;
+            margin-top: 4px;
+            color: var(--accent);
+        }
+
+        /* ── Decorated date headers ── */
+        .page-date-header {
+            text-align: center;
+            position: relative;
+        }
+        .page-date-header::before { content: '✦ '; }
+        .page-date-header::after  { content: ' ✦'; }
+
+        /* ── Page numbers ── */
+        .page-number {
+            position: absolute;
+            bottom: 6px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(126,87,194,0.35);
+            font-family: 'EB Garamond', serif;
+            letter-spacing: 1px;
+            pointer-events: none;
+        }
+
+        /* ── Ribbon bookmark ── */
+        #ribbon {
+            position: absolute;
+            top: -6px;
+            right: 18px;
+            width: 18px;
+            height: 60px;
+            background: linear-gradient(180deg, #e91e63, #c2185b);
+            box-shadow: 1px 2px 6px rgba(0,0,0,0.35);
+            z-index: 500;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            pointer-events: none;
+        }
+
+        /* ── Cover decorative border ── */
+        .page.-cover {
+            border: none !important;
+            outline: 5px solid #b39ddb;
+            outline-offset: -10px;
+            box-shadow: inset 0 0 0 14px var(--cover), inset 0 0 0 16px #b39ddb;
+        }
+
+        /* ── Book fade-in on load ── */
+        #book {
+            animation: bookFadeIn 1.2s ease forwards;
+        }
+        @keyframes bookFadeIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Gold border on dark special pages ── */
+        .page[data-date="11 Mar"],
+        .page[data-date="25 March"] {
+            border: 2px solid #d4af37 !important;
+            box-shadow: inset 0 0 20px rgba(212,175,55,0.08);
+        }
+
         .nav-controls { position: fixed; bottom: 30px; display: flex; align-items: center; gap: 15px; z-index: 1000; background: #000; padding: 10px 20px; border-radius: 50px; width: 280px; justify-content: space-between; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
+        .page[data-date="11 Mar"] .scroll-text::first-letter,
+        .page[data-date="25 March"] .scroll-text::first-letter,
+        .page[data-date="3 Month Anniversary"] .scroll-text::first-letter { float: none; font-size: inherit; margin: 0; color: inherit; }
+
+        .page[data-date="11 Mar"] .page-date-header::before,
+        .page[data-date="11 Mar"] .page-date-header::after,
+        .page[data-date="25 March"] .page-date-header::before,
+        .page[data-date="25 March"] .page-date-header::after,
+        .page.-cover .page-date-header::before,
+        .page.-cover .page-date-header::after { content: ''; }
         .nav-btn { background: var(--accent); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
         #current-date-display { color: white; font-size: 1rem; font-weight: bold; }
 
@@ -262,6 +349,7 @@ body {
 <audio id="bg-music" loop></audio>
 <div class="container" id="main-container">
     <div id="book">
+        <div id="ribbon"></div>
         <div class="page -cover" data-density="hard" data-date="Cover">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 4.5rem;">M & T</div>
@@ -993,6 +1081,13 @@ touch-action: pan-y;"
     </div>
 </div>
 
+<div class="page" data-date="14 Apr">
+    <div class="page-content">
+        <div class="page-date-header">14 April</div>
+        <div class="scroll-text">Heyy my pretty girl. I'm gonna be a hundred percent honest here I've been a bad bf. I love you, I love you so much and I'm sorry I've been letting all these things going on effect me. And I'm even more sorry I can't express without just writing it to you like this. I really do love you. I can't imagine a life without you. I remember the first day we met, I was supposed to be studying and at that point I was just slacking off in uni. And for some reason when I met you I just got a work ethic, I wanted to be a better person. Someone who you would look at and give the slightest chance. And 8 and a half months later I'm the lucky guy that gets to call the most beautiful, stunning, gorgeous, kindest, innocent and just amazing woman mankind will ever get to see and live among. And I get to have a future with you and I have been taking that for granted recently. So thank you baby, thank you for putting up with everything you already do and still deal with me. Thank you for being kind and loving to me. Thank you for being understanding to me. Thank you for being the best thing that has happened to me. Thank you for being you. Thank you for being mine.❤️❤️</div>
+    </div>
+</div>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -1156,6 +1251,14 @@ audio.volume = 0.4;
         mobileScrollSupport: false, useMouseEvents: true
     });
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+
+    // Add page numbers to inner pages (skip covers)
+    document.querySelectorAll('.page:not(.-cover)').forEach((page, i) => {
+        const num = document.createElement('div');
+        num.className = 'page-number';
+        num.textContent = i + 1;
+        page.appendChild(num);
+    });
 	document.getElementById('book').addEventListener('touchmove', function(e) {
     // Allow scrolling inside the march25 reveal letter
     if (e.target.closest('#march25-reveal')) return;
@@ -1217,6 +1320,46 @@ audio.volume = 0.4;
     }
     updateCounter();
 
+    // ── Fading ink effect ──────────────────────────────────────
+    // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
+    // Skip covers, locked, and dark special pages.
+    const skipDates = new Set(['Cover', 'End', 'Locked', '11 Mar', '25 March']);
+    const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
+        const d = p.getAttribute('data-date') || '';
+        return !p.classList.contains('-cover') && !skipDates.has(d);
+    });
+
+    // Ink colour stops: oldest → faded warm brown, newest → rich near-black ink
+    // We interpolate between these across the page range
+    const oldInk   = { r: 120, g: 85,  b: 55  }; // warm faded sepia
+    const midInk   = { r: 72,  g: 52,  b: 38  }; // mid aged ink
+    const freshInk = { r: 34,  g: 26,  b: 18  }; // rich fresh ink (close to --ink)
+
+    inkPages.forEach((page, i) => {
+        const t = inkPages.length <= 1 ? 1 : i / (inkPages.length - 1); // 0 = oldest, 1 = newest
+
+        let r, g, b;
+        if (t < 0.5) {
+            const s = t / 0.5;
+            r = Math.round(oldInk.r + (midInk.r - oldInk.r) * s);
+            g = Math.round(oldInk.g + (midInk.g - oldInk.g) * s);
+            b = Math.round(oldInk.b + (midInk.b - oldInk.b) * s);
+        } else {
+            const s = (t - 0.5) / 0.5;
+            r = Math.round(midInk.r + (freshInk.r - midInk.r) * s);
+            g = Math.round(midInk.g + (freshInk.g - midInk.g) * s);
+            b = Math.round(midInk.b + (freshInk.b - midInk.b) * s);
+        }
+
+        const colour = `rgb(${r},${g},${b})`;
+        const scrollText = page.querySelector('.scroll-text');
+        if (scrollText) scrollText.style.color = colour;
+
+        // Also tint the drop cap to match but slightly more saturated
+        // (handled automatically since ::first-letter inherits color)
+    });
+    // ────────────────────────────────────────────────────────────
+
     setInterval(() => {
         const heart = document.createElement('div');
         heart.className = 'heart-particle';
@@ -1260,7 +1403,7 @@ function initGame() {
         const tile = document.createElement('div');
         tile.className = 'match-tile back';
         tile.dataset.value = char;
-        tile.innerHTML = '?';
+        tile.innerHTML = '♡';
 
         // Event listener that blocks the book from flipping
         const handleInteraction = (e) => {
@@ -1287,8 +1430,8 @@ function checkMatch() {
         matchedCount++;
         if (matchedCount === 2) triggerWinSequence();
     } else {
-        t1.classList.add('back'); t1.classList.remove('flipped'); t1.innerHTML = '?';
-        t2.classList.add('back'); t2.classList.remove('flipped'); t2.innerHTML = '?';
+        t1.classList.add('back'); t1.classList.remove('flipped'); t1.innerHTML = '♡';
+        t2.classList.add('back'); t2.classList.remove('flipped'); t2.innerHTML = '♡';
     }
     flippedTiles = [];
 }
@@ -1372,7 +1515,7 @@ function initMarch25Game() {
     shuffled.forEach((char) => {
         const tile = document.createElement('div');
         tile.style.cssText = 'width:80px;height:80px;background:linear-gradient(135deg,#1a1500,#2a2000);border:1px solid #d4af37;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:"Dancing Script",cursive;font-size:2.4rem;cursor:pointer;user-select:none;touch-action:manipulation;color:rgba(212,175,55,0.4);box-shadow:0 0 8px rgba(212,175,55,0.15);';
-        tile.innerHTML = '?';
+        tile.innerHTML = '♡';
         tile.dataset.value = char;
         tile.dataset.revealed = 'false';
         const handleFlip = (e) => {
@@ -1406,7 +1549,7 @@ function checkMarch25Match() {
     } else {
         setTimeout(() => {
             [t1, t2].forEach(t => {
-                t.innerHTML = '?';
+                t.innerHTML = '♡';
                 t.style.background = 'linear-gradient(135deg,#1a1500,#2a2000)';
                 t.style.color = 'rgba(212,175,55,0.4)';
                 t.style.borderColor = '#d4af37';
