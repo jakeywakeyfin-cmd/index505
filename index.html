@@ -1096,7 +1096,12 @@ touch-action: pan-y;"
         <canvas id="apr25-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none;"></canvas>
 
         <!-- Floating photos background -->
-        <div id="apr25-photos" style="position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden;"></div>
+        <div id="apr25-photos" style="position:absolute; inset:0; z-index:20; pointer-events:none; overflow:hidden;">
+            <img src="https://jakeywakeyfin-cmd.github.io/index505/pic1.jpg" class="apr25-float-img" style="animation-delay:0s;">
+            <img src="https://jakeywakeyfin-cmd.github.io/index505/pic2.jpg" class="apr25-float-img" style="animation-delay:-4s;">
+            <img src="https://jakeywakeyfin-cmd.github.io/index505/pic3.jpg" class="apr25-float-img" style="animation-delay:-8s;">
+            <img src="https://jakeywakeyfin-cmd.github.io/index505/pic4.jpg" class="apr25-float-img" style="animation-delay:-2s;">
+        </div>
 
         <!-- Gold shimmer border overlay -->
         <div style="position:absolute; inset:0; z-index:3; pointer-events:none; border: 2px solid transparent; background: linear-gradient(#000,#000) padding-box, linear-gradient(135deg,#d4af37,#fff8dc,#b8860b,#fff9e0,#d4af37) border-box; border-radius:2px;"></div>
@@ -1124,6 +1129,40 @@ touch-action: pan-y;"
 </div>
 
 <style>
+/* April 25 floating photos - pure CSS */
+.apr25-float-img {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 12px rgba(212,175,55,0.5);
+    opacity: 0.45;
+    animation: apr25FloatMove 12s ease-in-out infinite alternate;
+}
+.apr25-float-img:nth-child(1) { animation: apr25Move1 14s ease-in-out infinite alternate; top: 10%; left: 5%; }
+.apr25-float-img:nth-child(2) { animation: apr25Move2 11s ease-in-out infinite alternate; top: 20%; left: 60%; }
+.apr25-float-img:nth-child(3) { animation: apr25Move3 16s ease-in-out infinite alternate; top: 60%; left: 10%; }
+.apr25-float-img:nth-child(4) { animation: apr25Move4 13s ease-in-out infinite alternate; top: 65%; left: 55%; }
+
+@keyframes apr25Move1 {
+    0%   { transform: translate(0px, 0px) rotate(-3deg); }
+    100% { transform: translate(60px, 80px) rotate(3deg); }
+}
+@keyframes apr25Move2 {
+    0%   { transform: translate(0px, 0px) rotate(2deg); }
+    100% { transform: translate(-50px, 70px) rotate(-4deg); }
+}
+@keyframes apr25Move3 {
+    0%   { transform: translate(0px, 0px) rotate(-2deg); }
+    100% { transform: translate(70px, -60px) rotate(5deg); }
+}
+@keyframes apr25Move4 {
+    0%   { transform: translate(0px, 0px) rotate(4deg); }
+    100% { transform: translate(-60px, -50px) rotate(-3deg); }
+}
+
 /* April 25 dancing text animation */
 @keyframes apr25Dance {
     0%   { transform: translateY(0px) rotate(-1deg); }
@@ -1212,67 +1251,65 @@ touch-action: pan-y;"
     // Wait a tick for canvas to be in DOM
     setTimeout(initApr25Particles, 300);
 
-    // Floating photos for April 25 page
-    function initApr25Photos() {
-        const container = document.getElementById("apr25-photos");
-        if (!container || container.dataset.loaded) return;
-
-        // Use fixed dimensions - book pages are always the same size
-        const pageW = 400;
-        const pageH = 600;
-        const photoSize = 110;
-
-        const photos = [
-            "https://jakeywakeyfin-cmd.github.io/index505/pic1.jpg",
-            "https://jakeywakeyfin-cmd.github.io/index505/pic2.jpg",
-            "https://jakeywakeyfin-cmd.github.io/index505/pic3.jpg",
-            "https://jakeywakeyfin-cmd.github.io/index505/pic4.jpg"
-        ];
-
-        container.dataset.loaded = "1";
-
-        photos.forEach(function(src) {
-            const img = document.createElement("img");
-            const startX = Math.random() * (pageW - photoSize);
-            const startY = Math.random() * (pageH - photoSize);
-            img.style.position = "absolute";
-            img.style.width = photoSize + "px";
-            img.style.height = photoSize + "px";
-            img.style.objectFit = "cover";
-            img.style.borderRadius = "10px";
-            img.style.border = "2px solid #d4af37";
-            img.style.boxShadow = "0 0 12px rgba(212,175,55,0.5)";
-            img.style.opacity = "0.4";
-            img.style.left = startX + "px";
-            img.style.top = startY + "px";
-            img.style.display = "block";
-            img.src = src;
-            container.appendChild(img);
-            animatePhoto(img, pageW, pageH, photoSize);
-        });
-    }
-    function animatePhoto(el, pageW, pageH, size) {
-        let x = parseFloat(el.style.left);
-        let y = parseFloat(el.style.top);
-        let vx = (Math.random()-0.5)*0.7; if (Math.abs(vx)<0.2) vx=0.2*(vx<0?-1:1);
-        let vy = (Math.random()-0.5)*0.7; if (Math.abs(vy)<0.2) vy=0.2*(vy<0?-1:1);
-        function step() {
-            x+=vx; y+=vy;
-            if (x<=0||x>=pageW-size){vx*=-1; x=Math.max(0,Math.min(x,pageW-size));}
-            if (y<=0||y>=pageH-size){vy*=-1; y=Math.max(0,Math.min(y,pageH-size));}
-            el.style.left=x+"px"; el.style.top=y+"px";
-            requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-    }
-    // Run immediately, and also on every page flip
-    setTimeout(initApr25Photos, 500);
-    setTimeout(initApr25Photos, 2000);
-    document.addEventListener("click", function() {
-        setTimeout(initApr25Photos, 300);
-    });
 })();
 </script>
+
+<script>
+function apr25AnimatePhoto(el, W, H, size) {
+    var x = parseFloat(el.style.left);
+    var y = parseFloat(el.style.top);
+    var vx = (Math.random() - 0.5) * 0.8;
+    var vy = (Math.random() - 0.5) * 0.8;
+    if (Math.abs(vx) < 0.2) vx = vx < 0 ? -0.2 : 0.2;
+    if (Math.abs(vy) < 0.2) vy = vy < 0 ? -0.2 : 0.2;
+    function step() {
+        x += vx; y += vy;
+        if (x <= 0 || x >= W - size) { vx *= -1; x = Math.max(0, Math.min(x, W - size)); }
+        if (y <= 0 || y >= H - size) { vy *= -1; y = Math.max(0, Math.min(y, H - size)); }
+        el.style.left = x + "px";
+        el.style.top  = y + "px";
+        requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+}
+
+function initApr25Photos() {
+    var container = document.getElementById("apr25-photos");
+    if (!container) return;
+    container.innerHTML = "";
+
+    var W = 400, H = 600, size = 110;
+
+    var photos = [
+        "https://jakeywakeyfin-cmd.github.io/index505/pic1.jpg",
+        "https://jakeywakeyfin-cmd.github.io/index505/pic2.jpg",
+        "https://jakeywakeyfin-cmd.github.io/index505/pic3.jpg",
+        "https://jakeywakeyfin-cmd.github.io/index505/pic4.jpg"
+    ];
+
+    photos.forEach(function(src) {
+        var img = document.createElement("img");
+        var sx = Math.random() * (W - size);
+        var sy = Math.random() * (H - size);
+        img.src = src;
+        img.style.cssText = [
+            "position:absolute",
+            "width:" + size + "px",
+            "height:" + size + "px",
+            "object-fit:cover",
+            "border-radius:10px",
+            "border:2px solid #d4af37",
+            "box-shadow:0 0 12px rgba(212,175,55,0.5)",
+            "opacity:0.45",
+            "left:" + sx + "px",
+            "top:" + sy + "px"
+        ].join(";");
+        container.appendChild(img);
+        apr25AnimatePhoto(img, W, H, size);
+    });
+}
+</script>
+
 
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
@@ -1488,6 +1525,10 @@ audio.volume = 0.4;
     // Initialize March 25 game when landing on that page
     if (dateText === "25 March") {
         setTimeout(() => { if (document.getElementById('march25-grid')) initMarch25Game(); }, 100);
+    }
+    // Initialize photos when landing on 5th month anniversary page
+    if (dateText === "5th Month Anniversary") {
+        setTimeout(initApr25Photos, 200);
     }
 });
 
