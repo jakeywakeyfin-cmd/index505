@@ -1215,9 +1215,12 @@ touch-action: pan-y;"
     // Floating photos for April 25 page
     function initApr25Photos() {
         const container = document.getElementById("apr25-photos");
-        if (!container) return;
-        if (container.dataset.loaded) return;
-        container.dataset.loaded = "1";
+        if (!container || container.dataset.loaded) return;
+
+        // Use fixed dimensions - book pages are always the same size
+        const pageW = 400;
+        const pageH = 600;
+        const photoSize = 110;
 
         const photos = [
             "https://jakeywakeyfin-cmd.github.io/index505/pic1.jpg",
@@ -1226,18 +1229,23 @@ touch-action: pan-y;"
             "https://jakeywakeyfin-cmd.github.io/index505/pic4.jpg"
         ];
 
-        // Get dimensions from the page element itself
-        const page = container.closest(".page") || container.parentElement;
-        const pageW = page ? page.offsetWidth : 300;
-        const pageH = page ? page.offsetHeight : 500;
-        const photoSize = Math.min(pageW, pageH) * 0.3;
+        container.dataset.loaded = "1";
 
         photos.forEach(function(src) {
             const img = document.createElement("img");
-            img.crossOrigin = "anonymous";
-            const startX = Math.random() * Math.max(1, pageW - photoSize);
-            const startY = Math.random() * Math.max(1, pageH - photoSize);
-            img.style.cssText = "position:absolute;width:"+photoSize+"px;height:"+photoSize+"px;object-fit:cover;border-radius:10px;border:2px solid #d4af37;box-shadow:0 0 12px rgba(212,175,55,0.5);opacity:0.4;left:"+startX+"px;top:"+startY+"px;will-change:transform;display:block;";
+            const startX = Math.random() * (pageW - photoSize);
+            const startY = Math.random() * (pageH - photoSize);
+            img.style.position = "absolute";
+            img.style.width = photoSize + "px";
+            img.style.height = photoSize + "px";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "10px";
+            img.style.border = "2px solid #d4af37";
+            img.style.boxShadow = "0 0 12px rgba(212,175,55,0.5)";
+            img.style.opacity = "0.4";
+            img.style.left = startX + "px";
+            img.style.top = startY + "px";
+            img.style.display = "block";
             img.src = src;
             container.appendChild(img);
             animatePhoto(img, pageW, pageH, photoSize);
@@ -1257,17 +1265,11 @@ touch-action: pan-y;"
         }
         requestAnimationFrame(step);
     }
-    // Trigger photos when the anniversary page becomes visible
-    document.addEventListener("DOMContentLoaded", function() {
-        var observer = new MutationObserver(function() {
-            var container = document.getElementById("apr25-photos");
-            if (container && container.children.length === 0 && container.offsetWidth > 0) {
-                initApr25Photos();
-            }
-        });
-        observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ["style", "class"] });
-        // Also try after a delay as fallback
-        setTimeout(initApr25Photos, 1000);
+    // Run immediately, and also on every page flip
+    setTimeout(initApr25Photos, 500);
+    setTimeout(initApr25Photos, 2000);
+    document.addEventListener("click", function() {
+        setTimeout(initApr25Photos, 300);
     });
 })();
 </script>
