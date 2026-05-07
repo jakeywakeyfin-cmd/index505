@@ -341,6 +341,17 @@ body {
     <span id="music-icon" style="font-size: 24px;">🎵</span>
 </div>
 
+<!-- Back to Index button — hidden on Cover/Index pages -->
+<button id="back-to-index-btn"
+    style="display:none; position:fixed; top:20px; left:20px; z-index:1000;
+           background:rgba(74,20,140,0.8); color:#fff; border:1px solid #9b59b6;
+           border-radius:20px; padding:8px 14px; font-family:'EB Garamond',serif;
+           font-size:0.85rem; cursor:pointer; box-shadow:0 0 10px rgba(155,89,182,0.5);
+           touch-action:manipulation; -webkit-user-select:none; user-select:none;
+           white-space:nowrap;">
+    ☰ Index
+</button>
+
 <div id="music-menu" style="display: none; position: fixed; top: 80px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
     <p style="margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #4a148c; padding-bottom: 5px; color: #ce7bff;">Choose Our Vibe</p>
     
@@ -1599,6 +1610,11 @@ audio.volume = 0.4;
     const dateText = pages[e.data].getAttribute('data-date');
     document.getElementById('current-date-display').innerText = dateText;
 
+    // Show/hide the back-to-index button
+    const hideOn = new Set(['Cover', 'Index', 'End']);
+    const backBtn = document.getElementById('back-to-index-btn');
+    backBtn.style.display = hideOn.has(dateText) ? 'none' : 'block';
+
     // Trigger stars specifically for the March 11 page
     if (dateText === "11 Mar 2026") {
         createStars();
@@ -1612,6 +1628,23 @@ audio.volume = 0.4;
         setTimeout(initApr25Photos, 200);
     }
 });
+
+// Wire up the back-to-index button
+(function() {
+    const backBtn = document.getElementById('back-to-index-btn');
+    const pages = Array.from(document.querySelectorAll('.page'));
+    const indexPageIdx = pages.findIndex(p => p.getAttribute('data-date') === 'Index');
+
+    function goToIndex(e) {
+        e.stopPropagation();
+        if (indexPageIdx !== -1) pageFlip.flip(indexPageIdx);
+    }
+
+    backBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    backBtn.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+    backBtn.addEventListener('touchend', e => { e.stopPropagation(); e.preventDefault(); if (indexPageIdx !== -1) pageFlip.flip(indexPageIdx); }, { passive: false });
+    backBtn.addEventListener('click', goToIndex);
+})();
 
 
   // This version ensures the count feels right and handles different time zones
