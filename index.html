@@ -131,6 +131,11 @@
     overflow-y: auto;
 }
         :root { --paper: #f5ead0; --ink: #2c241a; --cover: #d1c4e9; --accent: #7e57c2; --rose: #e91e63; --env-bg: #f2e6c9; }
+
+        /* Index page list */
+        #index-list::-webkit-scrollbar { width: 4px; }
+        #index-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+        #index-list { scrollbar-width: thin; scrollbar-color: var(--accent) transparent; }
         
         html, body {
     margin: 0;
@@ -283,21 +288,21 @@ body {
         }
 
         /* ── Gold border on dark special pages ── */
-        .page[data-date="11 Mar"],
-        .page[data-date="25 March"] {
+        .page[data-date="11 Mar 2026"],
+        .page[data-date="25 Mar 2026"] {
             border: 2px solid #d4af37 !important;
             box-shadow: inset 0 0 20px rgba(212,175,55,0.08);
         }
 
         .nav-controls { position: fixed; bottom: 30px; display: flex; align-items: center; gap: 15px; z-index: 1000; background: #000; padding: 10px 20px; border-radius: 50px; width: 280px; justify-content: space-between; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
-        .page[data-date="11 Mar"] .scroll-text::first-letter,
-        .page[data-date="25 March"] .scroll-text::first-letter,
-        .page[data-date="3 Month Anniversary"] .scroll-text::first-letter { float: none; font-size: inherit; margin: 0; color: inherit; }
+        .page[data-date="11 Mar 2026"] .scroll-text::first-letter,
+        .page[data-date="25 Mar 2026"] .scroll-text::first-letter,
+        .page[data-date="3 Month Anniversary 2026"] .scroll-text::first-letter { float: none; font-size: inherit; margin: 0; color: inherit; }
 
-        .page[data-date="11 Mar"] .page-date-header::before,
-        .page[data-date="11 Mar"] .page-date-header::after,
-        .page[data-date="25 March"] .page-date-header::before,
-        .page[data-date="25 March"] .page-date-header::after,
+        .page[data-date="11 Mar 2026"] .page-date-header::before,
+        .page[data-date="11 Mar 2026"] .page-date-header::after,
+        .page[data-date="25 Mar 2026"] .page-date-header::before,
+        .page[data-date="25 Mar 2026"] .page-date-header::after,
         .page.-cover .page-date-header::before,
         .page.-cover .page-date-header::after { content: ''; }
         .nav-btn { background: var(--accent); color: white; border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
@@ -360,9 +365,19 @@ body {
             </div>
         </div>
 
-        <div class="page" data-date="23 Sept">
+        <!-- INDEX PAGE -->
+        <div class="page" data-date="Index">
+            <div class="page-content" style="padding: 14px 16px 10px; overflow: hidden; display: flex; flex-direction: column;">
+                <div class="page-date-header" style="font-family:'Dancing Script',cursive; font-size:1.4rem; text-align:center; margin-bottom:8px;">Our Story</div>
+                <div id="index-list" style="flex-grow:1; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y;" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">
+                    <!-- entries injected by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div class="page" data-date="23 Sept 2025">
             <div class="page-content">
-                <div class="page-date-header">23 September</div>
+                <div class="page-date-header">23 September 2025</div>
                 <div class="scroll-text">Baby...you're soooooo goddamn perfect, you're literally so beautiful and pretty and gorgeous i can't even look at you without falling more in love. 
 
 And that's just the tip of the iceberg, you are so fun to be around I love your humour and how sweet you are, you're understanding and caring. And don't even get me started on those eyes and that smile and that laugh and that voice. 
@@ -371,9 +386,9 @@ You're just perfect so goddamn perfect. And I'm so proud of how strong you are w
             </div>
         </div>
 
-        <div class="page" data-date="8 Oct">
+        <div class="page" data-date="8 Oct 2025">
             <div class="page-content">
-                <div class="page-date-header">8 October</div>
+                <div class="page-date-header">8 October 2025</div>
                 <div class="scroll-text">Heyyyyyy babyy youre asleep rn and I'll most probably be asleep when you read this 😭. I love youuu soooo much I can't begin to describe how much you mean to me. 
 
 I genuinely don't understand how someone I didn't know basically a month ago can make me feel so loved and noticed. But im so glad you do, you mean everything to me. Your perfection is unlike anyone I have ever encountered. Your beauty, from your radiant smile that illuminates everything around you, to your eyes that resemble warm, inviting pools of honey, and that's the thing, most people just have the looks but your perfection goes deeper than that, you're kind and sweet and funny,my type of funny and you are so caring while still having that drive and perseverance to get through any hardships that come your way. 
@@ -382,9 +397,9 @@ It's really admirable and it doesn't go unnoticed well not by me atleast. It may
             </div>
         </div>
 
-        <div class="page" data-date="16 Nov">
+        <div class="page" data-date="16 Nov 2025">
             <div class="page-content">
-                <div class="page-date-header">16 November</div>
+                <div class="page-date-header">16 November 2025</div>
                 <div class="scroll-text">Heyyyyy my angel , I love you soooooo freaking much I can't even begin to describe it, I know stuff isn't really that easy on you right now and I'm not really helping by barely being here and when I am I'm exhausted, I'm soooooo freaking proud of who you are and how much you try. 
 
 I'm sorry I'm not here as often as I would like to be. Thank you for tolerating it ik it's difficult. I really don't want to lose you. I can't imagine a life without you. I want to give you everything and anything you desire cause you deserve that and sooo much more. 
@@ -392,9 +407,9 @@ I'm sorry I'm not here as often as I would like to be. Thank you for tolerating 
 Ik things aren't always easy with your family and I really don't know how to help I feel useless when I see you in pain like that I really wish I could help but the only thing I can do is be here for you to listen and to understand you. i love you so goddamn much it's unexplained, you're so kind and gentle and caring but you aren't dull, you're fun to be around, and you are sooooooooo freaking adorable like it should be illegal. And your beauty is just like woah I should have not been able to pull that like how , your eyes and your smile just make me feel happy and that's something I haven't said or felt in a long while before I met you. You've become my safe haven and I never ever can lose you. Idk I'm writing this to cheer you up and just to express my love. I love you my princess ❤️</div>
             </div>
         </div>
-<div class="page" data-date="24 nov">
+<div class="page" data-date="24 Nov 2025">
     <div class="page-content" style="padding: 0;">
-         <div class="page-date-header">24 November</div>
+         <div class="page-date-header">24 November 2025</div>
         <canvas id="bouquet-bg" class="bouquet-canvas"></canvas>
         
         <div class="bouquet-overlay">
@@ -410,9 +425,9 @@ Ik things aren't always easy with your family and I really don't know how to hel
     </div>
 </div>
 
-        <div class="page" data-date="13 Dec">
+        <div class="page" data-date="13 Dec 2025">
             <div class="page-content">
-                <div class="page-date-header">13 December</div>
+                <div class="page-date-header">13 December 2025</div>
                 <div class="scroll-text">Heyyyyy my baby. I love you so much, I don't know why but I just keep overthinking about losing you, I feel like I'm just not being good enough for you. I really can't lose you , we've known eachother for 134 days now and it's kinda crazy how in just that time I can't go without you. 
 
 I know I'm really difficult to deal with and I'm so sorry for that. I'm really trying to be better for you, cause you deserve someone who is perfect. I'm sorry that I can get really jealous about stuff, i hope that you do know , I trust you ,trust was never the reason why I get jealous of stuff. It's just I know how most boys work and you're mine I don't wanna share any of you with anybody, especially some boy, I know it sounds ludicrous and I know you have the ability to understand ones intentions and I need to respect that .I will get better cause you deserve that and so much more. I'm sorry that I've been making you feel as if you're been doing something wrong. I promise you, you have been doing nothing wrong. I just have a lot of kinks that I need to work out. 
@@ -421,9 +436,9 @@ Mwahhh I love you soooo much. I can't wait till I can hold you in my arms again.
             </div>
         </div>
 
-        <div class="page" data-date="25 Dec">
+        <div class="page" data-date="25 Dec 2025">
             <div class="page-content">
-                <div class="page-date-header">25 December</div>
+                <div class="page-date-header">25 December 2025</div>
                 <div class="scroll-text">Hey my baby , happy one month, it's crazy we met on the 2nd of August, not in the most conventional way tbh 😭 but whoooo careess I met the love of my life and I never want to look back , I'm so goddamn lucky to have even caught a glimpse at you , nonetheless I've gotten to know you for 4 months already and even better I get to call you my GIRLFRIEND , my so beautiful girlfriend for a whole month already. 
 
 It's purely unbelievable to me and I can't even begin to describe how amazing you are. Thank you for being who you are , ik it's difficult, ik sometimes you don't feel heard , ik sometimes you just don't wanna be here . But I will always, always be here for you to support and love you . I'm never ever letting go of you. You make me feel seen , you make me feel heard and for the first time in my life you make me feel like I belong somewhere, with someone, with you.
@@ -432,14 +447,30 @@ It's weird I've never really been excited for Christmas before but this year it'
             </div>
         </div>
 
-        <div class="page" data-date="1 Jan">
+        <!-- NEW YEAR DIVIDER PAGE -->
+        <div class="page -cover" data-density="hard" data-date="New Year 2026" style="background: radial-gradient(ellipse at center, #1a0030 0%, #0a0015 100%); border: none !important; outline: none !important; box-shadow: none !important; overflow: hidden; position: relative;">
+            <div id="ny-stars" style="position:absolute; inset:0; pointer-events:none; z-index:1;"></div>
+            <canvas id="ny-fireworks" style="position:absolute; inset:0; width:100%; height:100%; z-index:2; pointer-events:none;"></canvas>
+            <div class="page-content" style="background:transparent; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; z-index:3; position:relative; gap:10px;">
+                <div style="font-family:'Dancing Script',cursive; font-size:1.1rem; color:#b39ddb; letter-spacing:3px; text-transform:uppercase; opacity:0.8;">farewell</div>
+                <div style="font-family:'Dancing Script',cursive; font-size:5rem; line-height:1; background:linear-gradient(180deg,#fff9e6 0%,#d4af37 40%,#fff8dc 70%,#b8860b 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 18px rgba(212,175,55,0.7));">2025</div>
+                <div style="width:60%; height:1px; background:linear-gradient(to right, transparent, #d4af37, transparent); margin:4px 0;"></div>
+                <div style="font-family:'EB Garamond',serif; font-style:italic; color:#d1c4e9; font-size:1rem; opacity:0.75;">a year that changed everything</div>
+                <div style="font-family:'Dancing Script',cursive; font-size:3.5rem; color:#e91e63; margin:6px 0; text-shadow:0 0 20px rgba(233,30,99,0.6);">❤️</div>
+                <div style="font-family:'EB Garamond',serif; font-style:italic; color:#d1c4e9; font-size:1rem; opacity:0.75;">welcome</div>
+                <div style="font-family:'Dancing Script',cursive; font-size:5rem; line-height:1; background:linear-gradient(180deg,#fff 0%,#b39ddb 40%,#7e57c2 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; filter:drop-shadow(0 0 18px rgba(126,87,194,0.8));">2026</div>
+                <div style="font-family:'Caveat',cursive; font-size:1.15rem; color:#d1c4e9; margin-top:8px; opacity:0.9;">our first full year together 💜</div>
+            </div>
+        </div>
+
+        <div class="page" data-date="1 Jan 2026">
             <div class="page-content">
                 <div class="page-date-header">1 January 2026</div>
                 <div class="scroll-text">Happy new year my babyyy. I'm so lucky to go into this year with you , I love you so much. This year is gonna be really hectic for you cause of matric , I'm gonna be right there with you through all of it okay. I know ive not been the best, no matter how much you say that I haven't. I know I haven't and I'm trying to be better for you i really am, I'm sorry that Im bringing this stuff onto us in the next year well this year actually but yeah , I love you so much and so lucky to have you . Thank you for being patient with me and being here for me. I will be better the better you deserve. You deserve everything and so much more, and I will do my best to give it to you , id do anything for you my princess. You are everything to me and I can't emphasize it enough. Oh and you are drop dead gorgeous, just have to put that in there. Happy new year my love, to many more with you my mi amor.❤️❤️❤️❤️❤️</div>
             </div>
         </div>
 
-        <div class="page" data-date="13 Jan">
+        <div class="page" data-date="13 Jan 2026">
             <div class="page-content">
                 <div class="page-date-header">13 January 2026</div>
                 <div class="scroll-text">heyy my baby, you're asleep right now and I just wanted to write this. I love you so much and you mean everything to me, I'm so lucky to have met someone like you nonetheless you, the same person I get to call my girlfriend, the same person I get to call my future wife, the same person I get to call the mother of my kids, the same person I want to grow old with, you . I couldn't have asked for more, I couldn't have asked for better cause you are the best thing that has ever happened to me.
@@ -458,7 +489,7 @@ i know it hasn't been the easiest couple of weeks for us and I'm at fault I'm so
             </div>
         </div>
 
-        <div class="page" data-date="Locked" data-density="hard">
+        <div class="page" data-date="Locked 2026" data-density="hard">
             <div class="page-content">
                 <div class="lock-container">
                     <h2 style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--accent); margin-bottom: 10px;">For Your Eyes Only</h2>
@@ -480,9 +511,9 @@ i know it hasn't been the easiest couple of weeks for us and I'm at fault I'm so
                 </div>
             </div>
         </div>
-<div class="page" data-date="1 Feb">
+<div class="page" data-date="1 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">1 February</div>
+                <div class="page-date-header">1 February 2026</div>
                 <div class="scroll-text"><strong>Honey & Cinnamon</strong>
 so for valentines I decided I should document every day of Feb. until today well today in the future of course you will be reading it on the 14th. I will be writing a poem every day for you and I'm trying to learn how to compose a music soundtrack so I can make a sort of beat for you while you can read these paragraphs and poems but so far its not looking the best I hope I am done by the end of this but I cant guarantee it. today we finally moved on from the whole fighting thing and I hope it is the last one for a while cause I miss talking to my baby and having fun with you. we sat and we talked about it maturely and I'm so proud of us for that. so here's the poem 
 
@@ -504,9 +535,9 @@ and today I finally installed Fl studios where I will be making the beat thingy 
             </div>
         </div>
 
-        <div class="page" data-date="2 Feb">
+        <div class="page" data-date="2 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">2 February</div>
+                <div class="page-date-header">2 February 2026</div>
                 <div class="scroll-text"><strong>The Second of August</strong>
 heyyy my love sooo today was better wayyy better we actually are being us again I missed it so much I cant describe how happy you make me. its indescribable, today you are worrying about a geo test that you are writing tomorrow  that you will forget about in a couple weeks. I'm writing this to show you that you what you are stressed about right now isn't as big as you think it is and that stress that you are put under is just there to ensure that you get done with what you need to otherwise you will not do your best. and I know you will do your best right now you are studying while I write this you think I'm doing work right now and I apologize for lying to you about that but its a good lie right(crying emoji, I'm writing on my laptop right now so this is the best I can do for emojis , another crying emoji) andddd is the poem of the day 
 
@@ -528,9 +559,9 @@ it was so hard to write this while talking to you(crying emoji) anddd im gonna t
             </div>
         </div>
 
-        <div class="page" data-date="3 Feb">
+        <div class="page" data-date="3 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">3 February</div>
+                <div class="page-date-header">3 February 2026</div>
                 <div class="scroll-text"><strong>Her Eyes in Theirs</strong>
 heyyy my angel soo we ended up arguing again i dont really think it is arguing its more of both of us making mistakes and us not knowing how to fix it. i love you so much and i dont know what i will do without you and i dont want to imagine a life without you . ik we are having our ups and downs and recently more downs , but no matter what i will always love you and be with you. im not sure on how you feel about it but after every one of these fights i feel closer to you, i feel a stronger connection between me and you. and ik you are upset rn and mad and i really hope i can change it, the poem for today iss : 
 
@@ -547,9 +578,9 @@ i wont be able to work on the beat thingy for a couple days now cause im a bit b
             </div>
         </div>
 
-        <div class="page" data-date="4 Feb">
+        <div class="page" data-date="4 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">4 February</div>
+                <div class="page-date-header">4 February 2026</div>
                 <div class="scroll-text"><strong>The Lucky One</strong>
 heyy sweetheart , today was better we weren't as on edge but i can still feel that you are not okay and im trying to help i just dont know if i am , but im trying and i know that you are too and im so proud of you for trying, thank you for being patient with me thank you for that so much , i know that its tough especially with everything going on but i want you to know that i love you so much and i truly appreciate you and everything you do for me. im really scared for uni at this point and im sorry that its seeping through when i talk you really do make me feel loved and for the first time in my life i feel wanted somewhere. heres the poem of today: 
 
@@ -567,9 +598,9 @@ i love you sooo much im not really sure about this poem but i tried to encapsula
             </div>
         </div>
 
-        <div class="page" data-date="5 Feb">
+        <div class="page" data-date="5 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">5 February</div>
+                <div class="page-date-header">5 February 2026</div>
                 <div class="scroll-text"><strong>The Temple</strong>
 heyy my angel im leaving tomorrow its actually crazy that the holidays are all over and i got uni on Monday its gonna be really busy so i dont think ill be able to work on that beat thing for a while. but i will continue to write this and the poems for you. we still are having our discussions and it really does seem like its in my fault but i hope that we will be able to fix it soon , i love you so much and im really sorry for all the stuff that is going on, here is todays poem
 
@@ -589,9 +620,9 @@ i kinda like this one ( crying emoji ) i love you soooooooo much hint : picture
             </div>
         </div>
 
-        <div class="page" data-date="6 Feb">
+        <div class="page" data-date="6 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">6 February</div>
+                <div class="page-date-header">6 February 2026</div>
                 <div class="scroll-text"><strong>The Surge</strong>
 heyy my angell i love you sooo much, its been really busy today and i am trying to write the poem i dont know how well it will come out but i hope it comes out good enough. i came back to Joburg today and im finally closer to you again. and somehow we still ended up arguing about the dumbest things (crying emoji) , im so sorry for how things are going right now and i wont be able to make it long as it usually is but here is the poem my love i love you so much : 
 
@@ -611,9 +642,9 @@ i dont know about this one was a bit rushed but i hope its okay for you i love y
             </div>
         </div>
 
-        <div class="page" data-date="7 Feb">
+        <div class="page" data-date="7 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">7 February</div>
+                <div class="page-date-header">7 February 2026</div>
                 <div class="scroll-text"><strong>The Vow</strong>
 my baby hiiiii i love you so much im so sorry for last night and today with my phone not charging and us barely talking. im really sorry for it and i know i sound like a broken record but i really am sorry. its been so busy and we are both stressed but we will work this out. I love you soooooo much the writing on Monday will be a bit longer cause right now im really tired but i love you so much and how and here is your poem 
 
@@ -632,9 +663,9 @@ here you go my angelll i love youuu so much , hint : white lie
             </div>
         </div>
 
-        <div class="page" data-date="8 Feb">
+        <div class="page" data-date="8 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">8 February</div>
+                <div class="page-date-header">8 February 2026</div>
                 <div class="scroll-text"><strong>The Vroom-Vroom Future</strong>
 hiiiiii my baby today im back in Joburg officially and we can finally go back to the way it was i love you sooooo much and i cant wait to see you again i love youuuuuuu , and we are getting closer to the 14thhh ,its gonna be short again but ill make a longer one tomorrow i love you here it issss. and its gonnna be back to normal were we are talking like normal againnn. 
 
@@ -656,9 +687,9 @@ mwahhhhh i love youuuuu . hint : mom, again im so sorry its short again
             </div>
         </div>
 
-        <div class="page" data-date="9 Feb">
+        <div class="page" data-date="9 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">9 February</div>
+                <div class="page-date-header">9 February 2026</div>
                 <div class="scroll-text"><strong>The Safe Haven</strong>
 hii my baby i love youuuuuuu , i miss you so much. im back at uni againnn, and i did a stupid again i said something dumb about your clothes im sorry i really am just a fuck up and i dont understand how you still love me , but im so glad you do ,i really dont want this to just be us fighting i want to talk about how much i love you and i really do love you so muchh, i love everything about you love your persona, your personality and your beauty there is so much good things to talk about you and i can sit and look and talk to you for hours, if im being honest that beat thing is not happening i really dont know how too i will try to learn it for you but i dont think it will be happening by the 14th, i really hope i will be able to give this to you in person but if not i hope i still get to see that smile that i love so much while you read this. i really wanna take you for a drive while we talk and go to someplace to eat it doesnt even have to be fancy just has to be with you and im happy i really want that and i cant wait sooo here is the poem of the day 
 
@@ -676,9 +707,9 @@ i love you soooo much here you goo . hint :  van cleef
             </div>
         </div>
 
-        <div class="page" data-date="10 Feb">
+        <div class="page" data-date="10 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">10 February</div>
+                <div class="page-date-header">10 February 2026</div>
                 <div class="scroll-text"><strong>The Navigator’s Compass</strong>
 hiiii my angel 4 days lefttttt i love you so much , you asked your parents today i hope it goes well from what im hearing there are alot of conditions i expected that but i did nnot expect her to be with us but i hope everything goes okay. but most importantly i hope everything at school turns out okay especially with you design teacher. i love you so much . im still so excited cause this is gonna be my first valentine none the less with you the love of my life i really can not wait. you make me feel ways that i didn't know i could feel. i will work on the music thingy in the backround but i dont think it will work out so well so ima start designing one of those html things for you so that you can read these on, coding has alway been easier for me ( crying emoji) andddd here is the poem of the day 
 
@@ -718,9 +749,9 @@ i love you sooo much this one is a bit of a longer one i cant think of any hints
             </div>
         </div>
 
-        <div class="page" data-date="11 Feb">
+        <div class="page" data-date="11 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">11 February</div>
+                <div class="page-date-header">11 February 2026</div>
                 <div class="scroll-text"><strong>The Infinite Argument</strong>
 heyyy my angel i lovee you sooooo much i cant wait to see you well at this point we are not sure but i really hope so, but you have school tooo focus on , also i know i might seen reallt busy , its cause of these poems its really difficult to come up with so i hope that reflects in these writings. today was an interesting day we are on and off all the time i say they put us on a documentary on national geographic. i just realized that you might be reading this next to me so i dont think that it was a good i dea to put the hints (crying emoji) i guess thats what happens when you do stuff over two weeks but heyyyy we are 3 days away from our first valentine anddd here is the poem of the dayy.
 
@@ -760,9 +791,9 @@ i love youuuuuu oh and i thought of a new hint : chicken buttttt
             </div>
         </div>
 
-        <div class="page" data-date="12 Feb">
+        <div class="page" data-date="12 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">12 February</div>
+                <div class="page-date-header">12 February 2026</div>
                 <div class="scroll-text"><strong>The Night Owl</strong>
 babyyyyyyy its decided im going to see you on valentines dayyy i cant wait i really cant wait to just be with you . and thats gonna be IN TWO DAYS. also ill send this too you on valentines morning , i dont know why im tell you this if you are already reading it now but yeahhhhh. i cant lie im really surprised your mother said yess and im so nervous to meet her but i cant wait to see you again. and you said you did amazing on your geo test like i said earlier in this texts if im not mistaken , sooooo im right , i love you soooo much here is your next poem 
 
@@ -804,9 +835,9 @@ im running out of ideas if you can see but i hope you like it i love youuuu
             </div>
         </div>
 
-        <div class="page" data-date="13 Feb">
+        <div class="page" data-date="13 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">13 February</div>
+                <div class="page-date-header">13 February 2026</div>
                 <div class="scroll-text"><strong>The Kinks and the Cure</strong>
 babbyyyyy its tommmorrowww i get to see you tommmorow i cant wait i really cant, im really nervous to meet your mum but i get to seeee youuuuu, and we get to be together and do stuff together i really cant wait , i misss you sooooo much and you are all im thinking about right now, ima right your poem now mwahhhh :
 
@@ -851,9 +882,9 @@ mwahhhhh i hope you like itttt
             </div>
         </div>
 
-        <div class="page" data-date="14 Feb">
+        <div class="page" data-date="14 Feb 2026">
             <div class="page-content">
-                <div class="page-date-header">14 February - Happy Valentine's Day</div>
+                <div class="page-date-header">14 February 2026 - Happy Valentine's Day</div>
                 <div class="scroll-text"><strong>The First Valentine</strong>
 my princess, my love . happy valentines day , its our first one, one of many many more . it is soooo crazy im so excited , im writing this on the 13th so that you can read it tomorrow but im so excited to see you tomorrow , to experience valentines with you i really cant wait. i am going to make this poem really long and i love you soooo much. i cant wait to hold you tommmorow and not in secret like last time actually be with you im really excited  
 
@@ -907,9 +938,9 @@ For making sure you’re my forever Valentine.
 happy valentines my love , to many many many more ❤️</div>
             </div>
         </div>
-<div class="page" data-date="3 Month Anniversary" style="background: linear-gradient(135deg, #fdf6e3 0%, #fff3d0 100%); border: 3px solid #d4af37; box-shadow: inset 0 0 50px rgba(212, 175, 55, 0.2);">
+<div class="page" data-date="3 Month Anniversary 2026" style="background: linear-gradient(135deg, #fdf6e3 0%, #fff3d0 100%); border: 3px solid #d4af37; box-shadow: inset 0 0 50px rgba(212, 175, 55, 0.2);">
             <div class="page-content">
-                <div class="page-date-header" style="color: #b8860b; border-bottom: 2px solid #d4af37; text-align: center;">25th February — Our 3rd Month</div>
+                <div class="page-date-header" style="color: #b8860b; border-bottom: 2px solid #d4af37; text-align: center;">25th February 2026 — Our 3rd Month</div>
                 
                 <div class="scroll-text" style="color: #5c4300; font-family: 'Caveat', cursive; line-height: 1.8;">
                     <span style="font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #b8860b; display: block; margin-bottom: 15px;">Hey my baby,</span>
@@ -932,9 +963,9 @@ happy valentines my love , to many many many more ❤️</div>
                 </div>
             </div>
         </div>
-<div class="page" data-date="5 mar">
+<div class="page" data-date="5 Mar 2026">
             <div class="page-content">
-                <div class="page-date-header">5 March</div>
+                <div class="page-date-header">5 March 2026</div>
                 <div class="scroll-text">
                     <span style="font-family: 'Dancing Script', cursive; font-size: 1.5rem; display: block; margin-bottom: 10px; color: var(--rose);">Hey my baby,</span>
                     
@@ -950,10 +981,10 @@ happy valentines my love , to many many many more ❤️</div>
                 </div>
             </div>
         </div>
-<div class="page" data-date="11 Mar" style="background: #000000 !important; color: #f3e5f5; position: relative; overflow: hidden;">
+<div class="page" data-date="11 Mar 2026" style="background: #000000 !important; color: #f3e5f5; position: relative; overflow: hidden;">
     <div class="page-content" style="display: flex; flex-direction: column; height: 100%; padding: 0; background: #000000 !important;">
         
-        <div class="page-date-header" style="color: #9b59b6; border-bottom: 1px solid rgba(155, 89, 182, 0.4); z-index: 10; position: relative; background: #000000; text-align: left; width: 100%;">11 March</div>
+        <div class="page-date-header" style="color: #9b59b6; border-bottom: 1px solid rgba(155, 89, 182, 0.4); z-index: 10; position: relative; background: #000000; text-align: left; width: 100%;">11 March 2026</div>
         
         <div id="star-field" style="position: absolute; inset: 0; z-index: 1; pointer-events: none;"></div>
 
@@ -1034,7 +1065,7 @@ touch-action: pan-y;"
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 </style><!-- 25th March Matching Game Page -->
-<div class="page" data-date="25 March" style="background: #0a0a0a; color: #f5f0e8; position: relative; overflow: hidden;">
+<div class="page" data-date="25 Mar 2026" style="background: #0a0a0a; color: #f5f0e8; position: relative; overflow: hidden;">
     <div class="page-content" style="display: flex; flex-direction: column; height: 100%; padding: 15px 12px 10px; background: #0a0a0a; box-sizing: border-box;">
 
         <div class="page-date-header" style="color: #d4af37; border-bottom: 1px solid rgba(212,175,55,0.4); font-family: 'Dancing Script', cursive; font-size: 1.3rem; letter-spacing: 1px; text-align: center; padding-bottom: 6px; margin-bottom: 10px; flex-shrink: 0;">
@@ -1082,15 +1113,15 @@ touch-action: pan-y;"
     </div>
 </div>
 
-<div class="page" data-date="14 Apr">
+<div class="page" data-date="14 Apr 2026">
     <div class="page-content">
-        <div class="page-date-header">14 April</div>
+        <div class="page-date-header">14 April 2026</div>
         <div class="scroll-text">Heyy my pretty girl. I'm gonna be a hundred percent honest here I've been a bad bf. I love you, I love you so much and I'm sorry I've been letting all these things going on effect me. And I'm even more sorry I can't express without just writing it to you like this. I really do love you. I can't imagine a life without you. I remember the first day we met, I was supposed to be studying and at that point I was just slacking off in uni. And for some reason when I met you I just got a work ethic, I wanted to be a better person. Someone who you would look at and give the slightest chance. And 8 and a half months later I'm the lucky guy that gets to call the most beautiful, stunning, gorgeous, kindest, innocent and just amazing woman mankind will ever get to see and live among. And I get to have a future with you and I have been taking that for granted recently. So thank you baby, thank you for putting up with everything you already do and still deal with me. Thank you for being kind and loving to me. Thank you for being understanding to me. Thank you for being the best thing that has happened to me. Thank you for being you. Thank you for being mine.❤️❤️</div>
     </div>
 </div>
 
 <!-- 25 April - 5 Month Anniversary Page -->
-<div class="page" data-date="5th Month Anniversary" style="background:#000 !important; border: 2px solid #d4af37 !important; box-shadow: inset 0 0 30px rgba(212,175,55,0.15) !important;">
+<div class="page" data-date="5th Month Anniversary 2026" style="background:#000 !important; border: 2px solid #d4af37 !important; box-shadow: inset 0 0 30px rgba(212,175,55,0.15) !important;">
     <div class="page-content" style="background:#000 !important; overflow:hidden; position:relative;">
 
         <!-- Gold particle canvas -->
@@ -1113,7 +1144,7 @@ touch-action: pan-y;"
             ontouchmove="event.stopPropagation()">
 
             <!-- Date header -->
-            <div class="page-date-header" style="color:#d4af37; border-bottom-color:rgba(212,175,55,0.3); flex-shrink:0; width:100%;">25 April</div>
+            <div class="page-date-header" style="color:#d4af37; border-bottom-color:rgba(212,175,55,0.3); flex-shrink:0; width:100%;">25 April 2026</div>
 
             <!-- Dancing letters container -->
             <div id="apr25-text" style="font-family:'Caveat',cursive; font-size:1.15rem; line-height:1.8; text-align:left; width:100%; flex-shrink:0;"></div>
@@ -1312,6 +1343,13 @@ function initApr25Photos() {
 </script>
 
 
+<div class="page" data-date="7 May 2026">
+    <div class="page-content">
+        <div class="page-date-header">7 May 2026</div>
+        <div class="scroll-text">Heyy my princess I wanna start this off with im being a pathetic boyfriend right now and im sorry for that , and the only way for me to truly express that I by writing to you, im sorry for letting my mood effect the way I am with you, ive been really struggling with my path forward in life and I don't know where I stand with my future at the moment and its just been effecting how I interact with everyone and everything, im sorry I didn't tell you I wish I was better at this stuff im so sorry for how ive been treating you , you really don't deserve it, thank you for standing with me even after all of this im sorry for getting irritated so quickly and , borderline pissed off . you don't do any of that to me, I just am not okay at the moment and I wish I was for you. I may not know what my future holds or what I want anymore. the only thing I do know is that I want a future with you, the love of my life . and I haven't been showing that to you recently and I am really sorry I hope you can forgive me im so sorry. I will always love you no matter what im sorry that I gave you doubt of that, You will do amazing for matric, you are hard working and that is all you need , im so proud of you, and im gonna be here to make sure you put in enough effort to do the best you can do. you do need to worry about it cause without worry you definitely wont do well.You my love are the most beautiful and kindest hearted i will ever meet in my life and im so glad and proud to call you mine, i dont want you to doubt that ever. cause without you i would have never found myself again.i would of never been happy again , never been excited to wake up in the morning again, none of that without you , the woman of my dreams .the woman i cant wait to hold to sleep for the rest of my life.im supposed to be doing work right now but ive been coding and writing this for you so ima start with that now .i love you baby i really do, thank you for everything. i love you soo freaking much. and i will prove it to you. mwahhh</div>
+    </div>
+</div>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -1476,6 +1514,48 @@ audio.volume = 0.4;
     });
     pageFlip.loadFromHTML(document.querySelectorAll('.page'));
 
+    // ── Index page: build entries & wire "Go" buttons ──────────────
+    (function buildIndex() {
+        const pages = Array.from(document.querySelectorAll('.page'));
+        const list  = document.getElementById('index-list');
+        if (!list) return;
+
+        const skipDates = new Set(['Cover', 'End', 'Index']);
+
+        pages.forEach((page, idx) => {
+            const date = page.getAttribute('data-date') || '';
+            if (skipDates.has(date)) return;
+
+            const row = document.createElement('div');
+            row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:7px 4px;border-bottom:1px solid rgba(126,87,194,0.15);gap:8px;';
+
+            const label = document.createElement('span');
+            label.textContent = date;
+            label.style.cssText = 'font-family:"Caveat",cursive;font-size:1.05rem;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+
+            const btn = document.createElement('button');
+            btn.textContent = 'Go →';
+            btn.style.cssText = 'background:var(--accent);color:#fff;border:none;border-radius:20px;padding:5px 14px;font-size:0.8rem;font-family:"EB Garamond",serif;cursor:pointer;flex-shrink:0;touch-action:manipulation;-webkit-user-select:none;user-select:none;';
+
+            btn.addEventListener('pointerdown', function(e) { e.stopPropagation(); });
+            btn.addEventListener('touchstart', function(e) { e.stopPropagation(); }, { passive: false });
+            btn.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                pageFlip.flip(idx);
+            }, { passive: false });
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                pageFlip.flip(idx);
+            });
+
+            row.appendChild(label);
+            row.appendChild(btn);
+            list.appendChild(row);
+        });
+    })();
+    // ────────────────────────────────────────────────────────────────
+
     // Add page numbers to inner pages (skip covers)
     document.querySelectorAll('.page:not(.-cover)').forEach((page, i) => {
         const num = document.createElement('div');
@@ -1520,15 +1600,15 @@ audio.volume = 0.4;
     document.getElementById('current-date-display').innerText = dateText;
 
     // Trigger stars specifically for the March 11 page
-    if (dateText === "11 March") {
+    if (dateText === "11 Mar 2026") {
         createStars();
     }
     // Initialize March 25 game when landing on that page
-    if (dateText === "25 March") {
+    if (dateText === "25 Mar 2026") {
         setTimeout(() => { if (document.getElementById('march25-grid')) initMarch25Game(); }, 100);
     }
     // Initialize photos when landing on 5th month anniversary page
-    if (dateText === "5th Month Anniversary") {
+    if (dateText === "5th Month Anniversary 2026") {
         setTimeout(initApr25Photos, 200);
     }
 });
@@ -1551,7 +1631,7 @@ audio.volume = 0.4;
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked', '11 Mar', '25 March']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -1839,6 +1919,76 @@ if (m25Reveal) {
 }
 
 let bdayAnimationId;
+
+// ── New Year Page: stars + looping fireworks ──────────────────────
+(function initNewYearPage() {
+    // Populate twinkling stars
+    const starField = document.getElementById('ny-stars');
+    if (starField) {
+        for (let i = 0; i < 100; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = (Math.random() * 2 + 0.5) + 'px';
+            s.style.width = sz; s.style.height = sz;
+            s.style.top = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            starField.appendChild(s);
+        }
+    }
+
+    // Looping fireworks on the canvas
+    const canvas = document.getElementById('ny-fireworks');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    function resize() {
+        canvas.width  = canvas.offsetWidth  || 350;
+        canvas.height = canvas.offsetHeight || 520;
+    }
+    resize();
+
+    const colours = ['#e91e63','#9b59b6','#d4af37','#ffffff','#7e57c2','#ff85a2','#b39ddb'];
+    let fireworks = [];
+
+    function spawnFirework() {
+        const x = 50 + Math.random() * (canvas.width - 100);
+        const y = 60 + Math.random() * (canvas.height * 0.55);
+        const colour = colours[Math.floor(Math.random() * colours.length)];
+        const count = 28 + Math.floor(Math.random() * 18);
+        for (let i = 0; i < count; i++) {
+            const angle = (Math.PI * 2 / count) * i;
+            const speed = 1.5 + Math.random() * 2.5;
+            fireworks.push({
+                x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+                alpha: 1, size: Math.random() * 2 + 1, colour
+            });
+        }
+    }
+
+    let frame = 0;
+    function animate() {
+        ctx.fillStyle = 'rgba(10,0,21,0.18)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        fireworks.forEach(p => {
+            p.x += p.vx; p.y += p.vy;
+            p.vy += 0.04; // gravity
+            p.alpha -= 0.013;
+            ctx.globalAlpha = Math.max(0, p.alpha);
+            ctx.fillStyle = p.colour;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        fireworks = fireworks.filter(p => p.alpha > 0);
+        ctx.globalAlpha = 1;
+        if (frame % 55 === 0) spawnFirework();
+        frame++;
+        requestAnimationFrame(animate);
+    }
+    spawnFirework();
+    animate();
+})();
 
 // Function to generate background stars
 function createStars() {
