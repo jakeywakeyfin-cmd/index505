@@ -1361,6 +1361,68 @@ function initApr25Photos() {
     </div>
 </div>
 
+<!-- 6 MONTH ANNIVERSARY — THE DAY WE MET -->
+<!-- 6 MONTH ANNIVERSARY PAGE — button launcher -->
+<div class="page" data-date="6th Month Anniversary" style="background:radial-gradient(ellipse at center,#1a0035 0%,#0a0018 100%);overflow:hidden;position:relative;">
+    <div class="page-content" style="background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;position:relative;z-index:2;">
+        <!-- Ambient stars -->
+        <div id="vn-page-stars" style="position:absolute;inset:0;pointer-events:none;z-index:0;"></div>
+        <!-- Badge -->
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <div style="font-family:'Dancing Script',cursive;font-size:1rem;color:#b39ddb;letter-spacing:3px;text-transform:uppercase;opacity:0.8;">6 months</div>
+            <div style="font-family:'Dancing Script',cursive;font-size:3.2rem;line-height:1;background:linear-gradient(180deg,#fff 0%,#b39ddb 40%,#7e57c2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 14px rgba(126,87,194,0.7));">25 May 2026</div>
+            <div style="width:55%;height:1px;background:linear-gradient(to right,transparent,#9b59b6,transparent);"></div>
+            <div style="font-family:'EB Garamond',serif;font-style:italic;color:#d1c4e9;font-size:0.95rem;opacity:0.8;max-width:240px;line-height:1.5;">a little story about the day everything changed</div>
+            <!-- Launch button -->
+            <button id="vn-launch-btn"
+                style="margin-top:8px;padding:13px 28px;background:linear-gradient(135deg,#4a148c,#7e57c2);color:#fff;border:1px solid rgba(179,157,219,0.4);border-radius:30px;font-family:'Dancing Script',cursive;font-size:1.3rem;cursor:pointer;box-shadow:0 0 20px rgba(126,87,194,0.5);touch-action:manipulation;-webkit-user-select:none;user-select:none;transition:transform 0.15s,box-shadow 0.15s;"
+                ontouchstart="this.style.transform='scale(0.95)'"
+                ontouchend="this.style.transform='scale(1)'">
+                ▶ The Day We Met
+            </button>
+            <div style="font-family:'EB Garamond',serif;font-size:0.7rem;color:rgba(255,255,255,0.25);letter-spacing:2px;">2nd August 2025</div>
+        </div>
+    </div>
+</div>
+
+<!-- FULLSCREEN VISUAL NOVEL OVERLAY — lives outside the book -->
+<div id="vn-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#0a0010;flex-direction:column;touch-action:none;">
+
+    <!-- Ambient bg canvas -->
+    <canvas id="vn-bg" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+    <!-- Close button -->
+    <button id="vn-close-btn"
+        style="position:absolute;top:14px;right:14px;z-index:9999;background:rgba(0,0,0,0.6);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:50%;width:36px;height:36px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-user-select:none;user-select:none;">✕</button>
+
+    <!-- Scene area -->
+    <div id="vn-scene-box" style="flex:1;position:relative;overflow:hidden;min-height:0;z-index:1;">
+        <canvas id="vn-scene-canvas" style="position:absolute;inset:0;width:100%;height:100%;"></canvas>
+        <div id="vn-time-label" style="position:absolute;top:12px;left:16px;font-family:'EB Garamond',serif;font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.45);pointer-events:none;"></div>
+        <div id="vn-chapter-label" style="position:absolute;top:12px;right:50px;font-family:'Dancing Script',cursive;font-size:0.9rem;color:rgba(255,255,255,0.3);pointer-events:none;"></div>
+        <!-- Tap zone — covers scene only -->
+        <div id="vn-tap-zone" style="position:absolute;inset:0;z-index:5;cursor:pointer;"></div>
+    </div>
+
+    <!-- Dialogue box -->
+    <div id="vn-dialog" style="flex-shrink:0;background:rgba(5,0,15,0.92);border-top:1px solid rgba(126,87,194,0.3);padding:14px 16px 10px;backdrop-filter:blur(8px);z-index:2;">
+        <div id="vn-speaker-name" style="font-family:'Dancing Script',cursive;font-size:1rem;color:#e91e63;margin-bottom:3px;min-height:20px;"></div>
+        <div id="vn-dialog-text" style="font-family:'Caveat',cursive;font-size:1.2rem;line-height:1.55;color:#ece6ff;min-height:54px;"></div>
+    </div>
+
+    <!-- Progress + hint -->
+    <div style="flex-shrink:0;background:rgba(5,0,15,0.98);padding:7px 16px 12px;display:flex;flex-direction:column;align-items:center;gap:5px;z-index:2;">
+        <div style="width:100%;height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;">
+            <div id="vn-prog" style="height:100%;background:linear-gradient(90deg,#e91e63,#7e57c2);border-radius:2px;width:0%;transition:width 0.4s;"></div>
+        </div>
+        <div id="vn-hint" style="font-family:'EB Garamond',serif;font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:2px;animation:vnblink 2s infinite;">tap to continue</div>
+    </div>
+</div>
+
+<style>
+@keyframes vnblink { 0%,100%{opacity:0.25} 50%{opacity:0.7} }
+</style>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -1531,7 +1593,7 @@ audio.volume = 0.4;
         const list  = document.getElementById('index-list');
         if (!list) return;
 
-        const skipDates = new Set(['Cover', 'End', 'Index']);
+        const skipDates = new Set(['Cover', 'End', 'Index', 'New Year 2026']);
 
         pages.forEach((page, idx) => {
             const date = page.getAttribute('data-date') || '';
@@ -1615,6 +1677,7 @@ audio.volume = 0.4;
     const backBtn = document.getElementById('back-to-index-btn');
     backBtn.style.display = hideOn.has(dateText) ? 'none' : 'block';
 
+
     // Trigger stars specifically for the March 11 page
     if (dateText === "11 Mar 2026") {
         createStars();
@@ -1627,6 +1690,7 @@ audio.volume = 0.4;
     if (dateText === "5th Month Anniversary 2026") {
         setTimeout(initApr25Photos, 200);
     }
+	
 });
 
 // Wire up the back-to-index button
@@ -1664,7 +1728,7 @@ audio.volume = 0.4;
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -2154,6 +2218,810 @@ bdayLetterBox.addEventListener('touchmove', function(e) {
 bdayLetterBox.addEventListener('touchstart', function(e) {
     e.target._startY = e.changedTouches[0].clientY;
 }, { passive: true });
+
+// ═══════════════════════════════════════════════════════════════
+//  VISUAL NOVEL — "The Day We Met" — 2nd August 2025
+// ═══════════════════════════════════════════════════════════════
+function initVisualNovel() {
+ const musicBtn = document.getElementById('music-control');
+	  musicBtn.style.display = 'none';
+	   const indexBtn = document.getElementById('back-to-index-btn');
+	    indexBtn.style.display = 'none';
+    const bgCanvas   = document.getElementById('vn-bg');
+    const sceneCanvas= document.getElementById('vn-scene-canvas');
+    if (!sceneCanvas || sceneCanvas.dataset.init === '1') return;
+    sceneCanvas.dataset.init = '1';
+
+    const bgCtx = bgCanvas.getContext('2d');
+    const sCtx  = sceneCanvas.getContext('2d');
+
+    // Resize both canvases to their container
+    function resizeCanvases() {
+        const box = document.getElementById('vn-scene-box');
+        if (!box) return;
+        const w = box.offsetWidth, h = box.offsetHeight;
+        bgCanvas.width  = bgCanvas.offsetWidth;
+        bgCanvas.height = bgCanvas.offsetHeight;
+        sceneCanvas.width  = w;
+        sceneCanvas.height = h;
+    }
+    resizeCanvases();
+
+    // ── Ambient star background ──
+    const stars = Array.from({length:80}, () => ({
+        x: Math.random(), y: Math.random(),
+        r: Math.random()*1.2+0.3,
+        alpha: Math.random(),
+        speed: Math.random()*0.008+0.002
+    }));
+    function drawBg() {
+        const W = bgCanvas.width, H = bgCanvas.height;
+        bgCtx.fillStyle = '#0a0010';
+        bgCtx.fillRect(0,0,W,H);
+        stars.forEach(s => {
+            s.alpha += s.speed;
+            if (s.alpha > 1) s.speed *= -1;
+            if (s.alpha < 0) { s.alpha = 0; s.speed *= -1; }
+            bgCtx.globalAlpha = s.alpha * 0.6;
+            bgCtx.fillStyle = '#fff';
+            bgCtx.beginPath();
+            bgCtx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+            bgCtx.fill();
+        });
+        bgCtx.globalAlpha = 1;
+        requestAnimationFrame(drawBg);
+    }
+    drawBg();
+
+    // ── Scene painter helpers ──
+    function clearScene() {
+        sCtx.clearRect(0,0,sceneCanvas.width,sceneCanvas.height);
+    }
+
+    // Sky gradients per time of day
+    const skies = {
+        dawn:    ['#1a0a2e','#2d1b4e','#4a1942','#7b2d5e'],
+        morning: ['#1a0a2e','#2e1760','#5c3485','#8e44ad'],
+        midday:  ['#0d0020','#1a0040','#2d1b6e','#4a2d8e'],
+        golden:  ['#1a0020','#3d0d30','#7d2d1a','#c4682a'],
+        evening: ['#0a0018','#1a0535','#3d1060','#7b2d8e'],
+        night:   ['#000008','#080015','#100025','#1a0035'],
+    };
+
+    function drawSky(palette) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        const grad = sCtx.createLinearGradient(0,0,0,H);
+        palette.forEach((c,i) => grad.addColorStop(i/(palette.length-1), c));
+        sCtx.fillStyle = grad;
+        sCtx.fillRect(0,0,W,H);
+    }
+
+    // Draw a simple silhouette city skyline
+    function drawCityline(alpha=1, lite=false) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        sCtx.globalAlpha = alpha;
+        sCtx.fillStyle = lite ? '#1a0835' : '#0d0018';
+        const buildings = [
+            {x:0,   w:40, h:0.35},
+            {x:35,  w:25, h:0.45},
+            {x:55,  w:50, h:0.30},
+            {x:100, w:30, h:0.50},
+            {x:125, w:20, h:0.38},
+            {x:140, w:60, h:0.28},
+            {x:195, w:35, h:0.42},
+            {x:225, w:25, h:0.55},
+            {x:245, w:45, h:0.32},
+            {x:285, w:30, h:0.48},
+            {x:310, w:55, h:0.26},
+        ];
+        buildings.forEach(b => {
+            const bh = H * b.h;
+            sCtx.fillRect(b.x * (W/350), H - bh, b.w * (W/350), bh);
+        });
+        // Window lights when lit
+        if (lite) {
+            sCtx.fillStyle = '#ffe080';
+            buildings.forEach(b => {
+                const bh = H * b.h;
+                const bx = b.x*(W/350), bw = b.w*(W/350);
+                for (let row=1; row<6; row++) {
+                    for (let col=1; col<3; col++) {
+                        if (Math.random() > 0.4) {
+                            sCtx.globalAlpha = alpha * (0.5 + Math.random()*0.5);
+                            sCtx.fillRect(bx + col*(bw/3), H - bh + row*(bh/7), 3*(W/350), 4*(W/350));
+                        }
+                    }
+                }
+            });
+        }
+        sCtx.globalAlpha = 1;
+    }
+
+    // Draw a desk/room scene with phone
+    function drawRoom(phoneGlow=false, phoneText='') {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        // Floor
+        sCtx.fillStyle = '#12001f';
+        sCtx.fillRect(0, H*0.72, W, H*0.28);
+        // Desk surface
+        sCtx.fillStyle = '#1e0a30';
+        sCtx.fillRect(W*0.05, H*0.60, W*0.90, H*0.14);
+        // Books
+        const bookColors = ['#4a1060','#7b2d00','#2d4a10','#102d4a'];
+        for (let i=0; i<4; i++) {
+            sCtx.fillStyle = bookColors[i];
+            sCtx.fillRect(W*(0.10 + i*0.07), H*0.47, W*0.055, H*0.14);
+        }
+        // Laptop
+        sCtx.fillStyle = '#222';
+        sCtx.fillRect(W*0.45, H*0.49, W*0.28, H*0.12);
+        sCtx.fillStyle = '#1a3a5c';
+        sCtx.fillRect(W*0.46, H*0.50, W*0.26, H*0.10);
+        // Phone on desk
+        const px = W*0.74, py = H*0.52, pw = W*0.07, ph = H*0.12;
+        sCtx.fillStyle = '#111';
+        sCtx.beginPath();
+        sCtx.roundRect(px, py, pw, ph, 3);
+        sCtx.fill();
+        if (phoneGlow) {
+            // Glow
+            const grd = sCtx.createRadialGradient(px+pw/2, py+ph/2, 2, px+pw/2, py+ph/2, pw*2);
+            grd.addColorStop(0, 'rgba(126,87,194,0.6)');
+            grd.addColorStop(1, 'rgba(126,87,194,0)');
+            sCtx.fillStyle = grd;
+            sCtx.fillRect(px-pw, py-ph*0.5, pw*3, ph*2);
+            // Screen
+            sCtx.fillStyle = '#1a0a35';
+            sCtx.beginPath();
+            sCtx.roundRect(px+1, py+1, pw-2, ph-2, 2);
+            sCtx.fill();
+            if (phoneText) {
+                sCtx.fillStyle = '#fff';
+                sCtx.font = `bold ${W*0.018}px sans-serif`;
+                sCtx.textAlign = 'center';
+                sCtx.fillText(phoneText, px+pw/2, py+ph*0.55);
+                sCtx.textAlign = 'left';
+            }
+        }
+        // Silhouette figure sitting
+        drawSilhouette(W*0.5, H*0.61, W, H, 'sitting');
+    }
+
+    // Draw a sitting or standing silhouette
+    function drawSilhouette(cx, cy, W, H, pose='sitting') {
+        sCtx.fillStyle = '#050010';
+        const s = W * 0.038;
+        // Head
+        sCtx.beginPath();
+        sCtx.arc(cx, cy - s*3.2, s*1.1, 0, Math.PI*2);
+        sCtx.fill();
+        if (pose === 'sitting') {
+            // Body
+            sCtx.fillRect(cx - s*0.9, cy - s*2.1, s*1.8, s*2.1);
+            // Arms
+            sCtx.fillRect(cx - s*2.2, cy - s*1.8, s*1.4, s*0.6);
+            sCtx.fillRect(cx + s*0.8, cy - s*1.8, s*1.4, s*0.6);
+            // Legs (sitting - horizontal)
+            sCtx.fillRect(cx - s*1.2, cy, s*2.4, s*0.7);
+        } else {
+            // Standing body
+            sCtx.fillRect(cx - s*0.9, cy - s*2.1, s*1.8, s*2.5);
+            sCtx.fillRect(cx - s*0.6, cy + s*0.4, s*0.8, s*2.2);
+            sCtx.fillRect(cx + s*0.1, cy + s*0.4, s*0.8, s*2.2);
+        }
+    }
+
+    // Draw phone close-up (notification screen)
+    function drawPhoneNotif(text1, text2) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        // Dark vignette
+        sCtx.fillStyle = 'rgba(0,0,0,0.7)';
+        sCtx.fillRect(0,0,W,H);
+        // Phone body
+        const pw = W*0.52, ph = H*0.62;
+        const px = (W-pw)/2, py = (H-ph)/2;
+        sCtx.fillStyle = '#0d0d0d';
+        sCtx.beginPath();
+        sCtx.roundRect(px, py, pw, ph, 12);
+        sCtx.fill();
+        // Screen
+        sCtx.fillStyle = '#0a0020';
+        sCtx.beginPath();
+        sCtx.roundRect(px+3, py+3, pw-6, ph-6, 10);
+        sCtx.fill();
+        // Notification banner
+        const bx = px+8, by = py + ph*0.18, bw = pw-16, bh = ph*0.22;
+        sCtx.fillStyle = 'rgba(126,87,194,0.25)';
+        sCtx.beginPath();
+        sCtx.roundRect(bx, by, bw, bh, 8);
+        sCtx.fill();
+        sCtx.strokeStyle = 'rgba(126,87,194,0.5)';
+        sCtx.lineWidth = 1;
+        sCtx.stroke();
+        // Notification text
+        sCtx.fillStyle = '#fff';
+        sCtx.font = `bold ${W*0.028}px 'EB Garamond', serif`;
+        sCtx.textAlign = 'center';
+        sCtx.fillText(text1, W/2, by + bh*0.42);
+        sCtx.fillStyle = 'rgba(255,255,255,0.6)';
+        sCtx.font = `${W*0.024}px 'EB Garamond', serif`;
+        sCtx.fillText(text2, W/2, by + bh*0.75);
+        sCtx.textAlign = 'left';
+        // Home bar
+        sCtx.fillStyle = 'rgba(255,255,255,0.25)';
+        sCtx.beginPath();
+        sCtx.roundRect(W/2 - pw*0.18, py+ph-12, pw*0.36, 4, 2);
+        sCtx.fill();
+        // Glow under phone
+        const grd = sCtx.createRadialGradient(W/2, py+ph, 2, W/2, py+ph, pw*0.7);
+        grd.addColorStop(0,'rgba(126,87,194,0.35)');
+        grd.addColorStop(1,'rgba(126,87,194,0)');
+        sCtx.fillStyle = grd;
+        sCtx.fillRect(0, py+ph-20, W, 80);
+    }
+
+    // Draw a chat conversation screen
+    function drawChatScreen(messages) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        const pw = W*0.58, ph = H*0.68;
+        const px = (W-pw)/2, py = (H-ph)/2;
+        sCtx.fillStyle = 'rgba(0,0,0,0.75)';
+        sCtx.fillRect(0,0,W,H);
+        // Phone
+        sCtx.fillStyle = '#0d0d0d';
+        sCtx.beginPath();
+        sCtx.roundRect(px, py, pw, ph, 12);
+        sCtx.fill();
+        // Chat bg
+        sCtx.fillStyle = '#0f0018';
+        sCtx.beginPath();
+        sCtx.roundRect(px+3, py+3, pw-6, ph-6, 10);
+        sCtx.fill();
+        // Header bar
+        sCtx.fillStyle = 'rgba(126,87,194,0.2)';
+        sCtx.fillRect(px+3, py+3, pw-6, ph*0.12);
+        sCtx.fillStyle = '#b39ddb';
+        sCtx.font = `${W*0.025}px 'Caveat', cursive`;
+        sCtx.textAlign = 'center';
+        sCtx.fillText('💜 M & T', W/2, py + ph*0.085);
+        sCtx.textAlign = 'left';
+        // Messages
+        const msgY0 = py + ph*0.16;
+        const lineH = ph*0.115;
+        messages.slice(-4).forEach((m, i) => {
+            const isMe = m.side === 'me';
+            const bw = pw*0.62, bh = lineH*0.8;
+            const bx = isMe ? px + pw - bw - 6 : px + 6;
+            const by = msgY0 + i*lineH;
+            sCtx.fillStyle = isMe ? 'rgba(126,87,194,0.5)' : 'rgba(233,30,99,0.25)';
+            sCtx.beginPath();
+            sCtx.roundRect(bx, by, bw, bh, 6);
+            sCtx.fill();
+            sCtx.fillStyle = '#ede6ff';
+            sCtx.font = `${W*0.022}px 'Caveat', cursive`;
+            sCtx.fillText(m.text, bx+6, by + bh*0.65);
+        });
+        // Home bar
+        sCtx.fillStyle = 'rgba(255,255,255,0.2)';
+        sCtx.beginPath();
+        sCtx.roundRect(W/2-pw*0.18, py+ph-10, pw*0.36, 3, 2);
+        sCtx.fill();
+    }
+
+    // Draw a "thinking/typing" close-up
+    function drawTypingScene(deleteCount) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        drawSky(skies.midday);
+        drawCityline(0.9, false);
+        drawRoom(true);
+        // Typing indicator overlay
+        const text = 'Hey... I—'.substring(0, Math.max(0, 8 - deleteCount));
+        const tx = W*0.44, ty = H*0.53;
+        sCtx.fillStyle = 'rgba(255,255,255,0.9)';
+        sCtx.font = `${W*0.028}px 'Caveat', cursive`;
+        sCtx.fillText(text + '|', tx, ty);
+    }
+
+    // Draw golden hour / sunset scene
+    function drawGoldenHour() {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        drawSky(skies.golden);
+        // Sun
+        const grd = sCtx.createRadialGradient(W*0.75, H*0.3, 2, W*0.75, H*0.3, W*0.18);
+        grd.addColorStop(0,'rgba(255,220,100,0.9)');
+        grd.addColorStop(0.5,'rgba(255,140,50,0.4)');
+        grd.addColorStop(1,'rgba(255,80,20,0)');
+        sCtx.fillStyle = grd;
+        sCtx.fillRect(0,0,W,H);
+        drawCityline(0.95, true);
+        // Standing figure at window
+        const W2=W, H2=H;
+        sCtx.fillStyle = 'rgba(255,160,80,0.08)';
+        sCtx.fillRect(0,0,W2,H2);
+        drawSilhouette(W*0.35, H*0.65, W, H, 'standing');
+    }
+
+    // Draw night scene with phone glow
+    function drawNightScene(glowIntensity=1) {
+        const W = sceneCanvas.width, H = sceneCanvas.height;
+        drawSky(skies.night);
+        // Stars
+        for (let i=0; i<40; i++) {
+            const sx = Math.random()*W, sy = Math.random()*H*0.7;
+            const sr = Math.random()*1.5+0.3;
+            sCtx.globalAlpha = Math.random()*0.8+0.2;
+            sCtx.fillStyle = '#fff';
+            sCtx.beginPath();
+            sCtx.arc(sx,sy,sr,0,Math.PI*2);
+            sCtx.fill();
+        }
+        sCtx.globalAlpha = 1;
+        drawCityline(0.97, true);
+        // Bed/room
+        sCtx.fillStyle = '#0a0018';
+        sCtx.fillRect(0, H*0.68, W, H*0.32);
+        sCtx.fillStyle = '#150025';
+        sCtx.fillRect(W*0.05, H*0.70, W*0.5, H*0.08);
+        // Pillow
+        sCtx.fillStyle = '#1a003a';
+        sCtx.beginPath();
+        sCtx.roundRect(W*0.06, H*0.71, W*0.22, H*0.06, 4);
+        sCtx.fill();
+        // Person lying down
+        sCtx.fillStyle = '#050010';
+        sCtx.beginPath();
+        sCtx.ellipse(W*0.22, H*0.724, W*0.06, W*0.032, 0, 0, Math.PI*2);
+        sCtx.fill();
+        sCtx.fillRect(W*0.14, H*0.73, W*0.2, H*0.045);
+        // Phone glow on face/ceiling
+        if (glowIntensity > 0) {
+            const grd = sCtx.createRadialGradient(W*0.74, H*0.62, 2, W*0.74, H*0.62, W*0.3);
+            grd.addColorStop(0,`rgba(126,87,194,${0.5*glowIntensity})`);
+            grd.addColorStop(1,'rgba(126,87,194,0)');
+            sCtx.fillStyle = grd;
+            sCtx.fillRect(0,0,W,H);
+        }
+    }
+
+    // ── Panel definitions ──────────────────────────────────────────
+    const panels = [
+        // 0 — Opening title
+        {
+            time: '2nd August 2025',
+            chapter: 'Morning',
+            speaker: '',
+            text: 'The Day We Met.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.dawn);
+                drawCityline(0.8, false);
+                const W=sceneCanvas.width,H=sceneCanvas.height;
+                // Sunrise glow
+                const grd = sCtx.createRadialGradient(W*0.5,H,2,W*0.5,H,W*0.8);
+                grd.addColorStop(0,'rgba(180,80,180,0.3)');
+                grd.addColorStop(1,'rgba(180,80,180,0)');
+                sCtx.fillStyle=grd; sCtx.fillRect(0,0,W,H);
+            }
+        },
+        // 1
+        {
+            time: '2nd August 2025',
+            chapter: 'Morning',
+            speaker: '',
+            text: 'It was just another Saturday. I was supposed to be studying.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.morning);
+                drawCityline(0.85, false);
+                drawRoom(false);
+            }
+        },
+        // 2
+        {
+            time: '2nd August 2025',
+            chapter: 'Morning',
+            speaker: '',
+            text: 'Books open. Laptop open. Mind... elsewhere.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.morning);
+                drawCityline(0.85, false);
+                drawRoom(false);
+            }
+        },
+        // 3 — Notification
+        {
+            time: 'Midday',
+            chapter: 'The Notification',
+            speaker: '',
+            text: 'Then my phone lit up.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawCityline(0.9, false);
+                drawRoom(true, '');
+            }
+        },
+        // 4
+        {
+            time: 'Midday',
+            chapter: 'The Notification',
+            speaker: 'Phone',
+            text: '"My Princess added you."',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawPhoneNotif('My Princess', 'added you on Snapchat');
+            }
+        },
+        // 5
+        {
+            time: 'Midday',
+            chapter: 'The Notification',
+            speaker: '',
+            text: 'I stared at it for way too long. I almost scrolled past.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawPhoneNotif('My princess', 'added you on Snapchat');
+            }
+        },
+        // 6
+        {
+            time: 'Midday',
+            chapter: 'The Notification',
+            speaker: '',
+            text: 'I told myself it was nothing. I accepted anyway.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawCityline(0.9, false);
+                drawRoom(true, '✓ Accepted');
+            }
+        },
+        // 7 — Typing scene
+        {
+            time: 'Afternoon',
+            chapter: 'First Words',
+            speaker: '',
+            text: 'I stared at the empty message box for 20 minutes.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawCityline(0.9, false);
+                drawTypingScene(8);
+            }
+        },
+        // 8
+        {
+            time: 'Afternoon',
+            chapter: 'First Words',
+            speaker: '',
+            text: 'I wrote something. Deleted it. Wrote it again.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawCityline(0.9, false);
+                drawTypingScene(3);
+            }
+        },
+        // 9 — First messages
+        {
+            time: 'Afternoon',
+            chapter: 'First Words',
+            speaker: '',
+            text: 'Finally sent something. Then watched the ticks.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawChatScreen([
+                    {side:'me', text:'heyyy 👋'},
+                    {side:'her', text:'hii 😊'},
+                ]);
+            }
+        },
+        // 10
+        {
+            time: 'Afternoon',
+            chapter: 'First Words',
+            speaker: '',
+            text: 'She replied. Just like that, I forgot what I was studying.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.midday);
+                drawChatScreen([
+                    {side:'me', text:'heyyy 👋'},
+                    {side:'her', text:'hii 😊'},
+                    {side:'me', text:'what are you doing on your roof? 😅'},
+                    {side:'her', text:'😏'},
+                ]);
+            }
+        },
+        // 11 — Hours passing
+        {
+            time: 'Late Afternoon',
+            chapter: 'Something Shifts',
+            speaker: '',
+            text: 'We talked about everything. And nothing. For hours.',
+            draw: () => {
+                clearScene();
+                drawSky(skies.evening);
+                drawCityline(0.92, true);
+                drawChatScreen([
+                    {side:'her', text:'okay but that\'s actually funny 😭'},
+                    {side:'me',  text:'told you 😂'},
+                    {side:'her', text:'what are you doing rn'},
+                    {side:'me',  text:'talking to you'},
+                ]);
+            }
+        },
+        // 12 — Golden hour realisation
+        {
+            time: 'Golden Hour',
+            chapter: 'Something Shifts',
+            speaker: '',
+            text: 'Somewhere around sunset I stopped pretending this was casual.',
+            draw: () => {
+                clearScene();
+                drawGoldenHour();
+            }
+        },
+        // 13
+        {
+            time: 'Golden Hour',
+            chapter: 'Something Shifts',
+            speaker: '',
+            text: 'I didn\'t want to stop talking. Not then. Not ever.',
+            draw: () => {
+                clearScene();
+                drawGoldenHour();
+            }
+        },
+        // 14 — Night
+        {
+            time: 'Night',
+            chapter: 'The Truth',
+            speaker: '',
+            text: 'The city went quiet. We didn\'t.',
+            draw: () => {
+                clearScene();
+                drawNightScene(0.4);
+            }
+        },
+        // 15
+        {
+            time: 'Night',
+            chapter: 'The Truth',
+            speaker: '',
+            text: 'I didn\'t know her name this morning.',
+            draw: () => {
+                clearScene();
+                drawNightScene(0.7);
+            }
+        },
+        // 16
+        {
+            time: 'Midnight',
+            chapter: 'The Truth',
+            speaker: '',
+            text: 'By midnight I already knew she was going to change my life.',
+            draw: () => {
+                clearScene();
+                drawNightScene(1);
+                // Heart particle
+                const W=sceneCanvas.width,H=sceneCanvas.height;
+                sCtx.fillStyle='#e91e63';
+                sCtx.font=`${W*0.08}px serif`;
+                sCtx.textAlign='center';
+                sCtx.fillText('❤️',W/2,H*0.38);
+                sCtx.textAlign='left';
+            }
+        },
+        // 17 — Final card
+        {
+            time: '25th May 2026',
+            chapter: '181 days later',
+            speaker: '♥',
+            text: 'babyyyy happy aniversery Its been 6 months , half a year with you its insane . I love you so much thank you for making my life better. thank you for making me the happiest ive ever been thank you for being there for me no matter what. im sorry for how rough it has been lately . but I do know we will get better because we love eachother I love you so much . i cant wait to live  the rest of my life with you. i love you so much. i want to have everything with you , all the cars, animals, a family. cause without you all of that would mean nothing.i hope you like the novel thingy , its the first time i drew something kike that with code, i love you soo much. to death do us part my pretty girl.❤️',
+            draw: () => {
+                clearScene();
+                const W=sceneCanvas.width,H=sceneCanvas.height;
+                // Deep purple gradient
+                const grd=sCtx.createLinearGradient(0,0,W,H);
+                grd.addColorStop(0,'#0d0020');
+                grd.addColorStop(0.5,'#1a0040');
+                grd.addColorStop(1,'#0d0020');
+                sCtx.fillStyle=grd; sCtx.fillRect(0,0,W,H);
+                // Gold divider line
+                sCtx.strokeStyle='rgba(212,175,55,0.4)';
+                sCtx.lineWidth=1;
+                sCtx.beginPath(); sCtx.moveTo(W*0.2,H*0.5); sCtx.lineTo(W*0.8,H*0.5); sCtx.stroke();
+                // M & T
+                sCtx.fillStyle='rgba(212,175,55,0.7)';
+                sCtx.font=`bold ${W*0.08}px 'Dancing Script', cursive`;
+                sCtx.textAlign='center';
+                sCtx.fillText('M & T',W/2,H*0.47);
+                // Date
+                sCtx.fillStyle='rgba(179,157,219,0.6)';
+                sCtx.font=`${W*0.038}px 'EB Garamond', serif`;
+                sCtx.fillText('2nd August 2025 – 25th May 2026',W/2,H*0.56);
+                sCtx.textAlign='left';
+                // Stars scattered
+                for(let i=0;i<30;i++){
+                    const sx=Math.random()*W,sy=Math.random()*H;
+                    sCtx.globalAlpha=Math.random()*0.5+0.1;
+                    sCtx.fillStyle='#fff';
+                    sCtx.beginPath();
+                    sCtx.arc(sx,sy,Math.random()*1.2+0.3,0,Math.PI*2);
+                    sCtx.fill();
+                }
+                sCtx.globalAlpha=1;
+            }
+        },
+    ];
+
+    let currentPanel = 0;
+    let typing = false;
+    let typeTimeout = null;
+    let fullText = '';
+    let shownText = '';
+    let charIdx = 0;
+
+    const speakerEl = document.getElementById('vn-speaker-name');
+    const textEl    = document.getElementById('vn-dialog-text');
+    const timeEl    = document.getElementById('vn-time-label');
+    const chapterEl = document.getElementById('vn-chapter-label');
+    const progEl    = document.getElementById('vn-prog');
+    const hintEl    = document.getElementById('vn-hint');
+
+    function showPanel(idx) {
+        if (idx >= panels.length) { idx = panels.length - 1; }
+        currentPanel = idx;
+        const p = panels[idx];
+
+        // Draw scene with fade
+        resizeCanvases();
+        clearScene();
+        p.draw();
+
+        // Update labels
+        timeEl.textContent    = p.time    || '';
+        chapterEl.textContent = p.chapter || '';
+        speakerEl.textContent = p.speaker || '';
+
+        // Progress bar
+        progEl.style.width = ((idx / (panels.length-1)) * 100) + '%';
+
+        // Typewriter
+        clearTimeout(typeTimeout);
+        fullText  = p.text;
+        shownText = '';
+        charIdx   = 0;
+        typing    = true;
+        textEl.textContent = '';
+        hintEl.style.opacity = '0';
+        typeChar();
+    }
+
+    function typeChar() {
+        if (charIdx < fullText.length) {
+            shownText += fullText[charIdx++];
+            textEl.textContent = shownText;
+            typeTimeout = setTimeout(typeChar, 28);
+        } else {
+            typing = false;
+            hintEl.style.opacity = '1';
+            // Last panel — special hint
+            if (currentPanel === panels.length - 1) {
+                hintEl.textContent = '✦ the end ✦';
+                hintEl.style.color = 'rgba(212,175,55,0.6)';
+                triggerEndConfetti();
+            } else {
+                hintEl.textContent = 'tap to continue';
+                hintEl.style.color = 'rgba(255,255,255,0.25)';
+            }
+        }
+    }
+
+    function advance(e) {
+        if (e) { e.stopPropagation(); e.preventDefault(); }
+        if (typing) {
+            // Skip typewriter
+            clearTimeout(typeTimeout);
+            typing = false;
+            textEl.textContent = fullText;
+            hintEl.style.opacity = '1';
+            if (currentPanel === panels.length - 1) {
+                hintEl.textContent = '✦ the end ✦';
+                hintEl.style.color = 'rgba(212,175,55,0.6)';
+            }
+            return;
+        }
+        if (currentPanel < panels.length - 1) {
+            showPanel(currentPanel + 1);
+        }
+    }
+
+    function triggerEndConfetti() {
+        const purps = ['#7e57c2','#b39ddb','#e91e63','#d4af37','#ffffff'];
+        confetti({ particleCount: 120, spread: 70, origin:{y:0.5}, colors: purps });
+    }
+
+    // Tap zone advances (scene area only — not the close button)
+    const tapZone = document.getElementById('vn-tap-zone');
+    tapZone.addEventListener('touchend', function(e) { e.stopPropagation(); e.preventDefault(); advance(); }, { passive: false });
+    tapZone.addEventListener('click', function(e) { e.stopPropagation(); advance(); });
+
+    // Dialogue box tap also advances
+    const dialogBox = document.getElementById('vn-dialog');
+    dialogBox.addEventListener('touchend', function(e) { e.stopPropagation(); e.preventDefault(); advance(); }, { passive: false });
+    dialogBox.addEventListener('click', function(e) { e.stopPropagation(); advance(); });
+
+    // Kick off from panel 0
+    showPanel(0);
+}
+
+// ── Launch / Close the VN overlay ──────────────────────────────
+function openVisualNovel(e) {
+    if (e) { e.stopPropagation(); e.preventDefault(); }
+    const overlay = document.getElementById('vn-overlay');
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
+    // Reset and initialise
+    const sc = document.getElementById('vn-scene-canvas');
+    if (sc) delete sc.dataset.init;
+    initVisualNovel();
+}
+
+function closeVisualNovel(e) {
+    if (e) { e.stopPropagation(); e.preventDefault(); }
+    document.getElementById('vn-overlay').style.display = 'none';
+	  const musicBtn = document.getElementById('music-control');
+	  musicBtn.style.display = 'block';
+	   const indexBtn = document.getElementById('back-to-index-btn');
+	    indexBtn.style.display = 'block';
+}
+
+// Wire launch button (stop propagation on every touch event so page-flip never fires)
+(function() {
+    const btn = document.getElementById('vn-launch-btn');
+    if (!btn) return;
+    btn.addEventListener('pointerdown', e => e.stopPropagation());
+    btn.addEventListener('touchstart',  e => e.stopPropagation(), { passive: false });
+    btn.addEventListener('touchend',    e => { e.stopPropagation(); e.preventDefault(); openVisualNovel(); }, { passive: false });
+    btn.addEventListener('click',       e => { e.stopPropagation(); openVisualNovel(); });
+
+    // Seed ambient stars on the launch page
+    const starContainer = document.getElementById('vn-page-stars');
+    if (starContainer) {
+        for (let i = 0; i < 70; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = (Math.random() * 2 + 0.4) + 'px';
+            s.style.width = sz; s.style.height = sz;
+            s.style.top  = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            starContainer.appendChild(s);
+        }
+    }
+})();
+
+// Wire close button
+(function() {
+    const btn = document.getElementById('vn-close-btn');
+    if (!btn) return;
+    btn.addEventListener('pointerdown', e => e.stopPropagation());
+    btn.addEventListener('touchstart',  e => e.stopPropagation(), { passive: false });
+    btn.addEventListener('touchend',    e => { e.stopPropagation(); e.preventDefault(); closeVisualNovel(); }, { passive: false });
+    btn.addEventListener('click',       e => { e.stopPropagation(); closeVisualNovel(); });
+})();
+
+// Prevent overlay touch events from leaking to the book underneath
+document.getElementById('vn-overlay').addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+document.getElementById('vn-overlay').addEventListener('touchmove',  e => e.stopPropagation(), { passive: false });
+
+// Trigger visual novel when flipping to that page
 </script>
 </body>
 
