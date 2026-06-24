@@ -298,6 +298,8 @@ body {
         .page[data-date="11 Mar 2026"] .scroll-text::first-letter,
         .page[data-date="25 Mar 2026"] .scroll-text::first-letter,
         .page[data-date="3 Month Anniversary 2026"] .scroll-text::first-letter { float: none; font-size: inherit; margin: 0; color: inherit; }
+        .page[data-date="Happy 7 Months"] .scroll-text::first-letter { float: none; font-size: inherit; margin: 0; color: inherit; }
+        .scroll-text p { margin: 0 0 0.75em 0; }
 
         .page[data-date="11 Mar 2026"] .page-date-header::before,
         .page[data-date="11 Mar 2026"] .page-date-header::after,
@@ -381,10 +383,1196 @@ body {
             <div class="page-content" style="padding: 14px 16px 10px; overflow: hidden; display: flex; flex-direction: column;">
                 <div class="page-date-header" style="font-family:'Dancing Script',cursive; font-size:1.4rem; text-align:center; margin-bottom:8px;">Our Story</div>
                 <div id="index-list" style="flex-grow:1; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y;" ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">
-                    <!-- entries injected by JS -->
+                    
+<!-- entries injected by JS -->
                 </div>
             </div>
         </div>
+
+        <div class="page" data-date="Open When Letters">
+            <div class="page-content" style="padding:0;overflow:hidden;background:#111;">
+                <iframe srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;
+    &lt;title&gt;M &amp; T — Open When Letters&lt;/title&gt;
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js&quot;&gt;&lt;/script&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&amp;family=EB+Garamond:ital@0;1&amp;family=Caveat:wght@400;500&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;style&gt;
+        :root {
+            --paper: #f5ead0;
+            --ink: #2c241a;
+            --cover: #d1c4e9;
+            --accent: #7e57c2;
+            --rose: #e91e63;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%; width: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0; left: 0;
+            background: #1a1a1a;
+            font-family: &#x27;EB Garamond&#x27;, serif;
+            color: var(--ink);
+        }
+
+        /* ── Stars ── */
+        .star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.4;
+            pointer-events: none;
+            animation: twinkle var(--dur) infinite ease-in-out;
+            z-index: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.3); }
+        }
+
+        /* ── Floating hearts ── */
+        .fheart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatHeart var(--dur) linear forwards;
+            font-size: 18px;
+            opacity: 0;
+        }
+        @keyframes floatHeart {
+            0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+            10%  { opacity: 0.7; }
+            90%  { opacity: 0.5; }
+            100% { opacity: 0; transform: translateY(-110vh) rotate(30deg); }
+        }
+
+        /* ── Page wrapper ── */
+        .page-wrap {
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 16px 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .page-wrap::-webkit-scrollbar { width: 4px; }
+        .page-wrap::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        /* ── Header ── */
+        .page-header {
+            font-family: &#x27;Dancing Script&#x27;, cursive;
+            font-size: 2.2rem;
+            color: #b39ddb;
+            text-align: center;
+            margin-bottom: 4px;
+            text-shadow: 0 0 20px rgba(155,89,182,0.5);
+        }
+        .page-subtitle {
+            font-family: &#x27;EB Garamond&#x27;, serif;
+            font-style: italic;
+            color: rgba(211,189,154,0.75);
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        /* ── Chest SVG ── */
+        #chest-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #chest-svg {
+            width: 140px;
+            filter: drop-shadow(0 0 18px rgba(155,89,182,0.6));
+            transition: transform 0.2s ease;
+        }
+        #chest-area:active #chest-svg { transform: scale(0.95); }
+        #chest-lid {
+            transform-origin: 70px 40px;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #chest-area.open #chest-lid {
+            transform: rotate(-110deg);
+        }
+        #chest-glow {
+            opacity: 0;
+            transition: opacity 0.4s ease 0.3s;
+        }
+        #chest-area.open #chest-glow { opacity: 1; }
+
+        .chest-hint {
+            font-family: &#x27;Caveat&#x27;, cursive;
+            color: rgba(179,157,219,0.7);
+            font-size: 1.1rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        /* ── Letter grid ── */
+        #letters-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+            max-width: 420px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none;
+        }
+        #letters-grid.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .letter-card {
+            background: var(--paper);
+            border: 1px solid #d3bd9a;
+            border-radius: 12px;
+            padding: 14px 12px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .letter-card::before {
+            content: &#x27;&#x27;;
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 23px, rgba(180,150,100,0.07) 23px, rgba(180,150,100,0.07) 24px);
+            pointer-events: none;
+        }
+        .letter-card:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+        .letter-emoji { font-size: 2rem; line-height: 1; }
+        .letter-title {
+            font-family: &#x27;Caveat&#x27;, cursive;
+            font-size: 1rem;
+            color: var(--accent);
+            line-height: 1.3;
+        }
+        /* Last card spans full width */
+        .letter-card.wide {
+            grid-column: 1 / -1;
+        }
+
+        /* ── Modal overlay ── */
+        #modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 0, 20, 0.92);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+        #modal-overlay.show { display: flex; }
+
+        /* Subtle stars inside modal */
+        #modal-stars { position: absolute; inset: 0; pointer-events: none; }
+
+        #modal-box {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            max-width: 420px;
+            height: 88vh;
+            height: 88dvh;
+            margin-top: 6vh;
+            background: var(--paper);
+            border: 1px solid #d3bd9a;
+            border-radius: 16px;
+            box-shadow: 0 0 40px rgba(126,87,194,0.4), 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalIn 0.4s cubic-bezier(0.34, 1.3, 0.64, 1) forwards;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* lined paper texture */
+        #modal-box::before {
+            content: &#x27;&#x27;;
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(to bottom, transparent, transparent 31px, rgba(180,150,100,0.07) 31px, rgba(180,150,100,0.07) 32px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #modal-header {
+            flex-shrink: 0;
+            padding: 16px 16px 10px;
+            border-bottom: 1px solid rgba(126,87,194,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+        .modal-title-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .modal-emoji { font-size: 1.6rem; }
+        .modal-label {
+            font-family: &#x27;Dancing Script&#x27;, cursive;
+            font-size: 1.5rem;
+            color: var(--accent);
+            line-height: 1.1;
+        }
+        .modal-sublabel {
+            font-family: &#x27;EB Garamond&#x27;, serif;
+            font-style: italic;
+            color: rgba(126,87,194,0.6);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        #modal-close {
+            background: none;
+            border: 2px solid rgba(126,87,194,0.4);
+            border-radius: 50%;
+            width: 36px; height: 36px;
+            cursor: pointer;
+            color: var(--accent);
+            font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        #modal-close:active { background: var(--accent); color: white; }
+
+        #modal-body {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 18px 30px;
+            position: relative;
+            z-index: 2;
+        }
+        #modal-body::-webkit-scrollbar { width: 4px; }
+        #modal-body::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        #modal-content {
+            font-family: &#x27;Caveat&#x27;, cursive;
+            font-size: 1.3rem;
+            line-height: 1.85;
+            color: var(--ink);
+        }
+        #modal-content p {
+            margin: 0 0 0.6em 0;
+        }
+        #modal-content p.title-line {
+            font-family: &#x27;Dancing Script&#x27;, cursive;
+            font-size: 1.6rem;
+            color: var(--accent);
+            margin-bottom: 1em;
+        }
+        #modal-content p:first-child::first-letter {
+            font-size: 3rem;
+            font-family: &#x27;Dancing Script&#x27;, cursive;
+            float: left;
+            line-height: 0.75;
+            margin-right: 6px;
+            margin-top: 4px;
+            color: var(--accent);
+        }
+
+        /* Seal wax ribbon at bottom */
+        #modal-seal {
+            flex-shrink: 0;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            position: relative; z-index: 2;
+        }
+        .seal-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(126,87,194,0.3));
+        }
+        .seal-line.r { background: linear-gradient(to left, transparent, rgba(126,87,194,0.3)); }
+        .seal-heart {
+            font-size: 1.1rem;
+            color: var(--rose);
+            text-shadow: 0 0 8px rgba(233,30,99,0.5);
+        }
+
+        /* Ribbon bookmark on modal */
+        #modal-ribbon {
+            position: absolute;
+            top: -6px; right: 20px;
+            width: 18px; height: 60px;
+            background: linear-gradient(180deg, #e91e63, #c2185b);
+            box-shadow: 1px 2px 6px rgba(0,0,0,0.35);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            z-index: 20;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- Stars --&gt;
+&lt;div id=&quot;star-container&quot;&gt;&lt;/div&gt;
+
+&lt;!-- Main page --&gt;
+&lt;div class=&quot;page-wrap&quot;&gt;
+    &lt;div class=&quot;page-header&quot;&gt;Open When…&lt;/div&gt;
+    &lt;div class=&quot;page-subtitle&quot;&gt;✦ a little chest of letters, just for you ✦&lt;/div&gt;
+
+    &lt;!-- Chest --&gt;
+    &lt;div id=&quot;chest-area&quot; onclick=&quot;toggleChest()&quot;&gt;
+        &lt;svg id=&quot;chest-svg&quot; viewBox=&quot;0 0 140 110&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;
+            &lt;!-- glow --&gt;
+            &lt;ellipse id=&quot;chest-glow&quot; cx=&quot;70&quot; cy=&quot;85&quot; rx=&quot;50&quot; ry=&quot;10&quot; fill=&quot;rgba(155,89,182,0.35)&quot; filter=&quot;url(#blur)&quot;/&gt;
+            &lt;defs&gt;
+                &lt;filter id=&quot;blur&quot;&gt;&lt;feGaussianBlur stdDeviation=&quot;4&quot;/&gt;&lt;/filter&gt;
+            &lt;/defs&gt;
+            &lt;!-- Body --&gt;
+            &lt;rect x=&quot;10&quot; y=&quot;55&quot; width=&quot;120&quot; height=&quot;50&quot; rx=&quot;6&quot; fill=&quot;#7a4f2d&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;2&quot;/&gt;
+            &lt;!-- Gold band --&gt;
+            &lt;rect x=&quot;10&quot; y=&quot;72&quot; width=&quot;120&quot; height=&quot;8&quot; fill=&quot;#d4af37&quot; stroke=&quot;#b8860b&quot; stroke-width=&quot;1&quot;/&gt;
+            &lt;!-- Lock --&gt;
+            &lt;rect x=&quot;60&quot; y=&quot;69&quot; width=&quot;20&quot; height=&quot;14&quot; rx=&quot;3&quot; fill=&quot;#d4af37&quot; stroke=&quot;#b8860b&quot; stroke-width=&quot;1.5&quot;/&gt;
+            &lt;path d=&quot;M65 69 Q65 62 70 62 Q75 62 75 69&quot; fill=&quot;none&quot; stroke=&quot;#d4af37&quot; stroke-width=&quot;2.5&quot; stroke-linecap=&quot;round&quot;/&gt;
+            &lt;circle cx=&quot;70&quot; cy=&quot;76&quot; r=&quot;3&quot; fill=&quot;#b8860b&quot;/&gt;
+            &lt;!-- Body straps --&gt;
+            &lt;line x1=&quot;35&quot; y1=&quot;55&quot; x2=&quot;35&quot; y2=&quot;105&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;1.5&quot;/&gt;
+            &lt;line x1=&quot;105&quot; y1=&quot;55&quot; x2=&quot;105&quot; y2=&quot;105&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;1.5&quot;/&gt;
+
+            &lt;!-- Lid (rotates on open) --&gt;
+            &lt;g id=&quot;chest-lid&quot;&gt;
+                &lt;rect x=&quot;10&quot; y=&quot;30&quot; width=&quot;120&quot; height=&quot;28&quot; rx=&quot;6&quot; fill=&quot;#8b5e3c&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;2&quot;/&gt;
+                &lt;!-- lid arch --&gt;
+                &lt;path d=&quot;M10 45 Q70 22 130 45&quot; fill=&quot;#9a6844&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;1.5&quot;/&gt;
+                &lt;!-- Gold lid band --&gt;
+                &lt;rect x=&quot;10&quot; y=&quot;53&quot; width=&quot;120&quot; height=&quot;5&quot; fill=&quot;#d4af37&quot; stroke=&quot;#b8860b&quot; stroke-width=&quot;1&quot;/&gt;
+                &lt;!-- Lid straps --&gt;
+                &lt;line x1=&quot;35&quot; y1=&quot;30&quot; x2=&quot;35&quot; y2=&quot;58&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;1.5&quot;/&gt;
+                &lt;line x1=&quot;105&quot; y1=&quot;30&quot; x2=&quot;105&quot; y2=&quot;58&quot; stroke=&quot;#5a3520&quot; stroke-width=&quot;1.5&quot;/&gt;
+                &lt;!-- Hinge dots --&gt;
+                &lt;circle cx=&quot;30&quot; cy=&quot;56&quot; r=&quot;3&quot; fill=&quot;#d4af37&quot;/&gt;
+                &lt;circle cx=&quot;70&quot; cy=&quot;56&quot; r=&quot;3&quot; fill=&quot;#d4af37&quot;/&gt;
+                &lt;circle cx=&quot;110&quot; cy=&quot;56&quot; r=&quot;3&quot; fill=&quot;#d4af37&quot;/&gt;
+            &lt;/g&gt;
+        &lt;/svg&gt;
+        &lt;div class=&quot;chest-hint&quot; id=&quot;chest-hint&quot;&gt;tap to open ✦&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Letter cards (hidden until chest open) --&gt;
+    &lt;div id=&quot;letters-grid&quot;&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;miss&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;💜&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You Miss Me&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;insecure&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;🌙&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You&#x27;re Feeling Insecure&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;school&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;📚&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When School Gets Too Much&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;badday&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;😢&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You&#x27;ve Had A Bad Day&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;smile&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;😊&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You Need A Smile&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;arguing&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;😡&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When We&#x27;re Arguing&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;upset&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;🥺&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You&#x27;re Upset At Me&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;escape&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;🚗&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You Need An Escape&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;letter-card&quot; onclick=&quot;openLetter(&#x27;love&#x27;)&quot;&gt;
+            &lt;div class=&quot;letter-emoji&quot;&gt;❤️&lt;/div&gt;
+            &lt;div class=&quot;letter-title&quot;&gt;Open When You Need To Remember How Much I Love You&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Modal --&gt;
+&lt;div id=&quot;modal-overlay&quot;&gt;
+    &lt;div id=&quot;modal-stars&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;modal-box&quot;&gt;
+        &lt;div id=&quot;modal-ribbon&quot;&gt;&lt;/div&gt;
+        &lt;div id=&quot;modal-header&quot;&gt;
+            &lt;div class=&quot;modal-title-wrap&quot;&gt;
+                &lt;span class=&quot;modal-emoji&quot; id=&quot;modal-emoji&quot;&gt;💜&lt;/span&gt;
+                &lt;span class=&quot;modal-label&quot; id=&quot;modal-label&quot;&gt;Open When…&lt;/span&gt;
+                &lt;span class=&quot;modal-sublabel&quot;&gt;Open When Letters&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;button id=&quot;modal-close&quot; onclick=&quot;closeLetter()&quot;&gt;✕&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;modal-body&quot;&gt;
+            &lt;div id=&quot;modal-content&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div id=&quot;modal-seal&quot;&gt;
+            &lt;div class=&quot;seal-line&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;seal-heart&quot;&gt;❤&lt;/div&gt;
+            &lt;div class=&quot;seal-line r&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+// ── Letter data ──────────────────────────────────────────────
+const letters = {
+    miss: {
+        emoji: &#x27;💜&#x27;,
+        label: &#x27;Open When You Miss Me&#x27;,
+        text: `The Distance Between Us
+
+The distance stretches far tonight,
+A road of stars without your light.
+The hours move far slower now,
+And I keep asking myself how
+A person who once was a stranger&#x27;s name
+Could set my entire world aflame.
+
+The room feels different when you&#x27;re gone,
+The evenings somehow linger on.
+The jokes don&#x27;t land the way they do
+When I can&#x27;t immediately tell them to you.
+The songs we love don&#x27;t sound the same,
+They all still whisper of your name.
+
+I miss the way you tell your stories,
+How simple moments become glories.
+I miss your laugh that fills the air,
+The little things you don&#x27;t know are there.
+The way you overthink sometimes,
+The way your voice softens in quiet lines.
+
+But distance has one flaw, you see,
+It measures space incorrectly.
+Because no matter how far apart we stay,
+You&#x27;re with me through every single day.
+In every thought and every plan,
+In every version of who I am.
+
+So if tonight you miss me too,
+Know that I am missing you.
+And every mile that lies between
+Only proves how much you mean.`
+    },
+    insecure: {
+        emoji: &#x27;🌙&#x27;,
+        label: &quot;Open When You&#x27;re Feeling Insecure&quot;,
+        text: `What I See
+
+You stand before the mirror glass,
+Examining reflections as they pass.
+Searching for flaws nobody sees,
+Finding reasons not to believe.
+
+You point at things you&#x27;d like to change,
+And call your beauty something strange.
+You focus on imperfections small,
+While missing how remarkable you are as a whole.
+
+Because beauty was never only skin,
+It begins much deeper within.
+It lives inside your patient heart,
+The kindness that has set you apart.
+
+It&#x27;s in the way you keep moving forward
+Even when the road becomes harder.
+It&#x27;s in the strength you&#x27;ve always shown
+When facing battles all alone.
+
+And yes, your eyes are beautiful too,
+And every compliment I&#x27;ve said is true.
+Your smile still steals the breath from me,
+Exactly as it used to be.
+
+But if one day those things all changed,
+If time rearranged them in some way,
+My answer would remain the same:
+
+I would still choose you.
+
+Because the reason I love you most
+Has never been what a mirror shows.`
+    },
+    school: {
+        emoji: &#x27;📚&#x27;,
+        label: &#x27;Open When School Gets Too Much&#x27;,
+        text: `The Mountain You Cannot Yet See Over
+
+Today the mountain feels too steep,
+Too many promises to keep.
+Too many tests, too many notes,
+Too many worries in your throat.
+
+You stare ahead and all you find
+Is pressure crowding up your mind.
+You wonder whether you&#x27;ll get through,
+If you&#x27;re enough to do what you need to do.
+
+But mountains always look their tallest
+When you&#x27;re standing at the bottom of them.
+
+You don&#x27;t see how far you&#x27;ve climbed already.
+You don&#x27;t see the progress beneath your feet.
+You only see how much remains.
+
+I&#x27;ve watched you work when nobody else does.
+I&#x27;ve watched you keep going when you wanted to stop.
+I&#x27;ve watched you fight through things
+That would have broken other people.
+
+And that&#x27;s why I&#x27;m not worried.
+
+Because I&#x27;ve seen your determination.
+I&#x27;ve seen your resilience.
+I&#x27;ve seen the strength you carry.
+
+The same girl who worries she won&#x27;t make it
+Is the same girl who never gives up.
+
+One day you&#x27;ll look back on this year
+And realize you survived every moment
+You thought you couldn&#x27;t.
+
+And I&#x27;ll be proud of you then.
+
+Just like I&#x27;m proud of you now.`
+    },
+    badday: {
+        emoji: &#x27;😢&#x27;,
+        label: &quot;Open When You&#x27;ve Had A Bad Day&quot;,
+        text: `Tomorrow Will Come
+
+Some days arrive without permission.
+They drain your energy, steal your smile,
+And make even simple things feel heavy.
+
+Nothing goes right.
+
+Every small inconvenience feels larger than it should.
+Every problem seems impossible to solve.
+
+And sometimes the hardest part
+Is pretending you&#x27;re okay.
+
+But bad days have something in common.
+
+They always end.
+
+Every single one.
+
+The worst day you&#x27;ve ever had eventually became yesterday.
+
+The hardest moments you&#x27;ve survived
+Eventually became memories.
+
+The storms always pass.
+
+Maybe not immediately.
+Maybe not as quickly as we&#x27;d like.
+
+But they pass.
+
+And until they do, you don&#x27;t have to carry everything alone.
+
+Rest.
+
+Cry if you need to.
+
+Take a break.
+
+The world can wait.
+
+Because tomorrow will come.
+
+And when it does, I&#x27;ll still be here.`
+    },
+    smile: {
+        emoji: &#x27;😊&#x27;,
+        label: &#x27;Open When You Need A Smile&#x27;,
+        text: `The Reasons I Laugh
+
+You know what&#x27;s funny?
+
+Not jokes.
+
+Not videos.
+
+Not memes.
+
+You.
+
+You are somehow the funniest person I know without even trying.
+
+The way you get dramatic over the smallest things.
+
+The way you make faces when you&#x27;re concentrating.
+
+The way you accidentally say things that make me laugh for days.
+
+The way you insist you&#x27;re right even when you&#x27;re clearly not.
+
+The way you trip over absolutely nothing.
+
+The way you pretend not to be adorable while being incredibly adorable.
+
+If someone asked me what happiness looked like,
+I&#x27;d probably describe a moment where you&#x27;re laughing.
+
+Because that&#x27;s my favourite sound.
+
+And if you&#x27;re reading this because you&#x27;re struggling to smile today,
+Just remember:
+
+Somewhere out there exists a person whose entire day improves
+Because you smiled.
+
+And that person is me.`
+    },
+    arguing: {
+        emoji: &#x27;😡&#x27;,
+        label: &quot;Open When We&#x27;re Arguing&quot;,
+        text: `The Things Worth Fighting For
+
+Sometimes we find ourselves standing on opposite sides.
+
+Not because we stopped loving each other.
+
+Not because one of us wants to leave.
+
+Not because what we have suddenly became less important.
+
+But because we&#x27;re human.
+
+We get frustrated.
+
+We misunderstand each other.
+
+We say things differently than we mean them.
+
+We let stress sneak into conversations that had nothing to do with it.
+
+And suddenly two people who love each other more than anything are sitting there wondering how they ended up here.
+
+The thing is, every couple argues.
+
+Every relationship has days where things don&#x27;t feel easy.
+
+The difference isn&#x27;t whether arguments happen.
+
+The difference is what happens after.
+
+Because every single time we&#x27;ve faced something difficult, we&#x27;ve found our way back.
+
+Maybe not immediately.
+
+Maybe not perfectly.
+
+But we always come back.
+
+And that&#x27;s because what we have is bigger than whatever we&#x27;re arguing about.
+
+Bigger than a misunderstanding.
+
+Bigger than a disagreement.
+
+Bigger than pride.
+
+I don&#x27;t want to win arguments against you.
+
+I want us to win against the problem.
+
+I want us to understand each other better tomorrow than we do today.
+
+I want us to keep choosing each other, even on the days where it feels difficult.
+
+Especially on those days.
+
+Because loving someone isn&#x27;t just holding their hand when everything is perfect.
+
+It&#x27;s reaching for it when everything isn&#x27;t.
+
+So if you&#x27;re reading this while you&#x27;re upset, angry, frustrated, or hurt, remember this:
+
+You have never been my opponent.
+
+You never will be.
+
+It&#x27;s always been you and me.
+
+And that&#x27;s exactly how I want it to stay.`
+    },
+    upset: {
+        emoji: &#x27;🥺&#x27;,
+        label: &quot;Open When You&#x27;re Upset At Me&quot;,
+        text: `The Man Still Learning
+
+If you&#x27;re opening this, then there&#x27;s a good chance I&#x27;ve messed up.
+
+Maybe I said something wrong.
+
+Maybe I didn&#x27;t listen properly.
+
+Maybe I hurt you without realizing it.
+
+Or maybe I knew better and still made the wrong choice.
+
+Whatever happened, I&#x27;m sorry.
+
+Not the kind of sorry people say because they want a problem to disappear.
+
+The real kind.
+
+The kind that comes from knowing the last person I ever want to hurt is you.
+
+I know I can be difficult sometimes.
+
+I overthink.
+
+I get defensive.
+
+I say things badly.
+
+I let my emotions speak before my brain catches up.
+
+And none of those things are excuses.
+
+They&#x27;re simply things I&#x27;m still working on.
+
+Because loving you has taught me something important.
+
+Love isn&#x27;t finding someone and staying exactly the same forever.
+
+Love is growing.
+
+Improving.
+
+Learning.
+
+Becoming better for the person standing beside you.
+
+I know I&#x27;m not perfect.
+
+And honestly, I don&#x27;t think I ever will be.
+
+But I promise you this:
+
+Every version of me that exists tomorrow will be trying harder than the version that existed yesterday.
+
+Because you&#x27;re worth that effort.
+
+You&#x27;re worth every uncomfortable conversation.
+
+Every apology.
+
+Every lesson.
+
+Every bit of growth.
+
+And no matter how upset you are with me right now, I hope you never doubt this:
+
+There has never been a moment where I stopped loving you.
+
+Not for a second.
+
+Not for a heartbeat.
+
+Not for an instant.`
+    },
+    escape: {
+        emoji: &#x27;🚗&#x27;,
+        label: &#x27;Open When You Need An Escape&#x27;,
+        text: `Let&#x27;s Just Drive
+
+Sometimes the world becomes too loud.
+
+Too many responsibilities.
+
+Too many expectations.
+
+Too many people wanting something from you.
+
+And eventually you reach a point where you just want everything to stop for a little while.
+
+If that&#x27;s why you&#x27;re opening this, then come with me for a moment.
+
+Imagine we&#x27;re in the car.
+
+No destination.
+
+No schedule.
+
+No rush.
+
+Just us.
+
+The music is playing quietly in the background.
+
+The windows are down.
+
+The air feels lighter somehow.
+
+We&#x27;re talking about absolutely nothing.
+
+Then somehow that turns into talking about everything.
+
+The future.
+
+Our dreams.
+
+The things we&#x27;re scared of.
+
+The things we&#x27;re excited about.
+
+The things we never tell anybody else.
+
+The road stretches endlessly ahead of us.
+
+And for the first time all day, everything feels okay.
+
+Not because the problems disappeared.
+
+But because we&#x27;re facing them together.
+
+That&#x27;s always been my favourite kind of escape.
+
+Not running away from life.
+
+Running toward you.
+
+Because somehow every place feels calmer when you&#x27;re there.
+
+Every view looks better.
+
+Every moment feels lighter.
+
+Every memory feels worth keeping.
+
+So whenever life becomes too much, remember:
+
+You don&#x27;t have to carry it all alone.
+
+There&#x27;s always a seat next to me waiting for you.`
+    },
+    love: {
+        emoji: &#x27;❤️&#x27;,
+        label: &#x27;Open When You Need To Remember How Much I Love You&#x27;,
+        text: `In Case You Forgot
+
+One day you might forget.
+
+Not permanently.
+
+Just for a moment.
+
+A difficult day.
+
+A rough week.
+
+A period where life feels overwhelming.
+
+And suddenly you start questioning things.
+
+Maybe yourself.
+
+Maybe your worth.
+
+Maybe how loved you really are.
+
+So let me remind you.
+
+You are loved more than you know.
+
+More than these pages can explain.
+
+More than words can properly carry.
+
+You are loved on your best days.
+
+You are loved on your worst days.
+
+You are loved when you&#x27;re confident.
+
+You are loved when you&#x27;re insecure.
+
+You are loved when you&#x27;re smiling.
+
+You are loved when you&#x27;re crying.
+
+You are loved when you&#x27;re easy to understand.
+
+And you are loved when you&#x27;re impossible to understand.
+
+You are loved because you&#x27;re you.
+
+Not because of what you achieve.
+
+Not because of how you look.
+
+Not because of what you do for other people.
+
+Simply because you&#x27;re the person who changed my life.
+
+The person who makes ordinary days feel extraordinary.
+
+The person whose happiness matters to me more than my own.
+
+The person I want to tell every piece of good news to.
+
+The person I want beside me when life gets difficult.
+
+The person I want beside me when life gets beautiful.
+
+So if you&#x27;re ever wondering whether I still love you—
+
+The answer is yes.
+
+If you&#x27;re wondering whether I still choose you—
+
+The answer is yes.
+
+If you&#x27;re wondering whether you&#x27;re enough—
+
+The answer has always been yes.
+
+And it always will be.`
+    },
+    seven: {
+        emoji: &#x27;❤️&#x27;,
+        label: &#x27;Open Last — Happy 7 Months&#x27;,
+        text: `Seven Chapters Later
+
+Seven months.
+
+It&#x27;s strange how quickly time moves.
+
+Because part of me feels like I&#x27;ve known you forever.
+
+And another part of me still remembers exactly how it all started.
+
+Seven months of conversations.
+
+Seven months of laughter.
+
+Seven months of memories.
+
+Seven months of learning each other.
+
+Seven months of growing together.
+
+Seven months of choosing each other.
+
+And somehow, despite all that time, I still get excited when I see your name appear on my screen.
+
+I still find myself smiling at things that remind me of you.
+
+I still catch myself imagining future moments that haven&#x27;t happened yet.
+
+The truth is, when I met you, I had absolutely no idea what was coming.
+
+I didn&#x27;t know that one person could become such an important part of my life.
+
+I didn&#x27;t know that someone could make me feel so understood.
+
+So wanted.
+
+So appreciated.
+
+So at home.
+
+But you did.
+
+And that&#x27;s why this isn&#x27;t just a celebration of seven months.
+
+It&#x27;s a celebration of every little moment that built those seven months.
+
+Every conversation.
+
+Every joke.
+
+Every late-night call.
+
+Every disagreement we worked through.
+
+Every memory we&#x27;ve created.
+
+Every version of ourselves we&#x27;ve become along the way.
+
+Because love isn&#x27;t built in grand moments.
+
+It&#x27;s built in thousands of small ones.
+
+And you&#x27;ve given me thousands.
+
+So thank you.
+
+For your patience.
+
+For your kindness.
+
+For your love.
+
+For your time.
+
+For choosing me.
+
+For continuing to choose me.
+
+Happy seven months, my love.
+
+And if the next seven are anything like the first seven,
+
+Then I genuinely cannot wait to turn the page and begin the next chapter with you. ❤️
+
+happy seven months my angel I am so sorry for everything that&#x27;s happened and im sorry that I have been sounding like a record player. we made it over half a year together , through everything and I can guarantee you that we will continue to make it through cause we love each other thats all that matters. happy seven months my angel to sooooo many more months with you i love you.`
+    }
+};
+
+// ── Stars ──────────────────────────────────────────────────────
+(function seedStars() {
+    const c = document.getElementById(&#x27;star-container&#x27;);
+    for (let i = 0; i &lt; 80; i++) {
+        const s = document.createElement(&#x27;div&#x27;);
+        s.className = &#x27;star&#x27;;
+        const sz = (Math.random() * 2.2 + 0.4) + &#x27;px&#x27;;
+        s.style.cssText = `width:${sz};height:${sz};top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${(Math.random()*3+2).toFixed(1)}s`;
+        c.appendChild(s);
+    }
+})();
+
+// Modal stars
+(function seedModalStars() {
+    const c = document.getElementById(&#x27;modal-stars&#x27;);
+    for (let i = 0; i &lt; 40; i++) {
+        const s = document.createElement(&#x27;div&#x27;);
+        s.className = &#x27;star&#x27;;
+        const sz = (Math.random() * 1.5 + 0.3) + &#x27;px&#x27;;
+        s.style.cssText = `width:${sz};height:${sz};top:${Math.random()*100}%;left:${Math.random()*100}%;--dur:${(Math.random()*3+2).toFixed(1)}s;opacity:0.25;`;
+        c.appendChild(s);
+    }
+})();
+
+// ── Floating hearts ────────────────────────────────────────────
+function spawnHeart() {
+    const h = document.createElement(&#x27;div&#x27;);
+    h.className = &#x27;fheart&#x27;;
+    h.textContent = Math.random() &gt; 0.5 ? &#x27;💜&#x27; : &#x27;❤️&#x27;;
+    h.style.left = (Math.random() * 95) + &#x27;%&#x27;;
+    h.style.bottom = &#x27;-30px&#x27;;
+    h.style.setProperty(&#x27;--dur&#x27;, (Math.random() * 6 + 7) + &#x27;s&#x27;);
+    document.body.appendChild(h);
+    setTimeout(() =&gt; h.remove(), 13000);
+}
+setInterval(spawnHeart, 2200);
+
+// ── Chest ──────────────────────────────────────────────────────
+let chestOpen = false;
+function toggleChest() {
+    if (chestOpen) return;
+    chestOpen = true;
+    const area = document.getElementById(&#x27;chest-area&#x27;);
+    const hint = document.getElementById(&#x27;chest-hint&#x27;);
+    const grid = document.getElementById(&#x27;letters-grid&#x27;);
+    area.classList.add(&#x27;open&#x27;);
+    hint.textContent = &#x27;✦ choose a letter ✦&#x27;;
+    hint.style.opacity = &#x27;0.5&#x27;;
+    area.style.cursor = &#x27;default&#x27;;
+    setTimeout(() =&gt; {
+        grid.classList.add(&#x27;visible&#x27;);
+    }, 400);
+    // small confetti burst
+    confetti({ particleCount: 50, spread: 60, origin: { y: 0.45 }, colors: [&#x27;#7e57c2&#x27;,&#x27;#b39ddb&#x27;,&#x27;#e91e63&#x27;,&#x27;#d4af37&#x27;,&#x27;#ffffff&#x27;] });
+}
+
+// ── Modal ──────────────────────────────────────────────────────
+function openLetter(key) {
+    const letter = letters[key];
+    if (!letter) return;
+    document.getElementById(&#x27;modal-emoji&#x27;).textContent = letter.emoji;
+    document.getElementById(&#x27;modal-label&#x27;).textContent = letter.label;
+    // Convert text: first paragraph = title, rest = body paragraphs
+    const paras = letter.text.split(/\n\n+/);
+    const html = paras.map((p, i) =&gt; {
+        const line = p.replace(/\n/g, &#x27;&lt;br&gt;&#x27;).trim();
+        if (i === 0) return &#x27;&lt;p class=&quot;title-line&quot;&gt;&#x27; + line + &#x27;&lt;/p&gt;&#x27;;
+        return &#x27;&lt;p&gt;&#x27; + line + &#x27;&lt;/p&gt;&#x27;;
+    }).join(&#x27;&#x27;);
+    document.getElementById(&#x27;modal-content&#x27;).innerHTML = html;
+    const overlay = document.getElementById(&#x27;modal-overlay&#x27;);
+    overlay.classList.add(&#x27;show&#x27;);
+    requestAnimationFrame(() =&gt; {
+        document.getElementById(&#x27;modal-body&#x27;).scrollTop = 0;
+    });
+    // tiny confetti
+    setTimeout(() =&gt; {
+        confetti({ particleCount: 30, spread: 50, origin: { y: 0.5 }, colors: [&#x27;#7e57c2&#x27;,&#x27;#b39ddb&#x27;,&#x27;#e91e63&#x27;] });
+    }, 200);
+}
+
+function closeLetter() {
+    document.getElementById(&#x27;modal-overlay&#x27;).classList.remove(&#x27;show&#x27;);
+}
+
+// Prevent modal touch leaking
+document.getElementById(&#x27;modal-overlay&#x27;).addEventListener(&#x27;touchstart&#x27;, e =&gt; e.stopPropagation(), { passive: false });
+document.getElementById(&#x27;modal-overlay&#x27;).addEventListener(&#x27;touchmove&#x27;,  e =&gt; e.stopPropagation(), { passive: false });
+
+// Close on backdrop tap (outside modal-box)
+document.getElementById(&#x27;modal-overlay&#x27;).addEventListener(&#x27;click&#x27;, function(e) {
+    if (e.target === this) closeLetter();
+});
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"
+                        style="width:100%;height:100%;border:none;"></iframe>
+            </div>
+        </div>
+
 
         <div class="page" data-date="23 Sept 2025">
             <div class="page-content">
@@ -1422,6 +2610,25 @@ function initApr25Photos() {
 <style>
 @keyframes vnblink { 0%,100%{opacity:0.25} 50%{opacity:0.7} }
 </style>
+
+<div class="page" data-date="Happy 7 Months">
+    <div class="page-content">
+        <div class="page-date-header">Happy 7 Months 💜</div>
+        <div class="scroll-text" style="white-space: normal;">
+            <p style="font-family:'Dancing Script',cursive; font-size:1.6rem; color:var(--accent); margin-bottom:0.8em;">Seven Chapters Later</p>
+            <p>Seven months. It's strange how quickly time moves. Because part of me feels like I've known you forever — and another part of me still remembers exactly how it all started.</p>
+            <p>Seven months of conversations. Seven months of laughter. Seven months of memories. Seven months of learning each other. Seven months of growing together. Seven months of choosing each other.</p>
+            <p>And somehow, despite all that time, I still get excited when I see your name appear on my screen. I still find myself smiling at things that remind me of you. I still catch myself imagining future moments that haven't happened yet.</p>
+            <p>The truth is, when I met you, I had absolutely no idea what was coming. I didn't know that one person could become such an important part of my life. I didn't know that someone could make me feel so understood. So wanted. So appreciated. So at home.</p>
+            <p>But you did.</p>
+            <p>And that's why this isn't just a celebration of seven months. It's a celebration of every little moment that built those seven months — every conversation, every joke, every late-night call, every disagreement we worked through, every memory we've created, every version of ourselves we've become along the way.</p>
+            <p>Because love isn't built in grand moments. It's built in thousands of small ones. And you've given me thousands.</p>
+            <p>So thank you. For your patience. For your kindness. For your love. For your time. For choosing me. For continuing to choose me.</p>
+            <p>Happy seven months, my love. And if the next seven are anything like the first seven, then I genuinely cannot wait to turn the page and begin the next chapter with you. ❤️</p>
+            <p>happy seven months my angel I am so sorry for everything that's happened and im sorry that I have been sounding like a record player. we made it over half a year together, through everything and I can guarantee you that we will continue to make it through cause we love each other thats all that matters. happy seven months my angel to sooooo many more months with you i love you.</p>
+        </div>
+    </div>
+</div>
 
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
