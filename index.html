@@ -2630,6 +2630,54 @@ function initApr25Photos() {
     </div>
 </div>
 
+<!-- 8TH MONTH ANNIVERSARY — OUR UNIVERSE -->
+<div class="page" data-date="8th Month Anniversary 2026" style="background:#000;overflow:hidden;position:relative;">
+    <div class="page-content" style="background:#000;padding:0;overflow:hidden;position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+
+        <!-- Ambient nebula + star canvas -->
+        <canvas id="univ-bg" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;"></canvas>
+
+        <!-- Solar system canvas — tappable -->
+        <canvas id="univ-solar" style="position:absolute;inset:0;width:100%;height:100%;z-index:2;cursor:pointer;touch-action:manipulation;"></canvas>
+
+        <!-- Header -->
+        <div style="position:absolute;top:12px;left:0;right:0;text-align:center;z-index:3;pointer-events:none;">
+            <div style="font-family:'Dancing Script',cursive;font-size:1rem;color:rgba(179,157,219,0.7);letter-spacing:2px;">8 months together</div>
+            <div style="font-family:'EB Garamond',serif;font-size:0.65rem;color:rgba(255,255,255,0.25);letter-spacing:3px;text-transform:uppercase;margin-top:2px;">tap a planet to open a letter</div>
+        </div>
+
+        <!-- Bottom date -->
+        <div style="position:absolute;bottom:10px;left:0;right:0;text-align:center;z-index:3;pointer-events:none;font-family:'EB Garamond',serif;font-size:0.65rem;color:rgba(255,255,255,0.2);letter-spacing:2px;">25 July 2026</div>
+    </div>
+</div>
+
+<!-- UNIVERSE LETTER OVERLAY -->
+<div id="univ-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(5,0,15,0.97);flex-direction:column;align-items:center;justify-content:flex-start;padding:0;touch-action:none;">
+    <!-- Close -->
+    <button id="univ-close"
+        style="position:absolute;top:14px;right:14px;z-index:10;background:rgba(0,0,0,0.7);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:50%;width:38px;height:38px;font-size:1rem;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none;display:flex;align-items:center;justify-content:center;">✕</button>
+
+    <!-- Planet name header -->
+    <div id="univ-planet-header" style="width:100%;padding:18px 20px 0;box-sizing:border-box;text-align:center;flex-shrink:0;">
+        <div id="univ-planet-icon" style="font-size:2.2rem;margin-bottom:4px;"></div>
+        <div id="univ-planet-name" style="font-family:'Dancing Script',cursive;font-size:1.6rem;color:#b39ddb;"></div>
+        <div id="univ-planet-period" style="font-family:'EB Garamond',serif;font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-top:2px;"></div>
+        <div style="width:50%;margin:10px auto 0;height:1px;background:linear-gradient(to right,transparent,rgba(179,157,219,0.4),transparent);"></div>
+    </div>
+
+    <!-- Scrollable letter -->
+    <div id="univ-letter-scroll"
+        style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;width:100%;max-width:480px;padding:16px 22px 30px;box-sizing:border-box;">
+        <div id="univ-letter-text"
+            style="font-family:'Caveat',cursive;font-size:1.18rem;line-height:1.78;color:#ece6ff;white-space:pre-wrap;"></div>
+    </div>
+</div>
+
+<style>
+#univ-letter-scroll::-webkit-scrollbar { width: 3px; }
+#univ-letter-scroll::-webkit-scrollbar-thumb { background: #7e57c2; border-radius: 10px; }
+</style>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -2897,6 +2945,10 @@ audio.volume = 0.4;
     if (dateText === "5th Month Anniversary 2026") {
         setTimeout(initApr25Photos, 200);
     }
+    // Initialize the solar system canvas when landing on the 8th month anniversary page
+    if (dateText === "8th Month Anniversary 2026") {
+        setTimeout(initUniverse, 50);
+    }
 	
 });
 
@@ -2935,7 +2987,7 @@ audio.volume = 0.4;
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -4229,6 +4281,415 @@ document.getElementById('vn-overlay').addEventListener('touchstart', e => e.stop
 document.getElementById('vn-overlay').addEventListener('touchmove',  e => e.stopPropagation(), { passive: false });
 
 // Trigger visual novel when flipping to that page
+
+// ═══════════════════════════════════════════════════════════════
+//  OUR UNIVERSE — 8th Month Anniversary
+// ═══════════════════════════════════════════════════════════════
+
+const UNIV_SUN = {
+    name: 'Us',
+    period: 'Where it all began · 2 Aug 2025',
+    icon: '☀️',
+    color: '#d4af37',
+    letter: `You are the center of my entire universe. Before you came into my life, the days had a dull, heavy rhythm, but your smile broke through like a sudden dawn. You don't just light up a room; you illuminate my past, my present, and every future year we have yet to write. Like the sun holding the planets in a gentle, unbreakable orbit, your warmth keeps me grounded. No matter how cold or chaotic the world outside gets, looking at you makes everything feel safe, bright, and brilliantly alive. I love you, my sun.`
+};
+
+const UNIV_PLANETS = [
+    {
+        name: 'December',
+        period: 'Month 1 · Dec 2025',
+        icon: '🌑',
+        color: '#e91e63',
+        glow: 'rgba(233,30,99,0.6)',
+        size: 13,
+        orbitR: 0.10,
+        speed: 0.0008,
+        startAngle: 0.0,
+        letter: `Our story didn't start with a traditional glance across a crowded room; it started with a quiet, glowing notification breaking the stillness of an ordinary evening. Mercury flies fast and close to the sun, mirroring how quickly you became the very center of my thoughts. Every ping of my screen still carries that electric thrill—the anticipation of hearing your voice, reading your words, and knowing that out of all the noise in the digital world, your name is the only one my heart looks for.`
+    },
+    {
+        name: 'January',
+        period: 'Month 2 · Jan 2026',
+        icon: '🟠',
+        color: '#ff7043',
+        glow: 'rgba(255,112,67,0.6)',
+        size: 15,
+        orbitR: 0.17,
+        speed: 0.00065,
+        startAngle: 0.8,
+        letter: `Venus is known as the goddess of love, but looking at you, I realize she only held a fraction of your grace. You have this quiet, magical way of walking into my world and instantly smoothing out all the sharp edges of my day. Your touch is a gentle anchor, your voice is my favorite melody, and your presence alone makes everything feel softer and more beautiful. You don't have to try to be breathtaking; simply existing as you are is enough to make my entire universe fall completely, helplessly in love with you all over again.`
+    },
+    {
+        name: 'February',
+        period: 'Month 3 · Feb 2026',
+        icon: '🔵',
+        color: '#42a5f5',
+        glow: 'rgba(66,165,245,0.6)',
+        size: 14,
+        orbitR: 0.235,
+        speed: 0.0005,
+        startAngle: 1.8,
+        letter: `Out of all the vast expanses in the cosmos, Earth is the only place built for life, and you are the only place built for my heart. Whenever school gets too heavy, family struggles weigh you down, or the world becomes too loud, you are my safe haven. With you, I don't need a fortress of stone or steel; I just need the sanctuary of your hand. You gave a wandering soul a place to land, making me feel seen, heard, and completely at home for the very first time.`
+    },
+    {
+        name: 'March',
+        period: 'Month 4 · Mar 2026',
+        icon: '🟣',
+        color: '#ab47bc',
+        glow: 'rgba(171,71,188,0.6)',
+        size: 17,
+        orbitR: 0.305,
+        speed: 0.00038,
+        startAngle: 3.2,
+        letter: `Named after the red planet of fire and passion, Mars reminds me of the fierce intensity of our love—and the hurdles we've crossed together. We aren't perfect; we stumble, we overthink, and sometimes we let friction spark between us. But every single argument has only proven one undeniable truth: we always find our way back. We don't fight against each other; we fight for us. Our fire isn't destructive—it's the relentless passion that ensures I will never, ever let you go.`
+    },
+    {
+        name: 'April',
+        period: 'Month 5 · Apr 2026',
+        icon: '⚪',
+        color: '#b0bec5',
+        glow: 'rgba(176,190,197,0.6)',
+        size: 16,
+        orbitR: 0.375,
+        speed: 0.00028,
+        startAngle: 0.5,
+        letter: `Jupiter is the largest planet in our solar system, but even its massive scale feels too small to hold the depth of what I feel for you. When I look ahead at our future, I see something infinite and magnificent—a love that refuses to stay bound by ordinary limits. You make me want to dream bigger, reach higher, and build a life that matches the grand, sweeping scale of my devotion to you. With you, everything feels possible, and our journey together is a horizon that just keeps getting more beautiful the further we go.`
+    },
+    {
+        name: 'May',
+        period: 'Month 6 · May 2026',
+        icon: '🟡',
+        color: '#ffca28',
+        glow: 'rgba(255,202,40,0.6)',
+        size: 19,
+        orbitR: 0.445,
+        speed: 0.00020,
+        startAngle: 2.4,
+        letter: `Saturn wears its rings like a crown of time, and I wear our months together like badges of honor. From our first month to our third, and onward through the chapters of our lives, every day with you is a gift. People talk about growing old and slowing down, but I see a future where we are still chasing dreams, laughing, and holding tight to each other. Time moves differently when I'm with you—it stretches into a lifetime promise that I intend to keep until my very last breath.`
+    },
+    {
+        name: 'June',
+        period: 'Month 7 · Jun 2026',
+        icon: '🔴',
+        color: '#ef5350',
+        glow: 'rgba(239,83,80,0.6)',
+        size: 15,
+        orbitR: 0.510,
+        speed: 0.00015,
+        startAngle: 4.1,
+        letter: `Uranus is the planet of sudden, wild shifts, perfectly matching the electrical surges of our unpredictable, beautiful life. One minute you're quiet and soft, and the next you're a whirlwind of laughter, drama, and adorable stubbornness. I love the chaos of us. I dream of the day we throw away the schedule, roll down the windows, and just drive into our "vroom-vroom" future with our kids in the back seat and you right beside me on the passenger side.`
+    },
+    {
+        name: 'Now',
+        period: 'Month 8 · Jul 2026',
+        icon: '💜',
+        color: '#7e57c2',
+        glow: 'rgba(126,87,194,0.8)',
+        size: 18,
+        orbitR: 0.575,
+        speed: 0.00010,
+        startAngle: 1.2,
+        letter: `Neptune is a deep, mystical blue ocean, much like the quiet hours of the night when you are fast asleep and my mind is busy loving you. Distance and silence stretch heavy sometimes, making me miss your voice and your laughter. Yet, in those quiet, late-night hours, I sit awake guarding your rest, writing poems, and marveling at how a stranger from a few months ago became the keeper of my soul, my angel—my heart stays on watch for you through every single dark and starry night. Happy 8th month, my love. I'm so lucky to have you, and thank you for keep fighting for us, for me. I love you, I hope you like this.`
+    },
+];
+
+let univAnimId = null;
+let univInitDone = false;
+
+function initUniverse() {
+    if (univInitDone) return;
+    univInitDone = true;
+
+    const bgCanvas    = document.getElementById('univ-bg');
+    const solarCanvas = document.getElementById('univ-solar');
+    if (!bgCanvas || !solarCanvas) return;
+
+    // Re-check the canvas' on-screen size every frame (instead of once) so that
+    // if this fires before the book page has real layout dimensions, it just
+    // keeps waiting quietly and starts drawing the moment a real size shows up.
+    let lastW = 0, lastH = 0;
+    function syncSize() {
+        const w = bgCanvas.offsetWidth, h = bgCanvas.offsetHeight;
+        if (w > 0 && h > 0 && (w !== lastW || h !== lastH)) {
+            bgCanvas.width     = w;
+            bgCanvas.height    = h;
+            solarCanvas.width  = w;
+            solarCanvas.height = h;
+            lastW = w; lastH = h;
+        }
+        return lastW > 0 && lastH > 0;
+    }
+
+    const bgCtx = bgCanvas.getContext('2d');
+    const sc    = solarCanvas.getContext('2d');
+    const W = () => solarCanvas.width;
+    const H = () => solarCanvas.height;
+
+    // ── Nebula background ──
+    const bgStars = Array.from({length:180}, () => ({
+        x: Math.random(), y: Math.random(),
+        r: Math.random()*1.4+0.2,
+        a: Math.random(), da: (Math.random()*0.006+0.002) * (Math.random()<0.5?1:-1)
+    }));
+
+    function drawBg() {
+        const w = bgCanvas.width, h = bgCanvas.height;
+        bgCtx.fillStyle = '#000008';
+        bgCtx.fillRect(0,0,w,h);
+
+        // Nebula clouds
+        [
+            {x:0.3,y:0.25,r:w*0.35,c:'rgba(74,20,140,0.07)'},
+            {x:0.7,y:0.6, r:w*0.28,c:'rgba(233,30,99,0.05)'},
+            {x:0.15,y:0.7,r:w*0.22,c:'rgba(126,87,194,0.06)'},
+            {x:0.8,y:0.2, r:w*0.25,c:'rgba(63,81,181,0.05)'},
+        ].forEach(n => {
+            const g = bgCtx.createRadialGradient(n.x*w,n.y*h,0,n.x*w,n.y*h,n.r);
+            g.addColorStop(0,n.c); g.addColorStop(1,'transparent');
+            bgCtx.fillStyle=g; bgCtx.fillRect(0,0,w,h);
+        });
+
+        // Stars
+        bgStars.forEach(s => {
+            s.a += s.da;
+            if (s.a>1||s.a<0.05) s.da*=-1;
+            bgCtx.globalAlpha = s.a * 0.9;
+            bgCtx.fillStyle = '#fff';
+            bgCtx.beginPath();
+            bgCtx.arc(s.x*w, s.y*h, s.r, 0, Math.PI*2);
+            bgCtx.fill();
+        });
+        bgCtx.globalAlpha = 1;
+    }
+
+    // ── Solar system ──
+    let t = 0;
+    const planetAngles = UNIV_PLANETS.map(p => p.startAngle);
+
+    function cx() { return W()*0.5; }
+    function cy() { return H()*0.5; }
+
+    function drawSolar() {
+        const w = W(), h = H();
+        sc.clearRect(0,0,w,h);
+
+        const minDim = Math.min(w, h);
+
+        // Orbit rings
+        UNIV_PLANETS.forEach(p => {
+            const r = p.orbitR * minDim;
+            sc.beginPath();
+            sc.arc(cx(), cy(), r, 0, Math.PI*2);
+            sc.strokeStyle = 'rgba(255,255,255,0.05)';
+            sc.lineWidth = 1;
+            sc.stroke();
+        });
+
+        // Sun
+        const sunR = minDim * 0.072;
+        const sunGrad = sc.createRadialGradient(cx(),cy(),0,cx(),cy(),sunR*2.5);
+        sunGrad.addColorStop(0,'#fff9e6');
+        sunGrad.addColorStop(0.3,'#d4af37');
+        sunGrad.addColorStop(0.7,'rgba(212,175,55,0.3)');
+        sunGrad.addColorStop(1,'transparent');
+        sc.fillStyle = sunGrad;
+        sc.beginPath();
+        sc.arc(cx(),cy(),sunR*2.5,0,Math.PI*2);
+        sc.fill();
+        sc.fillStyle = '#fff9e6';
+        sc.beginPath();
+        sc.arc(cx(),cy(),sunR,0,Math.PI*2);
+        sc.fill();
+
+        // Sun label
+        sc.fillStyle = 'rgba(212,175,55,0.8)';
+        sc.font = `bold ${minDim*0.028}px 'Dancing Script', cursive`;
+        sc.textAlign = 'center';
+        sc.fillText('2 Aug', cx(), cy() + sunR + minDim*0.038);
+        sc.fillText('2025', cx(), cy() + sunR + minDim*0.068);
+        sc.textAlign = 'left';
+
+        // Store hit position for tap detection
+        UNIV_SUN._px = cx();
+        UNIV_SUN._py = cy();
+        UNIV_SUN._hitR = sunR * 1.3;
+
+        // Planets
+        UNIV_PLANETS.forEach((p, i) => {
+            planetAngles[i] += p.speed * 16;
+            const r   = p.orbitR * minDim;
+            const px  = cx() + Math.cos(planetAngles[i]) * r;
+            const py  = cy() + Math.sin(planetAngles[i]) * r;
+            const pSize = p.size * (minDim / 320);
+
+            // Glow
+            const g = sc.createRadialGradient(px,py,0,px,py,pSize*2.8);
+            g.addColorStop(0, p.glow);
+            g.addColorStop(1,'transparent');
+            sc.fillStyle = g;
+            sc.beginPath();
+            sc.arc(px,py,pSize*2.8,0,Math.PI*2);
+            sc.fill();
+
+            // Planet body
+            sc.fillStyle = p.color;
+            sc.beginPath();
+            sc.arc(px,py,pSize,0,Math.PI*2);
+            sc.fill();
+
+            // Shimmer highlight
+            sc.fillStyle = 'rgba(255,255,255,0.25)';
+            sc.beginPath();
+            sc.arc(px - pSize*0.28, py - pSize*0.28, pSize*0.38, 0, Math.PI*2);
+            sc.fill();
+
+            // Month label
+            sc.fillStyle = 'rgba(255,255,255,0.55)';
+            sc.font = `${minDim*0.022}px 'EB Garamond', serif`;
+            sc.textAlign = 'center';
+            sc.fillText(p.name, px, py + pSize + minDim*0.032);
+            sc.textAlign = 'left';
+
+            // Store hit position for tap detection
+            UNIV_PLANETS[i]._px = px;
+            UNIV_PLANETS[i]._py = py;
+            UNIV_PLANETS[i]._hitR = pSize * 2.2;
+        });
+    }
+
+    function loop() {
+        t++;
+        const ready = syncSize();
+        if (ready) {
+            drawBg();
+            drawSolar();
+        }
+        univAnimId = requestAnimationFrame(loop);
+    }
+    loop();
+
+    // ── Tap detection ──
+    // The sun's glow can visually/hit-radius overlap the innermost planet's
+    // orbit, so rather than always favouring the sun, pick whichever target's
+    // centre is actually closest to the tap point among all valid hits.
+    function handleTap(clientX, clientY) {
+        const rect = solarCanvas.getBoundingClientRect();
+        const tx = clientX - rect.left;
+        const ty = clientY - rect.top;
+
+        let best = null, bestDist = Infinity;
+
+        if (UNIV_SUN._px !== undefined) {
+            const dx = tx - UNIV_SUN._px, dy = ty - UNIV_SUN._py;
+            const dist = Math.sqrt(dx*dx+dy*dy);
+            if (dist <= UNIV_SUN._hitR && dist < bestDist) {
+                best = 'sun';
+                bestDist = dist;
+            }
+        }
+
+        UNIV_PLANETS.forEach((p, i) => {
+            if (!p._px) return;
+            const dx = tx - p._px, dy = ty - p._py;
+            const dist = Math.sqrt(dx*dx+dy*dy);
+            if (dist <= p._hitR + 10 && dist < bestDist) {
+                best = i;
+                bestDist = dist;
+            }
+        });
+
+        if (best === 'sun') openUnivSunLetter();
+        else if (best !== null) openUnivLetter(best);
+    }
+
+    // Stop every stage of the tap from reaching page-flip's own listeners
+    // (it starts flip gestures on pointerdown/touchstart, not just click).
+    solarCanvas.addEventListener('pointerdown', e => e.stopPropagation());
+    solarCanvas.addEventListener('mousedown',   e => e.stopPropagation());
+    solarCanvas.addEventListener('touchstart',  e => e.stopPropagation(), { passive: false });
+
+    solarCanvas.addEventListener('click', e => {
+        e.stopPropagation();
+        handleTap(e.clientX, e.clientY);
+    });
+    solarCanvas.addEventListener('touchend', e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const t = e.changedTouches[0];
+        handleTap(t.clientX, t.clientY);
+    }, { passive: false });
+}
+
+function renderUnivLetter(p) {
+    document.getElementById('univ-planet-icon').textContent   = p.icon;
+    document.getElementById('univ-planet-name').textContent   = p.name;
+    document.getElementById('univ-planet-period').textContent = p.period;
+    document.getElementById('univ-letter-text').textContent   = p.letter;
+
+    // Tint the header with the planet/sun colour
+    document.getElementById('univ-planet-name').style.color = p.color;
+
+    const overlay = document.getElementById('univ-overlay');
+    overlay.style.display = 'flex';
+    document.getElementById('univ-letter-scroll').scrollTop = 0;
+
+    // Hide the floating music button and back-to-index button so they don't
+    // sit on top of / block the letter's close (✕) button.
+    const musicBtn = document.getElementById('music-control');
+    if (musicBtn) musicBtn.style.display = 'none';
+    const indexBtn = document.getElementById('back-to-index-btn');
+    if (indexBtn) indexBtn.style.display = 'none';
+}
+
+function openUnivLetter(idx) {
+    renderUnivLetter(UNIV_PLANETS[idx]);
+}
+
+function openUnivSunLetter() {
+    renderUnivLetter(UNIV_SUN);
+}
+
+function closeUnivLetter() {
+    document.getElementById('univ-overlay').style.display = 'none';
+
+    // Restore the music button and back-to-index button
+    const musicBtn = document.getElementById('music-control');
+    if (musicBtn) musicBtn.style.display = 'block';
+    const indexBtn = document.getElementById('back-to-index-btn');
+    if (indexBtn) indexBtn.style.display = 'block';
+}
+
+// Wire close button
+(function(){
+    const btn = document.getElementById('univ-close');
+    if (!btn) return;
+    btn.addEventListener('pointerdown', e => e.stopPropagation());
+    btn.addEventListener('touchstart',  e => e.stopPropagation(), { passive: false });
+    btn.addEventListener('touchend',    e => { e.stopPropagation(); e.preventDefault(); closeUnivLetter(); }, { passive: false });
+    btn.addEventListener('click',       e => { e.stopPropagation(); closeUnivLetter(); });
+})();
+
+// Prevent overlay touches leaking to book
+(function(){
+    const ov = document.getElementById('univ-overlay');
+    if (!ov) return;
+    ov.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+    ov.addEventListener('touchmove',  e => e.stopPropagation(), { passive: false });
+    // Allow scroll inside the letter
+    const scroll = document.getElementById('univ-letter-scroll');
+    if (scroll) {
+        scroll.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+        scroll.addEventListener('touchmove',  e => e.stopPropagation(), { passive: false });
+    }
+})();
+
+// Start the universe render loop right away. It quietly waits (drawing nothing)
+// until the "8th Month Anniversary" page actually has real on-screen size, then
+// starts drawing — so it self-heals regardless of exactly when the page-flip
+// library lays the page out. The flip-event call elsewhere is a harmless no-op
+// once this has already run (guarded by univInitDone).
+initUniverse();
+
 </script>
 </body>
 
