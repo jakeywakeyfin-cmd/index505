@@ -2678,6 +2678,88 @@ function initApr25Photos() {
 #univ-letter-scroll::-webkit-scrollbar-thumb { background: #7e57c2; border-radius: 10px; }
 </style>
 
+<!-- COMPLIMENT VENDING MACHINE -->
+<div class="page" data-date="For You" style="background:#0d0018;overflow:hidden;position:relative;">
+    <div class="page-content" style="background:#0d0018;padding:8px 10px 6px;overflow:hidden;position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+
+        <div id="cm-stars" style="position:absolute;inset:0;pointer-events:none;z-index:0;"></div>
+
+        <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;">
+
+            <!-- Machine label -->
+            <div style="font-family:'Dancing Script',cursive;font-size:1rem;color:#ce7bff;letter-spacing:1px;text-shadow:0 0 10px rgba(206,123,255,0.5);">compliment machine ✨</div>
+
+            <!-- VENDING MACHINE BODY -->
+            <div style="width:200px;background:linear-gradient(180deg,#1a0a2e 0%,#120820 100%);border:2px solid #4a1080;border-radius:14px;box-shadow:0 0 20px rgba(126,87,194,0.4), inset 0 0 20px rgba(0,0,0,0.5);overflow:hidden;position:relative;">
+
+                <!-- Top brand strip -->
+                <div style="background:linear-gradient(90deg,#4a148c,#7e57c2,#4a148c);padding:5px 8px;text-align:center;">
+                    <div style="font-family:'Dancing Script',cursive;font-size:0.9rem;color:#fff;letter-spacing:2px;">M & T Co.</div>
+                </div>
+
+                <!-- Display window -->
+                <div style="margin:8px;background:#000;border:2px solid #2d0050;border-radius:8px;padding:10px 8px;min-height:90px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                    <!-- Screen scanlines -->
+                    <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.15) 0px,rgba(0,0,0,0.15) 1px,transparent 1px,transparent 3px);pointer-events:none;z-index:1;"></div>
+                    <!-- Green tint -->
+                    <div style="position:absolute;inset:0;background:rgba(100,0,180,0.06);pointer-events:none;z-index:1;"></div>
+                    <div id="cm-text" style="font-family:'Caveat',cursive;font-size:0.95rem;line-height:1.45;color:#e8d5ff;text-align:center;position:relative;z-index:2;transition:opacity 0.3s;padding:0 2px;">Insert coin to begin 💜</div>
+                </div>
+
+                <!-- Item slots — decorative rows -->
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:0 8px;margin-bottom:6px;">
+                    <div class="vm-slot">💌</div>
+                    <div class="vm-slot">💜</div>
+                    <div class="vm-slot">✨</div>
+                    <div class="vm-slot">🌙</div>
+                    <div class="vm-slot">💫</div>
+                    <div class="vm-slot">🌹</div>
+                    <div class="vm-slot">💎</div>
+                    <div class="vm-slot">❤️</div>
+                </div>
+
+                <!-- Coin slot + dispense tray -->
+                <div style="background:#0a0018;border-top:1px solid #2d0050;padding:6px 8px;display:flex;flex-direction:column;align-items:center;gap:5px;">
+
+                    <!-- Coin insert button -->
+                    <button id="cm-btn"
+                        style="width:100%;padding:8px 0;background:linear-gradient(135deg,#6d28d9,#a855f7);color:#fff;border:1px solid #c084fc;border-radius:8px;font-family:'Dancing Script',cursive;font-size:1rem;cursor:pointer;box-shadow:0 0 10px rgba(168,85,247,0.5);touch-action:manipulation;-webkit-user-select:none;user-select:none;letter-spacing:1px;"
+                        ontouchstart="this.style.transform='scale(0.96)';this.style.boxShadow='0 0 4px rgba(168,85,247,0.3)'"
+                        ontouchend="this.style.transform='scale(1)';this.style.boxShadow='0 0 10px rgba(168,85,247,0.5)'">
+                        🪙 Insert Coin
+                    </button>
+
+                    <!-- Dispense tray -->
+                    <div style="width:100%;background:#050010;border:1px solid #2d0050;border-radius:6px;height:22px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                        <div id="cm-tray-item" style="font-size:0.7rem;color:rgba(255,255,255,0.2);font-family:'EB Garamond',serif;letter-spacing:1px;">— tray —</div>
+                        <div id="cm-drop" style="position:absolute;top:-30px;font-size:1rem;transition:top 0.4s cubic-bezier(0.34,1.56,0.64,1);opacity:0;">💜</div>
+                    </div>
+                </div>
+
+                <!-- Coin counter strip -->
+                <div style="background:linear-gradient(90deg,#4a148c,#7e57c2,#4a148c);padding:3px 8px;text-align:center;">
+                    <div id="cm-counter" style="font-family:'EB Garamond',serif;font-size:0.65rem;color:rgba(255,255,255,0.7);letter-spacing:2px;">0 coins spent</div>
+                </div>
+            </div>
+
+            <div style="font-family:'EB Garamond',serif;font-size:0.65rem;color:rgba(255,255,255,0.2);letter-spacing:1px;text-align:center;margin-top:2px;">infinite supply · never runs out</div>
+        </div>
+    </div>
+</div>
+
+<style>
+.vm-slot {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(126,87,194,0.2);
+    border-radius: 5px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+</style>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -2850,15 +2932,36 @@ audio.volume = 0.4;
 
         const skipDates = new Set(['Cover', 'End', 'Index', 'New Year 2026']);
 
+        // Friendly display names for special pages
+        const friendlyNames = {
+            'Locked 2026':                   '🔒 Secret Letter',
+            '11 Mar 2026':                   '🎂 Birthday',
+            '25 Mar 2026':                   '💛 4 Month Anniversary',
+            '3 Month Anniversary 2026':      '💛 3 Month Anniversary',
+            '5th Month Anniversary 2026':    '💛 5 Month Anniversary',
+            '25 May 2026':                   '🎬 The Day We Met',
+            '8th Month Anniversary 2026':    '🌌 Our Universe',
+            'For You':                       '🎰 Compliment Machine',
+            'Happy 7 Months':                '💜 7 Month Anniversary',
+        };
+
+        // Compliments list for the For You page
+        const complimentsList = [];
+
         pages.forEach((page, idx) => {
             const date = page.getAttribute('data-date') || '';
             if (skipDates.has(date)) return;
 
+            const displayName = friendlyNames[date] || date;
+
             const row = document.createElement('div');
-            row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:7px 4px;border-bottom:1px solid rgba(126,87,194,0.15);gap:8px;';
+            row.style.cssText = 'display:flex;flex-direction:column;padding:7px 4px;border-bottom:1px solid rgba(126,87,194,0.15);gap:6px;';
+
+            const topRow = document.createElement('div');
+            topRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:8px;';
 
             const label = document.createElement('span');
-            label.textContent = date;
+            label.textContent = displayName;
             label.style.cssText = 'font-family:"Caveat",cursive;font-size:1.05rem;color:var(--ink);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
 
             const btn = document.createElement('button');
@@ -2868,17 +2971,15 @@ audio.volume = 0.4;
             btn.addEventListener('pointerdown', function(e) { e.stopPropagation(); });
             btn.addEventListener('touchstart', function(e) { e.stopPropagation(); }, { passive: false });
             btn.addEventListener('touchend', function(e) {
-                e.stopPropagation();
-                e.preventDefault();
-                pageFlip.flip(idx);
+                e.stopPropagation(); e.preventDefault(); pageFlip.flip(idx);
             }, { passive: false });
             btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                pageFlip.flip(idx);
+                e.stopPropagation(); pageFlip.flip(idx);
             });
 
-            row.appendChild(label);
-            row.appendChild(btn);
+            topRow.appendChild(label);
+            topRow.appendChild(btn);
+            row.appendChild(topRow);
             list.appendChild(row);
         });
     })();
@@ -2987,7 +3088,7 @@ audio.volume = 0.4;
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -4690,6 +4791,222 @@ function closeUnivLetter() {
 // once this has already run (guarded by univInitDone).
 initUniverse();
 
+// ═══════════════════════════════════════════════════════════════
+//  COMPLIMENT VENDING MACHINE
+// ═══════════════════════════════════════════════════════════════
+(function() {
+    const compliments = [
+        "Your eyes are a deep, warm honey brown — like a fire that doesn't hurt. They just make everything feel safe.",
+        "You are so drop-dead gorgeous it genuinely should be illegal.",
+        "Your smile doesn't just light up my day — it lights up my entire future.",
+        "You're the kindest person I have ever met. Not in a quiet way. In a way that changes people.",
+        "Your laugh is my favourite sound in the world. I would do anything to hear it.",
+        "You are strong in a way most people will never understand — because you make it look effortless.",
+        "Your beauty goes so much deeper than what a mirror could ever show.",
+        "You are patient in a way I don't deserve, and I am so grateful for it every single day.",
+        "The way your voice softens when you're being honest about something — I think about it more than you know.",
+        "You have a moral compass that puts everyone around you to shame. You always know what's right.",
+        "You are funny in a way that sneaks up on you. The best kind of funny.",
+        "Your determination is one of the most admirable things I have ever seen in a person.",
+        "You are going to be the most incredible mother one day. Our kids are so lucky already.",
+        "There is a warmth to you that makes every space you're in feel better.",
+        "You are the missing piece of every dream I didn't know I was having.",
+        "Your hair catches the light in a way that shouldn't be possible. The sun is showing off.",
+        "You overthink sometimes — and even that I find beautiful. It means you care.",
+        "You are the kind of person people write songs about without realising it.",
+        "Your resilience is breathtaking. You've been through things that would have broken other people.",
+        "You make ordinary moments feel like the kind of thing people spend their whole lives looking for.",
+        "You are not just beautiful — you are the kind of beautiful that gets more real the longer you look.",
+        "The way you care about people — quietly, without making it about yourself — is everything.",
+        "You have a spark that no bad day can take from you, no matter how hard it tries.",
+        "You are my safe haven. The whole world calms down the moment I hear your voice.",
+        "You are so easy to love, even when you are convinced you're not.",
+        "You make me want to be a better person — not because you ask me to, but because you deserve it.",
+        "Your smile is the reason I started looking forward to things again.",
+        "You are the only person I want to tell every piece of good news to. Always.",
+        "You carry a kindness that most people spend their whole lives trying to learn and never do.",
+        "You are my North Star — the clearest light I've ever found.",
+        "The cinnamon warmth in your eyes makes me feel like I am finally home.",
+        "You are not perfect because you have no flaws. You are perfect because your flaws are entirely yours.",
+        "You are the woman every dream I had about the future had in it — before I even knew your name.",
+        "The way you keep going when things get hard is one of the bravest things I have ever watched.",
+        "You are impossible to forget. Not that I would ever want to.",
+        "Your energy — that sudden beautiful chaos — is my favourite thing to be surprised by.",
+        "You are the reason I stopped just existing and started actually living.",
+        "Every single version of who I am becoming is because of you.",
+        "You deserve to be loved loudly, consistently, and completely. And I mean to do exactly that.",
+        "You make even the longest silences feel like somewhere I want to be.",
+        "You are the kind of girl people search their whole lives for. I found you. I'm not letting go.",
+        "Your face when you're trying not to smile — that is my favourite sight in the world.",
+        "You are so incredibly seen. Every small thing you do, I notice. Every bit of it matters.",
+        "The way you handle hard things without falling apart makes me incredibly proud of you.",
+        "You are going to look back on this year and realise just how strong you actually were.",
+        "You are my first valentine, my last thought, and everything in between.",
+        "You light up not just my day — you light up my past, my present, and every version of my future.",
+        "I have never felt more at home with another person in my entire life. That's you. That's entirely you.",
+        "You are loved more than these words can carry. More than any page in this book can hold.",
+        "You walked into my life as a stranger and somehow became the only person I can't imagine it without.",
+        "You are the kind of rare that people don't realise is rare until they've lost it. I will never lose it.",
+        "Watching you try — really try — at something is one of the most beautiful things I have ever seen.",
+        "You make every single place feel like somewhere worth being.",
+        "I would choose you again on every bad day, every hard week, every difficult season. Always.",
+        "You don't even know how many times a day something happens and you're the first person I want to tell.",
+        "The way you love people — even the ones who don't deserve it — says everything about who you are.",
+        "You are so much more than you give yourself credit for. Every single day.",
+        "You are going to be so proud of yourself one day. I already am.",
+        "Your kindness isn't weakness. It is the strongest thing about you.",
+        "You are the most naturally beautiful person I have ever seen in my life. Without even trying.",
+        "The way you make people feel seen is a gift most people will never be able to give.",
+        "You have this way of turning even the hardest days into something survivable. I need you to know that.",
+        "You are exactly the kind of person the world needs more of and somehow I get to keep you.",
+        "There is nobody on this earth like you. I have never been more certain of anything.",
+        "You make home feel like a feeling instead of a place.",
+        "The things you've been through would have defeated most people. Not you. Never you.",
+        "You are so worth fighting for. Every argument, every hard conversation, every difficult moment — worth it.",
+        "You notice things nobody else notices. You feel things nobody else feels. That's not a flaw. That's a gift.",
+        "You are somebody's answered prayer. You're mine.",
+        "The way you laugh at your own jokes before you finish them — I hope that never changes.",
+        "You are genuinely one of the funniest people alive and I don't think you even know it.",
+        "You have never once made me feel invisible. That means more than you will ever know.",
+        "I look at you and see my whole future. Every version of it. Always with you in it.",
+        "You are exactly as beautiful as I tell you. The fact that you don't believe it doesn't make it less true.",
+        "You have this quiet strength that only shows up when everything is falling apart. It is extraordinary.",
+        "Being loved by you has made me better at everything. At being a person. At caring. At trying.",
+        "You are going to do incredible things. I have never been more sure of something in my life.",
+        "Your voice, your laugh, your silence — I could listen to any version of you forever.",
+        "The way you look when you're concentrating on something is one of my favourite things on this earth.",
+        "You are somebody I would have written a poem about before I even knew your name.",
+        "You have changed the way I see the world. I mean that in the most permanent way possible.",
+        "There is not a single thing about you I would change. Not one.",
+        "You deserve flowers and long drives and someone who texts back immediately. You deserve all of it.",
+        "I don't have the words for how proud of you I am. But I am. Every day. So unbelievably proud.",
+        "You are the kind of person who makes everyone around them a little better just by existing.",
+        "You have this light. I don't know what else to call it. It just follows you everywhere you go.",
+        "You are everything I hoped for and nothing I expected and somehow exactly what I needed.",
+        "The way you care about the people you love is one of the most beautiful things I have ever witnessed.",
+        "You are going to be an amazing wife. Our life together is going to be everything.",
+        "You feel deeply, love deeply, and hurt deeply — and that is not a weakness. That is who you are.",
+        "I have genuinely never met anyone like you. Not even close.",
+        "You are the reason I started believing that things could actually work out.",
+        "You are worth every late night, every hard conversation, every moment of growth. A hundred times over.",
+        "If I had to pick one person to face every version of life with, I would pick you every single time.",
+        "You are not just someone I love. You are someone I like. Deeply. Genuinely. Every day.",
+        "You are the best thing that has ever happened to me. That is not an exaggeration. That is just true.",
+        "Loving you has been the easiest and the most important thing I have ever done.",
+        "You are going to read this and probably say 'stop it' — but every single word is true. Every one.",
+    ];
+
+    let lastIdx = -1;
+    let usedIndices = [];
+    let coinCount = 0;
+    const emojis = ['💜','💌','✨','🌙','💫','🌹','💎','❤️','🦋','🌸'];
+
+    // Seed stars
+    const starContainer = document.getElementById('cm-stars');
+    if (starContainer) {
+        for (let i = 0; i < 55; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = (Math.random() * 1.6 + 0.3) + 'px';
+            s.style.width = sz; s.style.height = sz;
+            s.style.top  = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            starContainer.appendChild(s);
+        }
+    }
+
+    function getNext() {
+        if (usedIndices.length === compliments.length) usedIndices = [];
+        let idx;
+        do { idx = Math.floor(Math.random() * compliments.length); }
+        while (usedIndices.includes(idx) || idx === lastIdx);
+        usedIndices.push(idx);
+        lastIdx = idx;
+        return idx;
+    }
+
+    function animateDrop() {
+        const drop = document.getElementById('cm-drop');
+        const tray = document.getElementById('cm-tray-item');
+        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+        if (!drop) return;
+
+        drop.textContent = emoji;
+        drop.style.opacity = '1';
+        drop.style.top = '-30px';
+
+        // Force reflow
+        drop.getBoundingClientRect();
+
+        // Drop into tray
+        drop.style.top = '2px';
+
+        setTimeout(() => {
+            if (tray) tray.style.opacity = '0';
+            setTimeout(() => {
+                drop.style.opacity = '0';
+                drop.style.top = '-30px';
+                if (tray) {
+                    tray.textContent = emoji + ' dispensed!';
+                    tray.style.color = 'rgba(206,123,255,0.8)';
+                    tray.style.opacity = '1';
+                }
+            }, 500);
+        }, 450);
+    }
+
+    function flashSlots() {
+        const slots = document.querySelectorAll('.vm-slot');
+        slots.forEach((s, i) => {
+            setTimeout(() => {
+                s.style.background = 'rgba(168,85,247,0.3)';
+                s.style.borderColor = '#a855f7';
+                setTimeout(() => {
+                    s.style.background = 'rgba(255,255,255,0.04)';
+                    s.style.borderColor = 'rgba(126,87,194,0.2)';
+                }, 200);
+            }, i * 60);
+        });
+    }
+
+    function dispense() {
+        const textEl    = document.getElementById('cm-text');
+        const counterEl = document.getElementById('cm-counter');
+        if (!textEl) return;
+
+        coinCount++;
+        const idx = getNext();
+
+        // Screen flicker then update
+        textEl.style.opacity = '0';
+        setTimeout(() => {
+            textEl.textContent = compliments[idx];
+            textEl.style.color = '#e8d5ff';
+            textEl.style.opacity = '1';
+        }, 280);
+
+        animateDrop();
+        flashSlots();
+
+        if (counterEl) {
+            counterEl.textContent = coinCount === 1 ? '1 coin spent' : `${coinCount} coins spent`;
+        }
+
+        // Every 5 coins — confetti
+        if (coinCount % 5 === 0) {
+            confetti({ particleCount: 50, spread: 55, origin: { y: 0.6 },
+                colors: ['#e91e63','#7e57c2','#b39ddb','#ffffff','#a855f7'] });
+        }
+    }
+
+    const btn = document.getElementById('cm-btn');
+    if (!btn) return;
+    btn.addEventListener('pointerdown', e => e.stopPropagation());
+    btn.addEventListener('touchstart',  e => e.stopPropagation(), { passive: false });
+    btn.addEventListener('touchend',    e => { e.stopPropagation(); e.preventDefault(); dispense(); }, { passive: false });
+    btn.addEventListener('click',       e => { e.stopPropagation(); dispense(); });
+})();
 </script>
 </body>
 
