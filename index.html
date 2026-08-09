@@ -344,7 +344,7 @@ body {
     <span id="music-icon" style="font-size: 24px;">🎵</span>
 </div>
 
-<div id="sfx-control" title="Toggle sound effects" style="position: fixed; top: 20px; right: 75px; z-index: 1000; cursor: pointer; background: rgba(74, 20, 140, 0.8); padding: 10px; border-radius: 50%; border: 1px solid #9b59b6; box-shadow: 0 0 10px rgba(155, 89, 182, 0.5); touch-action: manipulation; -webkit-user-select: none; user-select: none;">
+<div id="sfx-control" title="Toggle sound effects" style="position: fixed; top: 75px; right: 20px; z-index: 1000; cursor: pointer; background: rgba(74, 20, 140, 0.8); padding: 10px; border-radius: 50%; border: 1px solid #9b59b6; box-shadow: 0 0 10px rgba(155, 89, 182, 0.5); touch-action: manipulation; -webkit-user-select: none; user-select: none;">
     <span id="sfx-icon" style="font-size: 24px;">🔊</span>
 </div>
 
@@ -367,8 +367,8 @@ body {
 
 <!-- ═══ SOUND EFFECTS ═══ -->
 <audio id="sfx-page"     preload="auto" style="display:none;"></audio>
-<audio id="sfx-coin"     src="freesound_gamestudio-drop-coin-384921_.mp3" preload="auto" style="display:none;"></audio>
-<audio id="sfx-seal"     src="dragon-studio-pop-402324__1_.mp3"              preload="auto" style="display:none;"></audio>
+<audio id="sfx-coin"     src="freesound_gamestudio-drop-coin-384921.mp3" preload="auto" style="display:none;"></audio>
+<audio id="sfx-seal"     src="dragon-studio-pop-402324.mp3"              preload="auto" style="display:none;"></audio>
 <audio id="sfx-firework" preload="auto" style="display:none;"></audio>
 
 <button id="back-to-index-btn"
@@ -381,7 +381,7 @@ body {
     ☰ Index
 </button>
 
-<div id="music-menu" style="display: none; position: fixed; top: 80px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
+<div id="music-menu" style="display: none; position: fixed; top: 130px; right: 20px; z-index: 1001; background: #0a0a0a; border: 1px solid #9b59b6; border-radius: 15px; padding: 15px; width: 200px; box-shadow: 0 0 20px rgba(0,0,0,0.8); color: white; font-family: 'EB Garamond';">
     <p style="margin: 0 0 10px 0; text-align: center; border-bottom: 1px solid #4a148c; padding-bottom: 5px; color: #ce7bff;">Choose Our Vibe</p>
     
     <div class="music-option" onclick="selectMusic('wontletgo.mp3')">say you wont let go </div>
@@ -5258,12 +5258,12 @@ function playFirework() {
 
 // Weather ambient sounds — real recorded ambience, looped softly under everything else
 const weatherAmbientFiles = {
-    rain:  'dragon-studio-cozy-midnight-rain-02-448573__1_.mp3',
-    storm: 'dragon-studio-cozy-midnight-rain-02-448573__1_.mp3',
-    wind:  'alex_jauk-windy-night-forest-ambience-211715__1_.mp3',
-    snow:  'mind_out_of_office-sound-of-falling-snow-211055__1_.mp3',
-    night: 'simjoo-ambient-sounds-at-night-243045__1_.mp3',
-    sunny: 'freesound_community-garden-sunny-day-54490__1_.mp3'
+    rain:  'dragon-studio-cozy-midnight-rain-02-448573.mp3',
+    storm: 'dragon-studio-cozy-midnight-rain-02-448573.mp3',
+    wind:  'alex_jauk-windy-night-forest-ambience-211715.mp3',
+    snow:  'mind_out_of_office-sound-of-falling-snow-211055.mp3',
+    night: 'simjoo-ambient-sounds-at-night-243045.mp3',
+    sunny: 'freesound_community-garden-sunny-day-54490.mp3'
 };
 const weatherAmbientVolume = {
     rain: 0.22, storm: 0.32, wind: 0.2, snow: 0.18, night: 0.16, sunny: 0.18
