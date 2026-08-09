@@ -344,6 +344,28 @@ body {
 </div>
 
 <!-- Back to Index button — hidden on Cover/Index pages -->
+<!-- ═══ OPENING SEQUENCE OVERLAY ═══ -->
+<div id="opening-overlay" style="position:fixed;inset:0;z-index:99999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
+    <canvas id="opening-stars" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;"></canvas>
+    <div id="opening-content" style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transition:opacity 1s;">
+        <div id="opening-initials" style="font-family:'Dancing Script',cursive;font-size:5rem;line-height:1;background:linear-gradient(180deg,#fff 0%,#b39ddb 40%,#7e57c2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 20px rgba(126,87,194,0.8));opacity:0;transition:opacity 1.2s;"></div>
+        <div id="opening-divider" style="width:0px;height:1px;background:linear-gradient(to right,transparent,#d4af37,transparent);transition:width 1.5s ease;margin:4px 0;"></div>
+        <div id="opening-subtitle" style="font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,0.5);letter-spacing:3px;opacity:0;transition:opacity 1s;"></div>
+        <div id="opening-date" style="font-family:'Caveat',cursive;font-size:1.3rem;color:rgba(179,157,219,0.7);opacity:0;transition:opacity 1s;margin-top:6px;"></div>
+        <div id="opening-heartbeat" style="font-size:2rem;opacity:0;transition:opacity 0.5s;margin-top:10px;">❤️</div>
+        <div id="opening-tap" style="font-family:'EB Garamond',serif;font-size:0.7rem;color:rgba(255,255,255,0.2);letter-spacing:3px;text-transform:uppercase;opacity:0;transition:opacity 1s;margin-top:20px;animation:vnblink 2s infinite;">tap to open</div>
+    </div>
+</div>
+
+<!-- ═══ WEATHER AMBIENT AUDIO ═══ -->
+<audio id="weather-audio" loop style="display:none;"></audio>
+
+<!-- ═══ SOUND EFFECTS ═══ -->
+<audio id="sfx-page"     preload="auto" style="display:none;"></audio>
+<audio id="sfx-coin"     preload="auto" style="display:none;"></audio>
+<audio id="sfx-seal"     preload="auto" style="display:none;"></audio>
+<audio id="sfx-firework" preload="auto" style="display:none;"></audio>
+
 <button id="back-to-index-btn"
     style="display:none; position:fixed; top:20px; left:20px; z-index:1000;
            background:rgba(74,20,140,0.8); color:#fff; border:1px solid #9b59b6;
@@ -363,6 +385,17 @@ body {
 	<div class="music-option" onclick="selectMusic('strings.mp3')">strings</div>
     
     <div class="music-option" onclick="selectMusic('none')" style="color: #ff85a2; border-top: 1px solid #4a148c; margin-top: 5px;">No Music</div>
+
+    <!-- Volume slider -->
+    <div style="margin-top:10px;border-top:1px solid #4a148c;padding-top:10px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">🔈</span>
+            <input type="range" id="volume-slider" class="vol-slider" min="0" max="100" value="40"
+                style="flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:linear-gradient(to right,#9b59b6 40%,rgba(255,255,255,0.15) 40%);outline:none;cursor:pointer;"
+                oninput="setVolume(this.value)">
+            <span style="font-size:0.8rem;color:rgba(255,255,255,0.4);">🔊</span>
+        </div>
+    </div>
 </div>
 
 <audio id="bg-music" loop></audio>
@@ -375,6 +408,8 @@ body {
                 <div id="daysCounter" style="font-style: italic; margin-bottom: 10px;">Calculating...</div>
                 <div style="font-size: 3rem;">❤️</div>
                 <h2 style="margin-top: 15px;">Our Love Book</h2>
+                <div id="weather-hint" style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.85rem;color:rgba(74,20,140,0.6);margin-top:8px;min-height:20px;letter-spacing:0.5px;transition:opacity 1s;opacity:0;"></div>
+                <div id="weather-icon-cover" style="font-size:1.2rem;margin-top:4px;opacity:0;transition:opacity 1s;"></div>
             </div>
         </div>
 
@@ -2899,6 +2934,38 @@ document.addEventListener('click', function(event) {
     }
 });   
 audio.volume = 0.4;
+
+function setVolume(val) {
+    const audio = document.getElementById('bg-music');
+    const v = val / 100;
+    audio.volume = v;
+    // Sync all sliders
+    document.querySelectorAll('.vol-slider').forEach(s => {
+        s.value = val;
+        s.style.background = `linear-gradient(to right,#9b59b6 ${val}%,rgba(255,255,255,0.15) ${val}%)`;
+    });
+}
+
+// Style the volume slider thumb
+const volStyle = document.createElement('style');
+volStyle.textContent = `
+    input[type=range].vol-slider::-webkit-slider-thumb {
+        -webkit-appearance:none; width:14px; height:14px;
+        border-radius:50%; background:#ce7bff;
+        box-shadow:0 0 6px rgba(206,123,255,0.6); cursor:pointer;
+    }
+    input[type=range].vol-slider::-moz-range-thumb {
+        width:14px; height:14px; border:none;
+        border-radius:50%; background:#ce7bff; cursor:pointer;
+    }
+`;
+document.head.appendChild(volStyle);
+
+// Apply class to existing slider
+document.addEventListener('DOMContentLoaded', () => {
+    const s = document.getElementById('volume-slider');
+    if (s) s.classList.add('vol-slider');
+});
     let currentPin = "";
 
     function pressNum(num) {
@@ -2909,8 +2976,8 @@ audio.volume = 0.4;
     
     function checkPin() {
     if(currentPin === "2511") {
-        // Changed from 'envelopeWrapper' to 'envelope-wrapper'
-        document.getElementById('envelopeWrapper').style.display = "block"; 
+        document.getElementById('envelopeWrapper').style.display = "block";
+        unlockAudio(); playSeal();
     } else {
         alert("Wrong code! ❤️");
         clearPin();
@@ -5007,6 +5074,502 @@ initUniverse();
     btn.addEventListener('touchend',    e => { e.stopPropagation(); e.preventDefault(); dispense(); }, { passive: false });
     btn.addEventListener('click',       e => { e.stopPropagation(); dispense(); });
 })();
+
+// ═══════════════════════════════════════════════════════════════
+//  SOUND EFFECTS
+// ═══════════════════════════════════════════════════════════════
+let audioUnlocked = false;
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let actx = null;
+
+function unlockAudio() {
+    if (audioUnlocked) return;
+    audioUnlocked = true;
+    // Create and immediately suspend a ctx to satisfy browser autoplay policy
+    actx = new AudioCtx();
+    actx.resume();
+}
+
+// Generate sounds procedurally so no files needed
+// Page flip sound — loaded from file, played softly
+let flipSoundBuffer = null;
+
+(function loadFlipSound() {
+    if (!window.AudioContext && !window.webkitAudioContext) return;
+    // Lazy-load after first interaction to avoid CORS/autoplay issues
+    function load() {
+        if (flipSoundBuffer) return;
+        const tmpCtx = actx || new (window.AudioContext || window.webkitAudioContext)();
+        fetch('./page-flip.mp3')
+            .then(r => r.arrayBuffer())
+            .then(ab => tmpCtx.decodeAudioData(ab))
+            .then(decoded => { flipSoundBuffer = decoded; })
+            .catch(() => {});
+    }
+    document.addEventListener('click',     load, { once: true });
+    document.addEventListener('touchstart',load, { once: true, passive: true });
+})();
+
+function playPageTurn() {
+    if (!actx) return;
+    if (flipSoundBuffer) {
+        const src  = actx.createBufferSource();
+        const gain = actx.createGain();
+        // Low-pass filter to take the edge off and make it softer
+        const filt = actx.createBiquadFilter();
+        filt.type = 'lowpass';
+        filt.frequency.value = 3500;
+        filt.Q.value = 0.7;
+        src.buffer = flipSoundBuffer;
+        src.playbackRate.value = 0.95; // very slightly slower = softer feel
+        gain.gain.value = 0.28;        // quiet — adjust 0.1–0.5 to taste
+        src.connect(filt); filt.connect(gain); gain.connect(actx.destination);
+        src.start();
+    } else {
+        // Fallback elegant whoosh if file hasn't loaded yet
+        const duration = 0.45, sr = actx.sampleRate;
+        const buf = actx.createBuffer(1, sr * duration, sr);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        const noise = actx.createBufferSource();
+        noise.buffer = buf;
+        const sweep = actx.createBiquadFilter();
+        sweep.type = 'bandpass';
+        sweep.frequency.setValueAtTime(3200, actx.currentTime);
+        sweep.frequency.exponentialRampToValueAtTime(800, actx.currentTime + duration);
+        sweep.Q.value = 2.5;
+        const env = actx.createGain();
+        env.gain.setValueAtTime(0, actx.currentTime);
+        env.gain.linearRampToValueAtTime(0.05, actx.currentTime + 0.04);
+        env.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + duration);
+        noise.connect(sweep); sweep.connect(env); env.connect(actx.destination);
+        noise.start(); noise.stop(actx.currentTime + duration);
+    }
+}
+
+function playCoin() {
+    if (!actx) return;
+    const osc = actx.createOscillator();
+    const gain = actx.createGain();
+    osc.connect(gain); gain.connect(actx.destination);
+    osc.frequency.setValueAtTime(1200, actx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(600, actx.currentTime + 0.15);
+    gain.gain.setValueAtTime(0.3, actx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, actx.currentTime + 0.25);
+    osc.start(); osc.stop(actx.currentTime + 0.25);
+}
+
+function playSeal() {
+    if (!actx) return;
+    // Wax seal pop — short thump
+    const buf = actx.createBuffer(1, actx.sampleRate * 0.12, actx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) {
+        const t = i / actx.sampleRate;
+        d[i] = Math.sin(2 * Math.PI * 80 * t) * Math.exp(-30 * t) * 0.6;
+    }
+    const src = actx.createBufferSource();
+    src.buffer = buf; src.connect(actx.destination); src.start();
+}
+
+function playFirework() {
+    if (!actx) return;
+    // Bang + crackle
+    const buf = actx.createBuffer(1, actx.sampleRate * 0.5, actx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) {
+        const t = i / actx.sampleRate;
+        d[i] = (Math.random() * 2 - 1) * Math.exp(-8 * t) * 0.5;
+    }
+    const src = actx.createBufferSource();
+    const filt = actx.createBiquadFilter();
+    filt.type = 'lowpass'; filt.frequency.value = 400;
+    src.buffer = buf; src.connect(filt); filt.connect(actx.destination); src.start();
+}
+
+// Weather ambient sounds using oscillators + noise
+let weatherAmbientNode = null;
+let weatherAmbientGain = null;
+
+function stopWeatherAmbient() {
+    if (weatherAmbientGain) {
+        weatherAmbientGain.gain.setTargetAtTime(0, actx ? actx.currentTime : 0, 0.5);
+        setTimeout(() => {
+            try { weatherAmbientNode && weatherAmbientNode.disconnect(); } catch(e) {}
+            weatherAmbientNode = null; weatherAmbientGain = null;
+        }, 1500);
+    }
+}
+
+function playWeatherAmbient(type) {
+    if (!actx) return;
+    stopWeatherAmbient();
+    setTimeout(() => {
+        if (!actx) return;
+        const gainNode = actx.createGain();
+        gainNode.gain.setValueAtTime(0, actx.currentTime);
+        gainNode.connect(actx.destination);
+        weatherAmbientGain = gainNode;
+
+        let sourceNode;
+
+        if (type === 'rain' || type === 'storm') {
+            // White noise for rain
+            const bufSize = actx.sampleRate * 2;
+            const noiseBuf = actx.createBuffer(1, bufSize, actx.sampleRate);
+            const nd = noiseBuf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) nd[i] = Math.random() * 2 - 1;
+            const noise = actx.createBufferSource();
+            noise.buffer = noiseBuf; noise.loop = true;
+            const filt = actx.createBiquadFilter();
+            filt.type = 'bandpass';
+            filt.frequency.value = type === 'storm' ? 600 : 800;
+            filt.Q.value = 0.5;
+            noise.connect(filt); filt.connect(gainNode);
+            noise.start();
+            sourceNode = noise;
+            gainNode.gain.setTargetAtTime(type === 'storm' ? 0.15 : 0.08, actx.currentTime, 1);
+        } else if (type === 'wind' || type === 'snow') {
+            // Low filtered noise for wind
+            const bufSize = actx.sampleRate * 2;
+            const noiseBuf = actx.createBuffer(1, bufSize, actx.sampleRate);
+            const nd = noiseBuf.getChannelData(0);
+            for (let i = 0; i < bufSize; i++) nd[i] = Math.random() * 2 - 1;
+            const noise = actx.createBufferSource();
+            noise.buffer = noiseBuf; noise.loop = true;
+            const filt = actx.createBiquadFilter();
+            filt.type = 'lowpass'; filt.frequency.value = 200; filt.Q.value = 1;
+            noise.connect(filt); filt.connect(gainNode);
+            noise.start();
+            sourceNode = noise;
+            gainNode.gain.setTargetAtTime(0.05, actx.currentTime, 1);
+        } else if (type === 'night') {
+            // Subtle oscillating hum for crickets
+            const osc = actx.createOscillator();
+            osc.frequency.value = 3800;
+            osc.type = 'sine';
+            const lfo = actx.createOscillator();
+            lfo.frequency.value = 6;
+            const lfoGain = actx.createGain();
+            lfoGain.gain.value = 0.5;
+            lfo.connect(lfoGain); lfoGain.connect(gainNode.gain);
+            osc.connect(gainNode); lfo.start(); osc.start();
+            sourceNode = osc;
+            gainNode.gain.setTargetAtTime(0.03, actx.currentTime, 1);
+        } else if (type === 'sunny') {
+            // Very light high shimmer
+            const osc = actx.createOscillator();
+            osc.frequency.value = 5000; osc.type = 'sine';
+            const lfo = actx.createOscillator();
+            lfo.frequency.value = 0.3;
+            const lfoGain = actx.createGain(); lfoGain.gain.value = 0.01;
+            lfo.connect(lfoGain); lfoGain.connect(gainNode.gain);
+            osc.connect(gainNode); lfo.start(); osc.start();
+            sourceNode = osc;
+            gainNode.gain.setTargetAtTime(0.015, actx.currentTime, 1);
+        } else {
+            return; // cloudy — silence
+        }
+
+        weatherAmbientNode = sourceNode;
+    }, 600);
+}
+
+// Hook page turn sound into flip event
+pageFlip.on('flip', function() {
+    unlockAudio();
+    playPageTurn();
+});
+
+// Hook coin sound into vending machine
+const _origDispense = window._vmDispense;
+document.getElementById('cm-btn') && document.getElementById('cm-btn').addEventListener('touchend', () => { unlockAudio(); playCoin(); }, { passive: true });
+document.getElementById('cm-btn') && document.getElementById('cm-btn').addEventListener('click', () => { unlockAudio(); playCoin(); });
+
+// Hook firework sound into New Year page flip
+const _origFlip = pageFlip.on.bind(pageFlip);
+pageFlip.on('flip', function(e) {
+    const pages = document.querySelectorAll('.page');
+    if (pages[e.data] && pages[e.data].getAttribute('data-date') === 'New Year 2026') {
+        setTimeout(() => { unlockAudio(); playFirework(); }, 500);
+        setTimeout(() => { unlockAudio(); playFirework(); }, 1200);
+        setTimeout(() => { unlockAudio(); playFirework(); }, 2100);
+    }
+});
+
+// ═══════════════════════════════════════════════════════════════
+//  WEATHER SYSTEM
+// ═══════════════════════════════════════════════════════════════
+const WEATHER_KEY = '527977c4c9e59f77add607393ea487c8';
+
+const weatherConfig = {
+    clear:   { hint: "even the sun is showing off for you today ☀️",         icon: "☀️",  ambient: "sunny",  bg: "radial-gradient(ellipse at top, #ffd89b 0%, #19547b 100%)", pageFilter: "sepia(0.08) brightness(1.04)" },
+    clouds:  { hint: "even grey skies can't dim what's in here 🌤️",          icon: "🌤️", ambient: null,     bg: null, pageFilter: "brightness(0.97)" },
+    rain:    { hint: "rainy days are made for love letters 🌧️",              icon: "🌧️", ambient: "rain",   bg: "radial-gradient(ellipse at top, #4b6cb7 0%, #182848 100%)", pageFilter: "brightness(0.93) saturate(0.9)" },
+    drizzle: { hint: "rainy days are made for love letters 🌦️",              icon: "🌦️", ambient: "rain",   bg: null, pageFilter: "brightness(0.95)" },
+    thunderstorm: { hint: "even the storms know your name ⛈️",              icon: "⛈️", ambient: "storm",  bg: "radial-gradient(ellipse at top, #1a1a2e 0%, #16213e 100%)", pageFilter: "brightness(0.88) saturate(0.8)" },
+    snow:    { hint: "the whole world went quiet today — perfect for this ❄️", icon: "❄️", ambient: "snow",   bg: "radial-gradient(ellipse at top, #e0eafc 0%, #cfdef3 100%)", pageFilter: "brightness(1.05) saturate(0.7)" },
+    mist:    { hint: "even grey skies can't dim what's in here 🌫️",          icon: "🌫️", ambient: "wind",   bg: null, pageFilter: "brightness(0.96)" },
+    night:   { hint: "reading this late? some things can't wait till morning 🌙", icon: "🌙", ambient: "night", bg: "radial-gradient(ellipse at top, #0f0c29 0%, #302b63 50%, #24243e 100%)", pageFilter: "brightness(0.92)" },
+};
+
+function applyWeather(condition, isNight) {
+    const key = isNight ? 'night' : (weatherConfig[condition] ? condition : 'clouds');
+    const cfg = weatherConfig[key] || weatherConfig.clouds;
+
+    // Cover hint
+    const hintEl = document.getElementById('weather-hint');
+    const iconEl = document.getElementById('weather-icon-cover');
+    if (hintEl) { hintEl.textContent = cfg.hint; hintEl.style.opacity = '1'; }
+    if (iconEl) { iconEl.textContent = cfg.icon; iconEl.style.opacity = '1'; }
+
+    // Body background tint
+    if (cfg.bg) document.body.style.background = cfg.bg;
+
+    // Page filter
+    if (cfg.pageFilter) {
+        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"])').forEach(p => {
+            p.style.filter = cfg.pageFilter;
+        });
+    }
+
+    // Weather visual overlay on book pages
+    addWeatherOverlay(key);
+
+    // Ambient sound (starts after first user interaction)
+    if (cfg.ambient) {
+        document.addEventListener('click',     () => playWeatherAmbient(cfg.ambient), { once: true });
+        document.addEventListener('touchstart',() => playWeatherAmbient(cfg.ambient), { once: true, passive: true });
+    }
+}
+
+function addWeatherOverlay(type) {
+    // Remove existing
+    const old = document.getElementById('weather-overlay');
+    if (old) old.remove();
+
+    if (type !== 'rain' && type !== 'thunderstorm' && type !== 'snow') return;
+
+    const ov = document.createElement('canvas');
+    ov.id = 'weather-overlay';
+    ov.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:998;pointer-events:none;opacity:0.35;';
+    document.body.appendChild(ov);
+    const ctx = ov.getContext('2d');
+    ov.width = window.innerWidth; ov.height = window.innerHeight;
+    const W = ov.width, H = ov.height;
+
+    const particles = [];
+    const count = type === 'snow' ? 60 : 120;
+
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            len: type === 'snow' ? 0 : (Math.random() * 15 + 8),
+            r: type === 'snow' ? (Math.random() * 3 + 1) : 0,
+            speed: type === 'snow' ? (Math.random() * 0.8 + 0.3) : (Math.random() * 4 + 8),
+            angle: type === 'thunderstorm' ? 0.4 : 0.15,
+            alpha: Math.random() * 0.5 + 0.2,
+        });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        particles.forEach(p => {
+            ctx.globalAlpha = p.alpha;
+            if (type === 'snow') {
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+                p.x += Math.sin(Date.now() * 0.001 + p.y) * 0.3;
+                p.y += p.speed;
+                if (p.y > H) { p.y = -10; p.x = Math.random() * W; }
+            } else {
+                ctx.strokeStyle = '#a8c8ff';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p.x + p.len * Math.sin(p.angle), p.y + p.len);
+                ctx.stroke();
+                p.x += p.speed * Math.sin(p.angle);
+                p.y += p.speed;
+                if (p.y > H) { p.y = -20; p.x = Math.random() * W; }
+            }
+        });
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
+
+function fetchWeather() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude: lat, longitude: lon } = pos.coords;
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`)
+            .then(r => r.json())
+            .then(data => {
+                const condition = data.weather[0].main.toLowerCase();
+                const hour = new Date().getHours();
+                const isNight = hour < 6 || hour >= 20;
+                applyWeather(condition, isNight);
+            })
+            .catch(() => {});
+    }, () => {
+        // No location — use time of day only
+        const hour = new Date().getHours();
+        if (hour < 6 || hour >= 20) applyWeather('clear', true);
+    }, { timeout: 8000 });
+}
+
+// Fetch weather on load
+fetchWeather();
+
+// ═══════════════════════════════════════════════════════════════
+//  OPENING SEQUENCE
+// ═══════════════════════════════════════════════════════════════
+(function() {
+    const overlay  = document.getElementById('opening-overlay');
+    const content  = document.getElementById('opening-content');
+    const initials = document.getElementById('opening-initials');
+    const divider  = document.getElementById('opening-divider');
+    const subtitle = document.getElementById('opening-subtitle');
+    const dateEl   = document.getElementById('opening-date');
+    const heartEl  = document.getElementById('opening-heartbeat');
+    const tapEl    = document.getElementById('opening-tap');
+    const starsCanvas = document.getElementById('opening-stars');
+
+    if (!overlay) return;
+
+    // Draw stars on opening canvas
+    const sc = starsCanvas.getContext('2d');
+    starsCanvas.width  = window.innerWidth;
+    starsCanvas.height = window.innerHeight;
+    const stars = Array.from({length: 150}, () => ({
+        x: Math.random() * starsCanvas.width,
+        y: Math.random() * starsCanvas.height,
+        r: Math.random() * 1.5 + 0.2,
+        a: Math.random(),
+        da: (Math.random() * 0.008 + 0.002) * (Math.random() < 0.5 ? 1 : -1)
+    }));
+
+    function drawStars() {
+        sc.fillStyle = '#000';
+        sc.fillRect(0, 0, starsCanvas.width, starsCanvas.height);
+        stars.forEach(s => {
+            s.a += s.da;
+            if (s.a > 1 || s.a < 0.05) s.da *= -1;
+            sc.globalAlpha = s.a;
+            sc.fillStyle = '#fff';
+            sc.beginPath();
+            sc.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            sc.fill();
+        });
+        sc.globalAlpha = 1;
+        if (overlay.style.display !== 'none') requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // Calculate days together for subtitle
+    const start = new Date("2025/11/25");
+    const days  = Math.floor(Math.abs(new Date() - start) / 86400000);
+
+    // Sequence
+    setTimeout(() => { content.style.opacity  = '1'; }, 300);
+    setTimeout(() => { initials.textContent = 'M & T'; initials.style.opacity = '1'; }, 600);
+    setTimeout(() => { divider.style.width   = '140px'; }, 1400);
+    setTimeout(() => { subtitle.textContent  = 'our love book'; subtitle.style.opacity = '1'; }, 1900);
+    setTimeout(() => { dateEl.textContent    = days + ' days together'; dateEl.style.opacity = '1'; }, 2600);
+    setTimeout(() => { heartEl.style.opacity = '1'; }, 3300);
+    setTimeout(() => {
+        tapEl.style.opacity = '1';
+        // Heartbeat pulse on initials
+        let beat = 0;
+        const pulse = setInterval(() => {
+            beat++;
+            heartEl.style.transform = beat % 2 === 0 ? 'scale(1.25)' : 'scale(1)';
+            heartEl.style.transition = 'transform 0.15s';
+            if (beat > 10) clearInterval(pulse);
+        }, 300);
+    }, 3800);
+
+    function closeOpening() {
+        unlockAudio();
+        overlay.style.transition = 'opacity 1s';
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            showMusicPicker();
+        }, 1000);
+    }
+
+    function showMusicPicker() {
+        // Build the music picker popup
+        const picker = document.createElement('div');
+        picker.id = 'opening-music-picker';
+        picker.style.cssText = [
+            'position:fixed','inset:0','z-index:99998',
+            'background:rgba(0,0,0,0.85)',
+            'display:flex','align-items:center','justify-content:center',
+            'opacity:0','transition:opacity 0.5s',
+            'backdrop-filter:blur(6px)'
+        ].join(';');
+
+        picker.innerHTML = `
+            <div style="background:linear-gradient(135deg,#0d001a,#1a0035);border:1px solid #9b59b6;border-radius:20px;padding:24px 22px;width:82%;max-width:320px;box-shadow:0 0 40px rgba(126,87,194,0.5);text-align:center;">
+                <div style="font-family:'Dancing Script',cursive;font-size:1.8rem;color:#ce7bff;margin-bottom:4px;">Set the mood 🎵</div>
+                <div style="font-family:'EB Garamond',serif;font-style:italic;font-size:0.8rem;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:18px;">choose a song to play while you read</div>
+                <div style="display:flex;flex-direction:column;gap:8px;">
+                    ${[
+                        { file: 'wontletgo.mp3',  label: 'Say You Won\'t Let Go' },
+                        { file: 'wantisyou.mp3',  label: 'All I Want Is You' },
+                        { file: 'wayyouare.mp3',  label: 'Just The Way You Are' },
+                        { file: 'strings.mp3',    label: 'Strings' },
+                    ].map(s => `
+                        <button onclick="selectMusic('${s.file}');closeMusicPicker()" style="width:100%;padding:11px 16px;background:rgba(126,87,194,0.15);border:1px solid rgba(126,87,194,0.3);border-radius:12px;color:#e8d5ff;font-family:'EB Garamond',serif;font-size:1rem;cursor:pointer;touch-action:manipulation;transition:background 0.2s;"
+                            onmouseover="this.style.background='rgba(126,87,194,0.35)'"
+                            onmouseout="this.style.background='rgba(126,87,194,0.15)'"
+                            ontouchstart="this.style.background='rgba(126,87,194,0.35)'"
+                            ontouchend="this.style.background='rgba(126,87,194,0.15)'">
+                            🎵 ${s.label}
+                        </button>
+                    `).join('')}
+                    <button onclick="selectMusic('none');closeMusicPicker()" style="width:100%;padding:11px 16px;background:transparent;border:1px solid rgba(233,30,99,0.25);border-radius:12px;color:#ff85a2;font-family:'EB Garamond',serif;font-size:0.9rem;cursor:pointer;touch-action:manipulation;margin-top:4px;">
+                        🔇 No music
+                    </button>
+                </div>
+                <!-- Volume slider -->
+                <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(126,87,194,0.2);">
+                    <div style="font-family:'EB Garamond',serif;font-size:0.72rem;color:rgba(255,255,255,0.35);letter-spacing:1px;margin-bottom:8px;">volume</div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span style="font-size:0.9rem;">🔈</span>
+                        <input type="range" class="vol-slider" min="0" max="100" value="40"
+                            style="flex:1;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:linear-gradient(to right,#9b59b6 40%,rgba(255,255,255,0.15) 40%);outline:none;cursor:pointer;"
+                            oninput="setVolume(this.value)">
+                        <span style="font-size:0.9rem;">🔊</span>
+                    </div>
+                </div>
+                <div style="font-family:'EB Garamond',serif;font-size:0.68rem;color:rgba(255,255,255,0.2);margin-top:14px;letter-spacing:1px;">you can change this anytime with the 🎵 button</div>
+            </div>
+        `;
+
+        document.body.appendChild(picker);
+        // Fade in
+        requestAnimationFrame(() => { picker.style.opacity = '1'; });
+    }
+
+    window.closeMusicPicker = function() {
+        const picker = document.getElementById('opening-music-picker');
+        if (!picker) return;
+        picker.style.opacity = '0';
+        setTimeout(() => picker.remove(), 500);
+    };
+
+    overlay.addEventListener('click',    closeOpening);
+    overlay.addEventListener('touchend', e => { e.preventDefault(); closeOpening(); }, { passive: false });
+})();
+
 </script>
 </body>
 
