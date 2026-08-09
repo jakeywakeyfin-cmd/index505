@@ -366,8 +366,8 @@ body {
 
 <!-- ═══ SOUND EFFECTS ═══ -->
 <audio id="sfx-page"     preload="auto" style="display:none;"></audio>
-<audio id="sfx-coin"     src="freesound_gamestudio-drop-coin-384921.mp3" preload="auto" style="display:none;"></audio>
-<audio id="sfx-seal"     src="dragon-studio-pop-402324.mp3"              preload="auto" style="display:none;"></audio>
+<audio id="sfx-coin"     src="freesound_gamestudio-drop-coin-384921_.mp3" preload="auto" style="display:none;"></audio>
+<audio id="sfx-seal"     src="dragon-studio-pop-402324__1_.mp3"              preload="auto" style="display:none;"></audio>
 <audio id="sfx-firework" preload="auto" style="display:none;"></audio>
 
 <button id="back-to-index-btn"
@@ -2922,7 +2922,8 @@ function selectMusic(songFile) {
         musicIcon.innerHTML = "🔇";
     } else {
         // Adding './' helps GitHub Pages locate the file in the same directory
-        audio.src = './' + songFile; 
+        audio.src = './' + songFile;
+        ensureBgMusicGraph();
         audio.play().catch(e => {
             console.log("Music will start once you interact with the page!");
         });
@@ -2940,9 +2941,15 @@ document.addEventListener('click', function(event) {
 audio.volume = 0.4;
 
 function setVolume(val) {
-    const audio = document.getElementById('bg-music');
     const v = val / 100;
-    audio.volume = v;
+    const gain = ensureBgMusicGraph();
+    if (gain) {
+        gain.gain.value = v;
+    } else {
+        // Fallback for browsers without Web Audio API support
+        const audio = document.getElementById('bg-music');
+        if (audio) audio.volume = v;
+    }
     // Sync all sliders
     document.querySelectorAll('.vol-slider').forEach(s => {
         s.value = val;
@@ -5129,6 +5136,30 @@ function unlockAudio() {
     actx.resume();
 }
 
+// ═══ SAFARI VOLUME FIX ═══
+// Safari (especially iOS) silently ignores the native `.volume` property on
+// <audio> elements — sliders and volume changes do nothing there. Routing
+// each element through a Web Audio GainNode works around this, since Safari
+// does respect gain changes made this way.
+const elementGains = {};
+function getElementGain(elId, defaultGain) {
+    unlockAudio();
+    if (!actx) return null;
+    if (elementGains[elId]) return elementGains[elId];
+    try {
+        const el = document.getElementById(elId);
+        const source = actx.createMediaElementSource(el);
+        const gain = actx.createGain();
+        gain.gain.value = defaultGain;
+        source.connect(gain);
+        gain.connect(actx.destination);
+        elementGains[elId] = gain;
+    } catch (e) { /* already connected elsewhere, or unsupported — fall back to el.volume */ }
+    return elementGains[elId] || null;
+}
+function ensureBgMusicGraph() { return getElementGain('bg-music', 0.4); }
+function ensureWeatherGraph() { return getElementGain('weather-audio', 0); }
+
 // Generate sounds procedurally so no files needed
 // Page flip sound — loaded from file, played softly
 let flipSoundBuffer = null;
@@ -5192,7 +5223,8 @@ function playCoin() {
     const el = document.getElementById('sfx-coin');
     if (!el) return;
     el.currentTime = 0;
-    el.volume = 0.5;
+    const gain = getElementGain('sfx-coin', 0.5);
+    if (gain) gain.gain.value = 0.5; else el.volume = 0.5;
     el.play().catch(() => {});
 }
 
@@ -5202,7 +5234,8 @@ function playSeal() {
     const el = document.getElementById('sfx-seal');
     if (!el) return;
     el.currentTime = 0;
-    el.volume = 0.55;
+    const gain = getElementGain('sfx-seal', 0.55);
+    if (gain) gain.gain.value = 0.55; else el.volume = 0.55;
     el.play().catch(() => {});
 }
 
@@ -5224,12 +5257,12 @@ function playFirework() {
 
 // Weather ambient sounds — real recorded ambience, looped softly under everything else
 const weatherAmbientFiles = {
-    rain:  'dragon-studio-cozy-midnight-rain-02-448573.mp3',
-    storm: 'dragon-studio-cozy-midnight-rain-02-448573.mp3',
-    wind:  'alex_jauk-windy-night-forest-ambience-211715.mp3',
-    snow:  'mind_out_of_office-sound-of-falling-snow-211055.mp3',
-    night: 'simjoo-ambient-sounds-at-night-243045.mp3',
-    sunny: 'freesound_community-garden-sunny-day-54490.mp3'
+    rain:  'dragon-studio-cozy-midnight-rain-02-448573__1_.mp3',
+    storm: 'dragon-studio-cozy-midnight-rain-02-448573__1_.mp3',
+    wind:  'alex_jauk-windy-night-forest-ambience-211715__1_.mp3',
+    snow:  'mind_out_of_office-sound-of-falling-snow-211055__1_.mp3',
+    night: 'simjoo-ambient-sounds-at-night-243045__1_.mp3',
+    sunny: 'freesound_community-garden-sunny-day-54490__1_.mp3'
 };
 const weatherAmbientVolume = {
     rain: 0.22, storm: 0.32, wind: 0.2, snow: 0.18, night: 0.16, sunny: 0.18
@@ -5241,16 +5274,17 @@ function stopWeatherAmbient() {
     const el = document.getElementById('weather-audio');
     if (!el) return;
     if (ambientFadeInterval) clearInterval(ambientFadeInterval);
-    let vol = el.volume;
+    const gain = ensureWeatherGraph();
+    let vol = gain ? gain.gain.value : el.volume;
     ambientFadeInterval = setInterval(() => {
         vol -= 0.04;
         if (vol <= 0) {
-            el.volume = 0;
+            if (gain) gain.gain.value = 0; else el.volume = 0;
             el.pause();
             clearInterval(ambientFadeInterval);
             ambientFadeInterval = null;
         } else {
-            el.volume = vol;
+            if (gain) gain.gain.value = vol; else el.volume = vol;
         }
     }, 60);
 }
@@ -5266,13 +5300,19 @@ function playWeatherAmbient(type) {
     const targetVol = weatherAmbientVolume[type] || 0.2;
     const needsNewSrc = !el.src || !el.src.endsWith(file);
     if (needsNewSrc) el.src = file;
-    el.volume = 0;
+    const gain = ensureWeatherGraph();
+    if (gain) gain.gain.value = 0; else el.volume = 0;
     el.play().then(() => {
         let vol = 0;
         const fadeIn = setInterval(() => {
             vol += 0.02;
-            if (vol >= targetVol) { el.volume = targetVol; clearInterval(fadeIn); }
-            else el.volume = vol;
+            if (vol >= targetVol) {
+                vol = targetVol;
+                if (gain) gain.gain.value = vol; else el.volume = vol;
+                clearInterval(fadeIn);
+            } else {
+                if (gain) gain.gain.value = vol; else el.volume = vol;
+            }
         }, 60);
     }).catch(() => {});
 }
@@ -5332,6 +5372,7 @@ function applyWeather(condition, isNight) {
     if (cfg.pageFilter) {
         document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"])').forEach(p => {
             p.style.filter = cfg.pageFilter;
+            p.style.webkitFilter = cfg.pageFilter; // Safari/WebKit fallback
         });
     }
 
@@ -5406,22 +5447,59 @@ function addWeatherOverlay(type) {
 }
 
 function fetchWeather() {
-    if (!navigator.geolocation) return;
-    navigator.geolocation.getCurrentPosition(pos => {
-        const { latitude: lat, longitude: lon } = pos.coords;
+    const hour = new Date().getHours();
+    const isNightNow = hour < 6 || hour >= 20;
+    let settled = false;
+
+    // Last-resort fallback — only used if we truly can't determine a
+    // location at all (both browser geolocation and IP lookup failed/hung).
+    function fallback() {
+        if (settled) return;
+        settled = true;
+        applyWeather(isNightNow ? 'night' : 'clear', isNightNow);
+    }
+
+    function getWeatherFor(lat, lon) {
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_KEY}&units=metric`)
             .then(r => r.json())
             .then(data => {
+                if (settled) return;
+                settled = true;
+                clearTimeout(safetyTimer);
                 const condition = data.weather[0].main.toLowerCase();
-                const hour = new Date().getHours();
-                const isNight = hour < 6 || hour >= 20;
-                applyWeather(condition, isNight);
+                applyWeather(condition, isNightNow);
             })
-            .catch(() => {});
+            .catch(() => fallback());
+    }
+
+    // IP-based location — no permission prompt needed, so this still gets
+    // the real local weather on Safari even when browser geolocation is
+    // denied or blocked (common in Private Browsing).
+    function tryIpLocation() {
+        fetch('https://ipapi.co/json/')
+            .then(r => r.json())
+            .then(data => {
+                if (settled) return;
+                if (data && data.latitude && data.longitude) {
+                    getWeatherFor(data.latitude, data.longitude);
+                } else {
+                    fallback();
+                }
+            })
+            .catch(() => fallback());
+    }
+
+    const safetyTimer = setTimeout(fallback, 10000);
+
+    if (!navigator.geolocation) { tryIpLocation(); return; }
+
+    navigator.geolocation.getCurrentPosition(pos => {
+        if (settled) return;
+        getWeatherFor(pos.coords.latitude, pos.coords.longitude);
     }, () => {
-        // No location — use time of day only
-        const hour = new Date().getHours();
-        if (hour < 6 || hour >= 20) applyWeather('clear', true);
+        // Permission denied / blocked — very common on Safari — fall back
+        // to IP-based location instead of giving up on real weather.
+        tryIpLocation();
     }, { timeout: 8000 });
 }
 
