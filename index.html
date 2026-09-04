@@ -2881,6 +2881,469 @@ With you, I'll never walk alone.</div>
 }
 </style>
 
+<!-- A BOTANICAL STUDY OF HER -->
+<div class="page" data-date="Botanical Study" style="background:linear-gradient(165deg,#f3e9d2 0%,#ede0c2 45%,#e8dab8 100%) !important; border: 1px solid #c9b183 !important; overflow:hidden; position:relative;">
+    <div class="page-content" style="padding:0; overflow:hidden; position:relative; height:100%;">
+
+        <!-- aged paper texture -->
+        <div style="position:absolute; inset:0; z-index:0; pointer-events:none;
+            background:
+                radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.25) 0%, transparent 45%),
+                radial-gradient(ellipse at 85% 90%, rgba(120,90,50,0.10) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 15%, rgba(120,90,50,0.08) 0%, transparent 40%),
+                radial-gradient(ellipse at 10% 85%, rgba(120,90,50,0.10) 0%, transparent 45%);"></div>
+        <div style="position:absolute; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+            background-image: repeating-linear-gradient(0deg, rgba(120,90,50,0.035) 0px, transparent 1px, transparent 3px);"></div>
+        <div style="position:absolute; inset:6px; z-index:1; pointer-events:none; border:1px solid rgba(120,90,50,0.28);"></div>
+
+        <!-- scrollable journal canvas -->
+        <div id="bf-scroll" style="position:relative; z-index:2; height:100%; overflow-y:auto; -webkit-overflow-scrolling:touch; touch-action:pan-y; padding:20px 14px 30px; box-sizing:border-box;"
+             ontouchstart="event.stopPropagation()" ontouchmove="event.stopPropagation()">
+
+            <!-- journal header -->
+            <div style="text-align:center; margin-bottom:6px;">
+                <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.6rem; letter-spacing:3px; text-transform:uppercase; color:rgba(90,66,38,0.55);">Specimen Journal, No. 9</div>
+                <div style="font-family:'Dancing Script',cursive; font-size:1.65rem; color:#5a4226; margin-top:4px; text-shadow:0 1px 0 rgba(255,255,255,0.4);">A Botanical Study of Her</div>
+                <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.68rem; color:rgba(90,66,38,0.6); letter-spacing:1px; margin-top:4px;">pressed &amp; studied, one bloom at a time</div>
+                <div style="width:70px; height:1px; background:linear-gradient(to right,transparent,rgba(120,90,50,0.5),transparent); margin:12px auto 0;"></div>
+            </div>
+
+            <!-- scattered flower canvas -->
+            <div id="bf-canvas" style="position:relative; width:100%; height:900px; margin-top:6px;">
+
+                <!-- 1. Lavender -->
+                <button class="bf-flower" data-bf="0" style="position:absolute; left:4%; top:10px; width:76px; height:104px; transform:rotate(-7deg);">
+                    <svg viewBox="0 0 100 140" width="100%" height="100%" overflow="visible">
+                        <g class="bf-wobble">
+                            <path d="M50,138 C49,110 47,90 49,62" fill="none" stroke="#6b5a45" stroke-width="1.3" stroke-linecap="round"/>
+                            <path d="M49,100 C40,96 33,98 27,92" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                            <path d="M50,108 C59,104 65,106 71,101" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g>
+                            <ellipse cx="47" cy="58" rx="5.5" ry="9" fill="#b6a0d9" opacity="0.55" filter="url(#bf-blur)"/>
+                            <ellipse cx="53" cy="48" rx="5" ry="8.5" fill="#b6a0d9" opacity="0.55" filter="url(#bf-blur)"/>
+                            <ellipse cx="47" cy="38" rx="5" ry="8" fill="#b6a0d9" opacity="0.55" filter="url(#bf-blur)"/>
+                            <ellipse cx="52" cy="28" rx="4.5" ry="7.5" fill="#b6a0d9" opacity="0.55" filter="url(#bf-blur)"/>
+                            <ellipse cx="47" cy="19" rx="4" ry="7" fill="#b6a0d9" opacity="0.55" filter="url(#bf-blur)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#5c4a8a" stroke-width="1" stroke-linecap="round">
+                            <ellipse cx="47" cy="58" rx="5.5" ry="9"/>
+                            <ellipse cx="53" cy="48" rx="5" ry="8.5"/>
+                            <ellipse cx="47" cy="38" rx="5" ry="8"/>
+                            <ellipse cx="52" cy="28" rx="4.5" ry="7.5"/>
+                            <ellipse cx="47" cy="19" rx="4" ry="7"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">i.</div>
+                </button>
+
+                <!-- 2. Cherry Blossom -->
+                <button class="bf-flower" data-bf="1" style="position:absolute; left:56%; top:0px; width:88px; height:110px; transform:rotate(6deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-cb-petal" d="M50,50 C46,44 45,36 50,30 C55,36 54,44 50,50 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C47,105 53,90 48,68" fill="none" stroke="#6b5a45" stroke-width="1.3" stroke-linecap="round"/>
+                            <path d="M49,98 C41,95 36,98 30,94" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.6">
+                            <use href="#bf-cb-petal" fill="#f6c9db" filter="url(#bf-blur)"/>
+                            <use href="#bf-cb-petal" fill="#f6c9db" filter="url(#bf-blur)" transform="rotate(72 50 44)"/>
+                            <use href="#bf-cb-petal" fill="#f6c9db" filter="url(#bf-blur)" transform="rotate(144 50 44)"/>
+                            <use href="#bf-cb-petal" fill="#f6c9db" filter="url(#bf-blur)" transform="rotate(216 50 44)"/>
+                            <use href="#bf-cb-petal" fill="#f6c9db" filter="url(#bf-blur)" transform="rotate(288 50 44)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#9a5c72" stroke-width="0.9">
+                            <use href="#bf-cb-petal"/>
+                            <use href="#bf-cb-petal" transform="rotate(72 50 44)"/>
+                            <use href="#bf-cb-petal" transform="rotate(144 50 44)"/>
+                            <use href="#bf-cb-petal" transform="rotate(216 50 44)"/>
+                            <use href="#bf-cb-petal" transform="rotate(288 50 44)"/>
+                        </g>
+                        <circle cx="50" cy="44" r="3.4" fill="#e79fb8" stroke="#9a5c72" stroke-width="0.7"/>
+                        <g stroke="#9a5c72" stroke-width="0.6" stroke-linecap="round">
+                            <line x1="50" y1="44" x2="44" y2="38"/>
+                            <line x1="50" y1="44" x2="57" y2="39"/>
+                            <line x1="50" y1="44" x2="58" y2="47"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">ii.</div>
+                </button>
+
+                <!-- 3. Sunflower -->
+                <button class="bf-flower" data-bf="2" style="position:absolute; left:8%; top:150px; width:96px; height:118px; transform:rotate(-4deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-sf-petal" d="M50,48 C47,38 47,26 50,16 C53,26 53,38 50,48 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C48,105 52,88 49,66" fill="none" stroke="#6b5a45" stroke-width="1.4" stroke-linecap="round"/>
+                            <path d="M49,100 C39,98 34,103 26,100" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.65">
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(30 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(60 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(90 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(120 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(150 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(180 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(210 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(240 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(270 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(300 50 48)"/>
+                            <use href="#bf-sf-petal" fill="#f3cf5f" filter="url(#bf-blur)" transform="rotate(330 50 48)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#a3792f" stroke-width="0.9">
+                            <use href="#bf-sf-petal"/>
+                            <use href="#bf-sf-petal" transform="rotate(30 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(60 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(90 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(120 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(150 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(180 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(210 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(240 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(270 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(300 50 48)"/>
+                            <use href="#bf-sf-petal" transform="rotate(330 50 48)"/>
+                        </g>
+                        <circle cx="50" cy="48" r="11" fill="#8a5a2b" opacity="0.75" filter="url(#bf-blur)"/>
+                        <circle cx="50" cy="48" r="11" fill="none" stroke="#6b4720" stroke-width="0.9"/>
+                        <g fill="#6b4720" opacity="0.6">
+                            <circle cx="46" cy="45" r="0.9"/><circle cx="53" cy="44" r="0.9"/><circle cx="49" cy="50" r="0.9"/>
+                            <circle cx="55" cy="50" r="0.9"/><circle cx="45" cy="52" r="0.9"/><circle cx="50" cy="44" r="0.9"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">iii.</div>
+                </button>
+
+                <!-- 4. Rose -->
+                <button class="bf-flower" data-bf="3" style="position:absolute; left:58%; top:160px; width:90px; height:110px; transform:rotate(9deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-rs-petal-out" d="M50,52 C40,48 36,38 42,28 C46,24 54,24 58,28 C64,38 60,48 50,52 Z"/>
+                            <path id="bf-rs-petal-in" d="M50,48 C44,45 42,38 46,32 C48,29 52,29 54,32 C58,38 56,45 50,48 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C48,104 52,88 49,66" fill="none" stroke="#6b5a45" stroke-width="1.4" stroke-linecap="round"/>
+                            <path d="M49,102 C41,99 35,103 28,100" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.6">
+                            <use href="#bf-rs-petal-out" fill="#e08aa2" filter="url(#bf-blur)"/>
+                            <use href="#bf-rs-petal-out" fill="#e08aa2" filter="url(#bf-blur)" transform="rotate(120 50 40)"/>
+                            <use href="#bf-rs-petal-out" fill="#e08aa2" filter="url(#bf-blur)" transform="rotate(240 50 40)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#a14a63" stroke-width="0.9">
+                            <use href="#bf-rs-petal-out"/>
+                            <use href="#bf-rs-petal-out" transform="rotate(120 50 40)"/>
+                            <use href="#bf-rs-petal-out" transform="rotate(240 50 40)"/>
+                        </g>
+                        <g opacity="0.7">
+                            <use href="#bf-rs-petal-in" fill="#eaa7ba" filter="url(#bf-blur)"/>
+                            <use href="#bf-rs-petal-in" fill="#eaa7ba" filter="url(#bf-blur)" transform="rotate(90 50 40)"/>
+                            <use href="#bf-rs-petal-in" fill="#eaa7ba" filter="url(#bf-blur)" transform="rotate(180 50 40)"/>
+                            <use href="#bf-rs-petal-in" fill="#eaa7ba" filter="url(#bf-blur)" transform="rotate(270 50 40)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#a14a63" stroke-width="0.8">
+                            <use href="#bf-rs-petal-in"/>
+                            <use href="#bf-rs-petal-in" transform="rotate(90 50 40)"/>
+                            <use href="#bf-rs-petal-in" transform="rotate(180 50 40)"/>
+                            <use href="#bf-rs-petal-in" transform="rotate(270 50 40)"/>
+                        </g>
+                        <circle cx="50" cy="38" r="3" fill="#c9647f" opacity="0.8"/>
+                    </svg>
+                    <div class="bf-tag">iv.</div>
+                </button>
+
+                <!-- 5. Forget-me-not -->
+                <button class="bf-flower" data-bf="4" style="position:absolute; left:6%; top:300px; width:66px; height:88px; transform:rotate(5deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-fmn-petal" d="M50,42 C47,38 47,33 50,29 C53,33 53,38 50,42 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C49,108 51,94 49,76" fill="none" stroke="#6b5a45" stroke-width="1.2" stroke-linecap="round"/>
+                            <path d="M49,76 C43,70 40,68 34,62" fill="none" stroke="#6b5a45" stroke-width="1" stroke-linecap="round"/>
+                            <path d="M49,90 C55,85 58,84 63,80" fill="none" stroke="#6b5a45" stroke-width="1" stroke-linecap="round"/>
+                            <path d="M49,76 C50,68 50,60 50,52" fill="none" stroke="#6b5a45" stroke-width="1" stroke-linecap="round"/>
+                        </g>
+                        <g transform="translate(0,0)">
+                            <g opacity="0.65">
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(72 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(144 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(216 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(288 50 35.5)"/>
+                            </g>
+                            <circle cx="50" cy="35.5" r="2.6" fill="#e9c95f"/>
+                        </g>
+                        <g transform="translate(-16,-22)">
+                            <g opacity="0.65">
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(72 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(144 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(216 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(288 50 35.5)"/>
+                            </g>
+                            <circle cx="50" cy="35.5" r="2" fill="#e9c95f"/>
+                        </g>
+                        <g transform="translate(14,-16)">
+                            <g opacity="0.65">
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(72 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(144 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(216 50 35.5)"/>
+                                <use href="#bf-fmn-petal" fill="#a9cbec" filter="url(#bf-blur)" transform="rotate(288 50 35.5)"/>
+                            </g>
+                            <circle cx="50" cy="35.5" r="2" fill="#e9c95f"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">v.</div>
+                </button>
+
+                <!-- 6. Hibiscus -->
+                <button class="bf-flower" data-bf="5" style="position:absolute; left:54%; top:320px; width:92px; height:112px; transform:rotate(-6deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-hb-petal" d="M50,50 C38,48 32,38 36,26 C40,18 48,18 50,26 C52,18 60,18 64,26 C68,38 62,48 50,50 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C48,104 52,88 49,68" fill="none" stroke="#6b5a45" stroke-width="1.3" stroke-linecap="round"/>
+                            <path d="M49,100 C41,98 36,102 29,99" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.62">
+                            <use href="#bf-hb-petal" fill="#e8637a" filter="url(#bf-blur)"/>
+                            <use href="#bf-hb-petal" fill="#e8637a" filter="url(#bf-blur)" transform="rotate(72 50 40)"/>
+                            <use href="#bf-hb-petal" fill="#e8637a" filter="url(#bf-blur)" transform="rotate(144 50 40)"/>
+                            <use href="#bf-hb-petal" fill="#e8637a" filter="url(#bf-blur)" transform="rotate(216 50 40)"/>
+                            <use href="#bf-hb-petal" fill="#e8637a" filter="url(#bf-blur)" transform="rotate(288 50 40)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#a13347" stroke-width="0.9">
+                            <use href="#bf-hb-petal"/>
+                            <use href="#bf-hb-petal" transform="rotate(72 50 40)"/>
+                            <use href="#bf-hb-petal" transform="rotate(144 50 40)"/>
+                            <use href="#bf-hb-petal" transform="rotate(216 50 40)"/>
+                            <use href="#bf-hb-petal" transform="rotate(288 50 40)"/>
+                        </g>
+                        <path d="M50,40 C50,26 50,14 51,4" class="bf-wobble" fill="none" stroke="#a13347" stroke-width="1"/>
+                        <circle cx="51" cy="4" r="2" fill="#e9c95f" stroke="#a13347" stroke-width="0.6"/>
+                        <circle cx="47" cy="7" r="1.3" fill="#e9c95f" stroke="#a13347" stroke-width="0.5"/>
+                        <circle cx="55" cy="7" r="1.3" fill="#e9c95f" stroke="#a13347" stroke-width="0.5"/>
+                    </svg>
+                    <div class="bf-tag">vi.</div>
+                </button>
+
+                <!-- 7. Eucalyptus -->
+                <button class="bf-flower" data-bf="6" style="position:absolute; left:12%; top:450px; width:92px; height:112px; transform:rotate(4deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-eu-leaf" d="M50,50 C60,45 66,36 62,26 C58,20 50,20 46,26 C42,36 46,45 50,50 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C51,100 49,74 51,40" fill="none" stroke="#6b5a45" stroke-width="1.4" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.6">
+                            <use href="#bf-eu-leaf" fill="#a9c2ab" filter="url(#bf-blur)" transform="translate(0,20) rotate(20 50 35)"/>
+                            <use href="#bf-eu-leaf" fill="#a9c2ab" filter="url(#bf-blur)" transform="translate(-30,4) rotate(-30 50 35) scale(0.9)"/>
+                            <use href="#bf-eu-leaf" fill="#a9c2ab" filter="url(#bf-blur)" transform="translate(28,-6) rotate(28 50 35) scale(0.85)"/>
+                            <use href="#bf-eu-leaf" fill="#a9c2ab" filter="url(#bf-blur)" transform="translate(-24,-24) rotate(-22 50 35) scale(0.75)"/>
+                            <use href="#bf-eu-leaf" fill="#a9c2ab" filter="url(#bf-blur)" transform="translate(20,-34) rotate(24 50 35) scale(0.65)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#5c7a5f" stroke-width="0.9">
+                            <use href="#bf-eu-leaf" transform="translate(0,20) rotate(20 50 35)"/>
+                            <use href="#bf-eu-leaf" transform="translate(-30,4) rotate(-30 50 35) scale(0.9)"/>
+                            <use href="#bf-eu-leaf" transform="translate(28,-6) rotate(28 50 35) scale(0.85)"/>
+                            <use href="#bf-eu-leaf" transform="translate(-24,-24) rotate(-22 50 35) scale(0.75)"/>
+                            <use href="#bf-eu-leaf" transform="translate(20,-34) rotate(24 50 35) scale(0.65)"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">vii.</div>
+                </button>
+
+                <!-- 8. Daisy -->
+                <button class="bf-flower" data-bf="7" style="position:absolute; left:58%; top:470px; width:80px; height:100px; transform:rotate(-9deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-ds-petal" d="M50,44 C48.5,37 48.5,26 50,17 C51.5,26 51.5,37 50,44 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M50,128 C48,104 52,88 49,66" fill="none" stroke="#6b5a45" stroke-width="1.3" stroke-linecap="round"/>
+                            <path d="M49,102 C41,100 36,104 30,101" fill="none" stroke="#6b5a45" stroke-width="1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.85">
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(24 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(48 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(72 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(96 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(120 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(144 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(168 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(192 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(216 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(240 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(264 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(288 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(312 50 44)"/>
+                            <use href="#bf-ds-petal" fill="#fdfaf0" filter="url(#bf-blur)" transform="rotate(336 50 44)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#c9bfa0" stroke-width="0.7">
+                            <use href="#bf-ds-petal"/><use href="#bf-ds-petal" transform="rotate(24 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(48 50 44)"/><use href="#bf-ds-petal" transform="rotate(72 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(96 50 44)"/><use href="#bf-ds-petal" transform="rotate(120 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(144 50 44)"/><use href="#bf-ds-petal" transform="rotate(168 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(192 50 44)"/><use href="#bf-ds-petal" transform="rotate(216 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(240 50 44)"/><use href="#bf-ds-petal" transform="rotate(264 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(288 50 44)"/><use href="#bf-ds-petal" transform="rotate(312 50 44)"/>
+                            <use href="#bf-ds-petal" transform="rotate(336 50 44)"/>
+                        </g>
+                        <circle cx="50" cy="44" r="7" fill="#eecb6a" opacity="0.85"/>
+                        <circle cx="50" cy="44" r="7" fill="none" stroke="#a3792f" stroke-width="0.8"/>
+                    </svg>
+                    <div class="bf-tag">viii.</div>
+                </button>
+
+                <!-- 9. Tulip -->
+                <button class="bf-flower" data-bf="8" style="position:absolute; left:10%; top:590px; width:72px; height:100px; transform:rotate(7deg);">
+                    <svg viewBox="0 0 100 130" width="100%" height="100%" overflow="visible">
+                        <g class="bf-wobble">
+                            <path d="M50,128 C49,102 51,84 50,58" fill="none" stroke="#6b5a45" stroke-width="1.4" stroke-linecap="round"/>
+                            <path d="M50,96 C42,100 34,98 26,104" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                            <path d="M50,86 C58,90 66,88 73,93" fill="none" stroke="#6b5a45" stroke-width="1.1" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.62">
+                            <path d="M50,60 C40,58 36,44 40,28 C43,20 48,16 50,12 C50,26 50,44 50,60 Z" fill="#d8546b" filter="url(#bf-blur)"/>
+                            <path d="M50,60 C60,58 64,44 60,28 C57,20 52,16 50,12 C50,26 50,44 50,60 Z" fill="#e0748a" filter="url(#bf-blur)"/>
+                            <path d="M50,58 C46,54 45,40 48,24 C49,18 50,14 50,10 C51,16 51,20 50,58 Z" fill="#eb95a6" filter="url(#bf-blur)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#9a2f45" stroke-width="0.9">
+                            <path d="M50,60 C40,58 36,44 40,28 C43,20 48,16 50,12"/>
+                            <path d="M50,60 C60,58 64,44 60,28 C57,20 52,16 50,12"/>
+                            <path d="M50,58 C46,54 45,40 48,24 C49,18 50,14 50,10"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">ix.</div>
+                </button>
+
+                <!-- 10. Wisteria -->
+                <button class="bf-flower" data-bf="9" style="position:absolute; left:52%; top:610px; width:96px; height:118px; transform:rotate(-5deg);">
+                    <svg viewBox="0 0 100 140" width="100%" height="100%" overflow="visible">
+                        <defs>
+                            <path id="bf-ws-drop" d="M50,50 C46,46 45,40 50,35 C55,40 54,46 50,50 Z"/>
+                        </defs>
+                        <g class="bf-wobble">
+                            <path d="M30,4 C40,10 48,16 52,26 C57,38 60,52 64,66 C67,78 70,90 74,102"
+                                fill="none" stroke="#6b5a45" stroke-width="1.3" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.62">
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(-5,-22) scale(0.8)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(6,-14) scale(0.85)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(-2,-6) scale(0.9)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(10,2) scale(0.95)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(2,12) scale(1)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(14,20) scale(1)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(6,30) scale(0.9)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(18,38) scale(0.85)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(12,48) scale(0.75)"/>
+                            <use href="#bf-ws-drop" fill="#b6a0d9" filter="url(#bf-blur)" transform="translate(20,54) scale(0.65)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#6a4f96" stroke-width="0.8">
+                            <use href="#bf-ws-drop" transform="translate(-5,-22) scale(0.8)"/>
+                            <use href="#bf-ws-drop" transform="translate(6,-14) scale(0.85)"/>
+                            <use href="#bf-ws-drop" transform="translate(-2,-6) scale(0.9)"/>
+                            <use href="#bf-ws-drop" transform="translate(10,2) scale(0.95)"/>
+                            <use href="#bf-ws-drop" transform="translate(2,12) scale(1)"/>
+                            <use href="#bf-ws-drop" transform="translate(14,20) scale(1)"/>
+                            <use href="#bf-ws-drop" transform="translate(6,30) scale(0.9)"/>
+                            <use href="#bf-ws-drop" transform="translate(18,38) scale(0.85)"/>
+                            <use href="#bf-ws-drop" transform="translate(12,48) scale(0.75)"/>
+                            <use href="#bf-ws-drop" transform="translate(20,54) scale(0.65)"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">x.</div>
+                </button>
+
+                <!-- 11. Lily of the Valley -->
+                <button class="bf-flower" data-bf="10" style="position:absolute; left:30%; top:750px; width:78px; height:108px; transform:rotate(-5deg);">
+                    <svg viewBox="0 0 100 140" width="100%" height="100%" overflow="visible">
+                        <g class="bf-wobble">
+                            <path d="M50,136 C49,110 48,90 50,66" fill="none" stroke="#5a8058" stroke-width="1.4" stroke-linecap="round"/>
+                        </g>
+                        <g opacity="0.68">
+                            <path d="M50,112 C30,102 18,80 22,52 C34,64 46,82 50,112 Z" fill="#7fae7a" filter="url(#bf-blur)"/>
+                            <path d="M50,114 C70,104 82,82 78,54 C66,66 54,84 50,114 Z" fill="#6f9e6a" filter="url(#bf-blur)"/>
+                        </g>
+                        <g class="bf-wobble" fill="none" stroke="#5a8058" stroke-width="0.7">
+                            <path d="M50,66 L45,66"/>
+                            <path d="M50,58 L55,58"/>
+                            <path d="M49,50 L44,50"/>
+                            <path d="M50,42 L54,42"/>
+                            <path d="M49,34 L45,34"/>
+                            <path d="M50,26 L53,26"/>
+                        </g>
+                        <g opacity="0.95">
+                            <ellipse cx="45" cy="66" rx="5" ry="6" fill="#fbfaf3"/>
+                            <ellipse cx="55" cy="58" rx="4.6" ry="5.6" fill="#fbfaf3"/>
+                            <ellipse cx="44" cy="50" rx="4.3" ry="5.2" fill="#fbfaf3"/>
+                            <ellipse cx="54" cy="42" rx="4" ry="5" fill="#fbfaf3"/>
+                            <ellipse cx="45" cy="34" rx="3.6" ry="4.6" fill="#fbfaf3"/>
+                            <ellipse cx="53" cy="26" rx="3.2" ry="4.2" fill="#fbfaf3"/>
+                        </g>
+                        <g fill="#e9c95f" opacity="0.9">
+                            <circle cx="45" cy="68" r="0.9"/>
+                            <circle cx="55" cy="60" r="0.8"/>
+                            <circle cx="44" cy="52" r="0.8"/>
+                            <circle cx="54" cy="44" r="0.7"/>
+                        </g>
+                    </svg>
+                    <div class="bf-tag">xi.</div>
+                </button>
+
+            </div>
+        </div>
+
+        <!-- flower card overlay -->
+        <div id="bf-overlay" style="position:absolute; inset:0; z-index:20; display:none; align-items:center; justify-content:center; padding:22px; box-sizing:border-box; background:rgba(60,44,24,0.35); backdrop-filter:blur(1px);">
+            <div id="bf-card" style="position:relative; width:100%; max-width:290px; background:#f7efd9; border-radius:3px; padding:26px 22px 22px; box-sizing:border-box; text-align:center;
+                box-shadow:0 10px 30px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(120,90,50,0.25); transform:scale(0.85); opacity:0; transition:transform 0.35s ease, opacity 0.35s ease;">
+                <button id="bf-close" aria-label="close" style="position:absolute; top:8px; right:10px; background:none; border:none; font-family:'EB Garamond',serif; font-size:1.1rem; color:rgba(90,66,38,0.5); cursor:pointer; line-height:1;">&times;</button>
+                <div id="bf-card-icon" style="width:60px; height:60px; margin:0 auto 10px;"></div>
+                <div id="bf-card-latin" style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.7rem; letter-spacing:1.5px; color:rgba(90,66,38,0.6);"></div>
+                <div id="bf-card-common" style="font-family:'Dancing Script',cursive; font-size:1.6rem; color:#5a4226; margin-top:2px;"></div>
+                <div style="width:40px; height:1px; background:rgba(120,90,50,0.4); margin:12px auto;"></div>
+                <div id="bf-card-label" style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.92rem; color:#7a5230; line-height:1.5;"></div>
+                <div id="bf-card-note" style="font-family:'Caveat',cursive; font-size:1.15rem; line-height:1.6; color:#5a4226; margin-top:14px;"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<svg width="0" height="0" style="position:absolute;">
+    <filter id="bf-blur"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <filter id="bf-pencil" x="-20%" y="-20%" width="140%" height="140%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="bf-noise" seed="4"/>
+        <feDisplacementMap in="SourceGraphic" in2="bf-noise" scale="1.4"/>
+    </filter>
+</svg>
+
+<style>
+.bf-wobble { filter: url(#bf-pencil); }
+.bf-flower { background:none; border:none; padding:0; cursor:pointer; -webkit-tap-highlight-color:transparent; touch-action:manipulation; transition: transform 0.4s ease; }
+.bf-flower:active { transform: scale(1.08) !important; }
+.bf-flower.bf-picked { animation: bf-unfold 0.6s ease; }
+@keyframes bf-unfold {
+    0% { transform: scale(1) rotate(var(--bf-rot,0deg)); }
+    40% { transform: scale(1.22) rotate(var(--bf-rot,0deg)); filter: drop-shadow(0 0 10px rgba(255,223,140,0.7)); }
+    100% { transform: scale(1) rotate(var(--bf-rot,0deg)); }
+}
+.bf-tag { font-family:'EB Garamond',serif; font-style:italic; font-size:0.62rem; color:rgba(90,66,38,0.55); text-align:center; margin-top:2px; }
+#bf-overlay.bf-show { display:flex !important; }
+#bf-overlay.bf-show #bf-card { transform:scale(1) !important; opacity:1 !important; }
+</style>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -3102,6 +3565,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '25 May 2026':                   '🎬 The Day We Met',
             '8th Month Anniversary 2026':    '🌌 Our Universe',
             '9th Month Anniversary 2026':    '💛 9 Month Anniversary',
+            'Botanical Study':               '🌿 A Botanical Study of Her',
             'For You':                       '🎰 Compliment Machine',
             'Happy 7 Months':                '💜 7 Month Anniversary',
         };
@@ -3211,6 +3675,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (dateText === "8th Month Anniversary 2026") {
         setTimeout(initUniverse, 50);
     }
+    // Initialize the botanical study page interactions
+    if (dateText === "Botanical Study") {
+        setTimeout(initBotanicalStudy, 50);
+    }
 });
 
 // Wire up the back-to-index button
@@ -3248,7 +3716,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '9th Month Anniversary 2026']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '9th Month Anniversary 2026', 'Botanical Study']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -5452,7 +5920,7 @@ function applyWeather(condition, isNight) {
 
     // Page filter
     if (cfg.pageFilter) {
-        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"])').forEach(p => {
+        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
             p.style.filter = cfg.pageFilter;
             p.style.webkitFilter = cfg.pageFilter; // Safari/WebKit fallback
         });
@@ -5735,6 +6203,168 @@ fetchWeather();
 
 
 
+
+
+
+// ── A Botanical Study of Her ──────────────────────────────
+const bfFlowers = [
+    {
+        latin: "Lavandula angustifolia", common: "Lavender",
+        label: "for how calm you make everything feel",
+        note: "Even on my loudest, messiest days, being near you turns the volume down. You don't fix the chaos — you just make it feel okay.",
+        icon: `<svg viewBox="0 0 100 140" width="100%" height="100%"><g fill="#b6a0d9" opacity="0.7"><ellipse cx="47" cy="58" rx="5.5" ry="9"/><ellipse cx="53" cy="48" rx="5" ry="8.5"/><ellipse cx="47" cy="38" rx="5" ry="8"/><ellipse cx="52" cy="28" rx="4.5" ry="7.5"/><ellipse cx="47" cy="19" rx="4" ry="7"/></g><path d="M50,90 C50,75 49,65 50,55" fill="none" stroke="#6b5a45" stroke-width="1.5"/></svg>`
+    },
+    {
+        latin: "Prunus serrulata", common: "Cherry Blossom",
+        label: "for how beautiful you are without trying",
+        note: "You wake up looking like something worth pausing for. No mirror, no effort, no filter — just you, and it's more than enough.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#f6c9db" opacity="0.85"><circle cx="50" cy="44" r="9" transform="rotate(0 50 44)"/></g><g fill="#f6c9db" opacity="0.85"><ellipse cx="50" cy="34" rx="6" ry="9"/><ellipse cx="50" cy="54" rx="6" ry="9"/><ellipse cx="40" cy="44" rx="9" ry="6"/><ellipse cx="60" cy="44" rx="9" ry="6"/></g><circle cx="50" cy="44" r="3.4" fill="#e79fb8"/></svg>`
+    },
+    {
+        latin: "Helianthus annuus", common: "Sunflower",
+        label: "for always turning toward the light even on hard days",
+        note: "Even when things are heavy, you look for the good in it. That's not luck, that's you — and it's one of my favorite things about you.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#f3cf5f" opacity="0.85"><ellipse cx="50" cy="30" rx="5" ry="14"/><ellipse cx="50" cy="66" rx="5" ry="14"/><ellipse cx="30" cy="48" rx="14" ry="5"/><ellipse cx="70" cy="48" rx="14" ry="5"/><ellipse cx="36" cy="34" rx="6" ry="13" transform="rotate(-45 36 34)"/><ellipse cx="64" cy="34" rx="6" ry="13" transform="rotate(45 64 34)"/><ellipse cx="36" cy="62" rx="6" ry="13" transform="rotate(45 36 62)"/><ellipse cx="64" cy="62" rx="6" ry="13" transform="rotate(-45 64 62)"/></g><circle cx="50" cy="48" r="11" fill="#8a5a2b"/></svg>`
+    },
+    {
+        latin: "Rosa", common: "Rose",
+        label: "for the kind of love people write books about",
+        note: "The kind that's a little messy and a lot real. The kind I'd choose on paper and in person, every single time, no notes.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#e08aa2" opacity="0.75"><circle cx="50" cy="40" r="16"/></g><g fill="#eaa7ba" opacity="0.85"><circle cx="50" cy="40" r="9"/></g><circle cx="50" cy="38" r="3" fill="#c9647f"/></svg>`
+    },
+    {
+        latin: "Myosotis", common: "Forget-me-not",
+        label: "for the way you make every moment worth remembering",
+        note: "Ordinary Tuesdays, long drives, dumb arguments about nothing — somehow they all turn into memories I actually want to keep, because you were there.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#a9cbec" opacity="0.85"><circle cx="50" cy="26" r="7"/><circle cx="36" cy="34" r="6"/><circle cx="64" cy="34" r="6"/></g><circle cx="50" cy="26" r="2.4" fill="#e9c95f"/><circle cx="36" cy="34" r="2" fill="#e9c95f"/><circle cx="64" cy="34" r="2" fill="#e9c95f"/></svg>`
+    },
+    {
+        latin: "Hibiscus rosa-sinensis", common: "Hibiscus",
+        label: "for your warmth — the kind that stays",
+        note: "You have a way of making people feel safe just by being around. It's not loud about it. It just stays, like a warm room you can always come back to.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#e8637a" opacity="0.8"><ellipse cx="50" cy="28" rx="8" ry="14"/><ellipse cx="50" cy="56" rx="8" ry="14"/><ellipse cx="26" cy="40" rx="14" ry="8" transform="rotate(20 26 40)"/><ellipse cx="74" cy="40" rx="14" ry="8" transform="rotate(-20 74 40)"/></g><path d="M50,40 C50,26 50,14 51,4" fill="none" stroke="#a13347" stroke-width="1.5"/><circle cx="51" cy="4" r="2.2" fill="#e9c95f"/></svg>`
+    },
+    {
+        latin: "Eucalyptus globulus", common: "Eucalyptus",
+        label: "for the quiet strength you carry everywhere",
+        note: "You don't announce it, you just handle things — hard days, hard people, hard weeks — and somehow you're still soft with me at the end of it.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#a9c2ab" opacity="0.85"><ellipse cx="50" cy="45" rx="14" ry="20" transform="rotate(15 50 45)"/><ellipse cx="30" cy="55" rx="12" ry="17" transform="rotate(-25 30 55)"/><ellipse cx="70" cy="35" rx="11" ry="16" transform="rotate(30 70 35)"/></g></svg>`
+    },
+    {
+        latin: "Bellis perennis", common: "Daisy",
+        label: "for your laugh — the one that fills every room",
+        note: "It's the best sound I know. Loud, unfiltered, a little too much sometimes — and I hope I get to hear it every day for the rest of my life.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g fill="#fdfaf0" opacity="0.95" stroke="#d8cca8" stroke-width="0.6"><ellipse cx="50" cy="26" rx="4" ry="13"/><ellipse cx="50" cy="66" rx="4" ry="13"/><ellipse cx="30" cy="46" rx="13" ry="4"/><ellipse cx="70" cy="46" rx="13" ry="4"/><ellipse cx="36" cy="32" rx="4" ry="13" transform="rotate(-45 36 32)"/><ellipse cx="64" cy="32" rx="4" ry="13" transform="rotate(45 64 32)"/><ellipse cx="36" cy="60" rx="4" ry="13" transform="rotate(45 36 60)"/><ellipse cx="64" cy="60" rx="4" ry="13" transform="rotate(-45 64 60)"/></g><circle cx="50" cy="46" r="8" fill="#eecb6a"/></svg>`
+    },
+    {
+        latin: "Tulipa", common: "Tulip",
+        label: "for choosing me, every single day",
+        note: "Not just on the good days, on the annoying ones too. Every day you pick this, pick us, and I never want to take that for granted.",
+        icon: `<svg viewBox="0 0 100 130" width="100%" height="100%"><g opacity="0.85"><path d="M50,60 C38,58 33,42 38,24 C42,15 48,10 50,4 C50,20 50,42 50,60 Z" fill="#d8546b"/><path d="M50,60 C62,58 67,42 62,24 C58,15 52,10 50,4 C50,20 50,42 50,60 Z" fill="#e0748a"/></g></svg>`
+    },
+    {
+        latin: "Wisteria sinensis", common: "Wisteria",
+        label: "for being the kind of rare that doesn't know it's rare",
+        note: "You have no idea how special you are, do you? It's honestly one of the most beautiful things about you — you just are, without needing anyone to tell you.",
+        icon: `<svg viewBox="0 0 100 140" width="100%" height="100%"><g fill="#b6a0d9" opacity="0.85"><ellipse cx="46" cy="20" rx="7" ry="10"/><ellipse cx="54" cy="34" rx="7.5" ry="11"/><ellipse cx="46" cy="50" rx="8" ry="11.5"/><ellipse cx="55" cy="66" rx="8" ry="12"/><ellipse cx="48" cy="84" rx="7.5" ry="11"/></g></svg>`
+    },
+    {
+        latin: "Convallaria majalis", common: "Lily of the Valley",
+        label: "for the quiet kind of happiness you bring me",
+        note: "Not the loud, fireworks kind — the quiet kind. The kind that shows up in ordinary moments and makes them feel like enough, just because you're in them.",
+        icon: `<svg viewBox="0 0 100 140" width="100%" height="100%"><g fill="#7fae7a" opacity="0.7"><path d="M50,112 C30,102 18,80 22,52 C34,64 46,82 50,112 Z"/><path d="M50,114 C70,104 82,82 78,54 C66,66 54,84 50,114 Z" fill="#6f9e6a"/></g><g fill="#fbfaf3" opacity="0.95"><ellipse cx="45" cy="66" rx="5" ry="6"/><ellipse cx="55" cy="58" rx="4.6" ry="5.6"/><ellipse cx="44" cy="50" rx="4.3" ry="5.2"/><ellipse cx="54" cy="42" rx="4" ry="5"/><ellipse cx="45" cy="34" rx="3.6" ry="4.6"/><ellipse cx="53" cy="26" rx="3.2" ry="4.2"/></g></svg>`
+    }
+];
+
+let bfCardOpen = false;
+
+function bfOpenCard(idx) {
+    if (bfCardOpen) return;
+    const f = bfFlowers[idx];
+    if (!f) return;
+    bfCardOpen = true;
+
+    document.getElementById('bf-card-icon').innerHTML = f.icon;
+    document.getElementById('bf-card-latin').textContent = f.latin;
+    document.getElementById('bf-card-common').textContent = f.common;
+    document.getElementById('bf-card-label').textContent = f.label;
+    document.getElementById('bf-card-note').textContent = f.note;
+
+    const overlay = document.getElementById('bf-overlay');
+    overlay.classList.add('bf-show');
+    requestAnimationFrame(() => {
+        // trigger transition after display flips to flex
+        void overlay.offsetWidth;
+        overlay.classList.add('bf-show');
+    });
+}
+
+function bfCloseCard() {
+    const overlay = document.getElementById('bf-overlay');
+    overlay.classList.remove('bf-show');
+    bfCardOpen = false;
+}
+
+let bfInitDone = false;
+function initBotanicalStudy() {
+    if (bfInitDone) return;
+    bfInitDone = true;
+
+    const supportsPointer = 'PointerEvent' in window;
+
+    document.querySelectorAll('.bf-flower').forEach(btn => {
+        const handlePick = (e) => {
+            e.preventDefault();
+            e.stopPropagation(); // Stops the book from flipping
+            const idx = parseInt(btn.getAttribute('data-bf'), 10);
+            btn.classList.add('bf-picked');
+            setTimeout(() => btn.classList.remove('bf-picked'), 650);
+            setTimeout(() => bfOpenCard(idx), 180);
+        };
+        // Primary: intercept before the book's flip-gesture detection sees it.
+        if (supportsPointer) {
+            btn.addEventListener('pointerdown', handlePick);
+        }
+        btn.addEventListener('mousedown', handlePick);
+        btn.addEventListener('touchstart', handlePick, { passive: false });
+        // Safety net: if something upstream still swallows the above, a
+        // plain click (which the flip library forwards to <button> tags)
+        // will still open the card — bfOpenCard() is idempotent.
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const idx = parseInt(btn.getAttribute('data-bf'), 10);
+            bfOpenCard(idx);
+        });
+    });
+
+    const overlay = document.getElementById('bf-overlay');
+    const closeBtn = document.getElementById('bf-close');
+    const handleClose = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        bfCloseCard();
+    };
+    if (closeBtn) {
+        if (supportsPointer) closeBtn.addEventListener('pointerdown', handleClose);
+        closeBtn.addEventListener('mousedown', handleClose);
+        closeBtn.addEventListener('touchstart', handleClose, { passive: false });
+        closeBtn.addEventListener('click', (e) => { e.stopPropagation(); bfCloseCard(); });
+    }
+    if (overlay) {
+        const handleOverlayTap = (e) => {
+            if (e.target !== overlay) return;
+            e.preventDefault();
+            e.stopPropagation();
+            bfCloseCard();
+        };
+        if (supportsPointer) overlay.addEventListener('pointerdown', handleOverlayTap);
+        overlay.addEventListener('mousedown', handleOverlayTap);
+        overlay.addEventListener('touchstart', handleOverlayTap, { passive: false });
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) { e.stopPropagation(); bfCloseCard(); }
+        });
+    }
+}
 
 </script>
 </body>
