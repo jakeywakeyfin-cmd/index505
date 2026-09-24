@@ -7,7 +7,7 @@
     <title>M & T - Our Love Book</title>
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&family=Caveat:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=EB+Garamond:ital@0;1&family=Caveat:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
 /* Starry Background Effect */
 .star {
@@ -3344,6 +3344,43 @@ With you, I'll never walk alone.</div>
 #bf-overlay.bf-show #bf-card { transform:scale(1) !important; opacity:1 !important; }
 </style>
 
+<!-- 10TH MONTH ANNIVERSARY — 10/10 SCORECARDS -->
+<div class="page" data-date="10th Month Anniversary 2026" style="background:radial-gradient(ellipse at 50% 30%,#faf4e2 0%,#efe4f8 70%,#dccdf1 100%); border:2px solid #7e57c2; box-shadow: inset 0 0 40px rgba(126,87,194,0.18); overflow:hidden; position:relative;">
+    <div class="page-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;position:relative;">
+        <div class="tm-sparkles" aria-hidden="true">
+            <span style="top:7%;left:12%;animation-delay:0s;">✨</span>
+            <span style="top:12%;left:80%;animation-delay:1.2s;">💜</span>
+            <span style="top:78%;left:9%;animation-delay:2.1s;">💜</span>
+            <span style="top:84%;left:82%;animation-delay:.6s;">✨</span>
+        </div>
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <div style="font-family:'Caveat',cursive;font-size:1.3rem;color:#7e57c2;letter-spacing:2px;">ten months</div>
+            <div class="tm-page-score">
+                <svg viewBox="0 0 120 70" preserveAspectRatio="none" aria-hidden="true"><path d="M8 38C6 14 44 4 70 6c34 2 50 16 46 34-4 20-42 28-72 24C20 62 8 52 8 38Z"/></svg>
+                <b>10/10</b>
+            </div>
+            <div style="width:55%;height:1px;background:linear-gradient(to right,transparent,#7e57c2,transparent);"></div>
+            <div style="font-family:'EB Garamond',serif;font-style:italic;color:#5b4a78;font-size:1rem;max-width:240px;line-height:1.5;">a scorecard for every month we've had</div>
+            <button id="tm-launch-btn" type="button"
+                style="margin-top:6px;padding:13px 28px;background:linear-gradient(135deg,#7e57c2,#e91e63);color:#fff;border:1px solid rgba(255,255,255,0.4);border-radius:30px;font-family:'Dancing Script',cursive;font-size:1.3rem;cursor:pointer;box-shadow:0 0 20px rgba(233,30,99,0.35);touch-action:manipulation;-webkit-user-select:none;user-select:none;transition:transform .15s;"
+                ontouchstart="this.style.transform='scale(0.95)'"
+                ontouchend="this.style.transform='scale(1)'">
+                ▶ Open the scorecards
+            </button>
+            <div style="font-family:'EB Garamond',serif;font-size:0.75rem;color:rgba(44,36,26,0.45);letter-spacing:2px;">25 September 2026</div>
+        </div>
+    </div>
+</div>
+<style>
+.tm-sparkles{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.tm-sparkles span{position:absolute;font-size:1rem;opacity:0;animation:tmSpark 5s ease-in-out infinite;}
+@keyframes tmSpark{0%{opacity:0;transform:translateY(0) scale(.8)}15%{opacity:.85}50%{opacity:.5;transform:translateY(-14px) scale(1.05)}85%{opacity:.85}100%{opacity:0;transform:translateY(-28px) scale(.8)}}
+.tm-page-score{position:relative;width:190px;height:110px;display:grid;place-items:center;transform:rotate(-5deg);}
+.tm-page-score svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:#e91e63;stroke-width:3;stroke-linecap:round;}
+.tm-page-score path{vector-effect:non-scaling-stroke;}
+.tm-page-score b{font:700 3.4rem/1 'Caveat',cursive;color:#e91e63;}
+</style>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -3351,6 +3388,58 @@ With you, I'll never walk alone.</div>
         </div>
     </div>
 </div>
+
+<!-- ═══ 10/10 SCORECARD OVERLAY (10th month anniversary) ═══ -->
+<div id="tm-overlay" aria-hidden="true">
+    <button id="tm-close" type="button" aria-label="Close">✕</button>
+    <div class="tm-stack" id="tm-stack" tabindex="0" role="group" aria-label="Scorecards. Tap or press right arrow for the next card."></div>
+    <div class="tm-nav"><button id="tm-back" type="button" aria-label="Previous card">back</button><div class="tm-dots" id="tm-dots"></div></div>
+    <p id="tm-hint">tap or swipe for the next month</p>
+</div>
+<style>
+#tm-overlay{--table:#efe8f8;--glow:#ffffff;--paper:#f5ead0;--ink:#2c241a;--accent:#7e57c2;--rose:#e91e63;--hint:#5b4a78;
+  display:none;position:fixed;inset:0;z-index:10000;box-sizing:border-box;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);
+  background:var(--table);background-image:radial-gradient(ellipse at 50% 35%,var(--glow),transparent 70%);
+  font-family:'EB Garamond',Georgia,serif;color:var(--ink);
+  flex-direction:column;align-items:center;justify-content:center;gap:22px;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#tm-overlay.tm-open{display:flex}
+@media (prefers-color-scheme:dark){#tm-overlay{--table:#1c1426;--glow:#3a2a55;--hint:#b9a8d8}}
+#tm-overlay *{box-sizing:border-box}
+#tm-close{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:10;width:38px;height:38px;border-radius:50%;border:1px solid rgba(126,87,194,.4);background:rgba(255,255,255,.55);color:var(--accent);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.tm-stack{position:relative;width:min(88vw,350px,calc((100dvh - 170px)*.667));aspect-ratio:3/4.5;outline:none}
+.tm-card{position:absolute;inset:0;background:var(--paper);border-radius:14px;padding:22px 22px 20px 30px;
+  box-shadow:0 14px 30px rgba(20,8,40,.35),0 2px 0 rgba(255,255,255,.5) inset;
+  transform:translate(var(--x,0),var(--y,0)) rotate(var(--r,0deg)) scale(var(--s,1));
+  transition:transform .5s cubic-bezier(.2,.8,.25,1),opacity .4s;cursor:pointer;display:flex;flex-direction:column}
+.tm-card::before{content:"";position:absolute;left:20px;top:0;bottom:0;width:4px;border-left:1px solid rgba(233,30,99,.45);border-right:1px solid rgba(233,30,99,.45)}
+.tm-score{position:relative;align-self:flex-end;width:118px;height:70px;display:grid;place-items:center;transform:rotate(-5deg)}
+.tm-score path{vector-effect:non-scaling-stroke}
+.tm-score svg{position:absolute;inset:0;width:100%;height:100%;fill:none;stroke:var(--rose);stroke-width:2.6;stroke-linecap:round}
+.tm-score b{font:700 2.3rem/1 'Caveat',cursive;color:var(--rose)}
+.tm-cat{font:500 1.35rem 'Caveat',cursive;margin:10px 0 0;color:var(--accent)}
+.tm-why{font-size:1.22rem;font-style:italic;line-height:30px;margin:14px 0 0;
+  background:repeating-linear-gradient(transparent 0 29px,rgba(126,87,194,.22) 29px 30px);background-attachment:local}
+.tm-card.tm-finale{background:var(--accent);color:#fdf7e6;padding:0;display:flex;flex-direction:column}
+.tm-card.tm-finale::before{display:none}
+.tm-letter-header{text-align:center;padding:24px 24px 10px;flex-shrink:0}
+.tm-finale .tm-big{font:600 clamp(4rem,22vw,5.6rem)/1 'Dancing Script',cursive;transform:rotate(-4deg);text-shadow:0 3px 0 rgba(0,0,0,.18)}
+.tm-letter-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding:0 24px 24px;text-align:left;font-size:1.25rem;line-height:1.5;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.4) transparent}
+.tm-letter-body::-webkit-scrollbar{width:6px}
+.tm-letter-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.4);border-radius:4px}
+.tm-letter-body p{margin-top:0;margin-bottom:16px}
+.tm-finale .tm-sig{font:600 1.7rem 'Dancing Script',cursive;text-align:right;margin:22px 0 30px}
+.tm-restart{display:block;width:100%;padding:12px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:inherit;font:inherit;border-radius:8px;cursor:pointer;margin-top:20px}
+.tm-nav{display:flex;align-items:center;gap:16px;min-height:34px}
+.tm-nav button{font:500 1.3rem 'Caveat',cursive;background:none;border:0;color:var(--hint);cursor:pointer;padding:4px 8px}
+.tm-nav button:disabled{opacity:.3;cursor:default}
+.tm-dots{display:flex;gap:6px}
+.tm-dots span{width:7px;height:7px;border-radius:50%;background:var(--hint);opacity:.3;transition:.3s}
+.tm-dots span.on{opacity:1;background:var(--rose);transform:scale(1.3)}
+#tm-hint{font:500 1.25rem 'Caveat',cursive;color:var(--hint);margin:0;transition:opacity .6s}
+#tm-overlay button:focus-visible,.tm-stack:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.tm-card{transition:none}}
+</style>
 
 <div class="nav-controls">
     <button class="nav-btn" id="prevBtn">←</button>
@@ -3565,6 +3654,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '25 May 2026':                   '🎬 The Day We Met',
             '8th Month Anniversary 2026':    '🌌 Our Universe',
             '9th Month Anniversary 2026':    '💛 9 Month Anniversary',
+            '10th Month Anniversary 2026':   '💯 10 Month Anniversary',
             'Botanical Study':               '🌿 A Botanical Study of Her',
             'For You':                       '🎰 Compliment Machine',
             'Happy 7 Months':                '💜 7 Month Anniversary',
@@ -3716,7 +3806,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '9th Month Anniversary 2026', 'Botanical Study']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '10th Month Anniversary 2026', '9th Month Anniversary 2026', 'Botanical Study']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -5920,7 +6010,7 @@ function applyWeather(condition, isNight) {
 
     // Page filter
     if (cfg.pageFilter) {
-        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
+        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="10th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
             p.style.filter = cfg.pageFilter;
             p.style.webkitFilter = cfg.pageFilter; // Safari/WebKit fallback
         });
@@ -6366,6 +6456,171 @@ function initBotanicalStudy() {
     }
 }
 
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  10TH MONTH ANNIVERSARY — 10/10 SCORECARDS
+// ═══════════════════════════════════════════════════════════════
+(function () {
+  const CARDS=[
+   {cat:"month one, december",why:"we made it a whole month, and for the first time ever I was excited for Christmas. You make me feel seen and heard, and like I finally belong somewhere, with someone with you."},
+   {cat:"month two, january",why:"we walked into a new year together, and I promised to be there through all of matric. I'd help you study, help you take breaks, and help you escape when it got too much. And im sorry if i didnt at times"},
+   {cat:"month three, february",why:"I wrote you a poem every day, tried to make you a beat, gave up and built you a book instead. Then you pressed yes and I got my first ever Valentine. Three months in, we'd survived the hardest part."},
+   {cat:"month four, march",why:"it was your birthday and I couldn't be there as much as i would of loved too. Four months in, my heart finally felt like it was somewhere it belongs, and you handled me better than I deserved."},
+   {cat:"month five, april",why:"the day we met I was slacking off, and somehow you gave me a work ethic and a reason to be better. Five months later, I still want to be someone you'd look at and be proud to call yours."},
+   {cat:"month six, may",why:"I wasn't okay and I didn't know my path, and you stood by me anyway. Without you I never would have found myself again. Six months in, the one thing I knew for sure was you."},
+   {cat:"month seven, june",why:"I still get excited when your name shows up on my screen. Seven months of laughing, learning each other and choosing each other, and I still can't wait to turn the page to the next chapter."},
+   {cat:"month eight, july",why:"the world felt too small for how much I love you, so I gave you a universe. Every planet is a month of us, and the compliment machine never runs out, because there's always more to say when it comes to you."},
+   {cat:"month nine, august",why:"nine months, that's an entire baby. Nine months of fighting, missing each other and loving each other, and still the best nine months of my life. I hope you never stop putting up with me."}
+  ];
+  const RING='<svg preserveAspectRatio="none" viewBox="0 0 120 70"><path d="M8 38C6 14 44 4 70 6c34 2 50 16 46 34-4 20-42 28-72 24C20 62 8 52 8 38Z"/></svg>';
+  const FINAL_HTML=`
+    <div class="tm-letter-header">
+      <div class="tm-big">10/10</div>
+    </div>
+    <div class="tm-letter-body">
+      <p>My dearest,</p>
+      <p>Ten months down, and you still manage to give me butterflies. Looking back at this stack of memories, it’s crazy to see how far we've come since month one.</p>
+      <p>Every single day, you show me what it means to be truly loved and supported. Whether we are laughing over nothing, navigating the heavy stuff, or just sitting in silence, there is nowhere else I’d rather be.</p>
+      <p>Happy 10 months my 10/10 , we made it to 2 digits , through everything and i promise to continue too fight with you , to build our future.To be happy with you , build a family and achieve everything we could think off</p>
+      <p class="tm-sig">I love you princess</p>
+      <button class="tm-restart" type="button">Read it again</button>
+    </div>
+  `;
+
+  const overlay=document.getElementById('tm-overlay'),
+        stack=document.getElementById('tm-stack'),
+        dotsEl=document.getElementById('tm-dots'),
+        backBtn=document.getElementById('tm-back'),
+        hint=document.getElementById('tm-hint'),
+        closeBtn=document.getElementById('tm-close'),
+        launchBtn=document.getElementById('tm-launch-btn');
+  if(!overlay||!stack)return;
+
+  const TILT=[-2.5,1.8,-1,2.6,-1.6];
+  const cards=[];let i=0,built=false;
+
+  function build(){
+    if(built)return;built=true;
+    CARDS.forEach((c,k)=>{
+      const el=document.createElement('article');el.className='tm-card';
+      el.innerHTML=`<div class="tm-score">${RING}<b>${k+1}/${CARDS.length+1}</b></div><p class="tm-cat">${c.cat}</p><p class="tm-why">${c.why}</p>`;
+      el._tilt=TILT[k%5];cards.push(el);stack.appendChild(el);
+    });
+    const fin=document.createElement('article');fin.className='tm-card tm-finale';fin.innerHTML=FINAL_HTML;fin._tilt=0;cards.push(fin);stack.appendChild(fin);
+    cards.forEach(()=>dotsEl.appendChild(document.createElement('span')));
+    // let the finale letter scroll without the book/overlay swallowing touches
+    const lb=fin.querySelector('.tm-letter-body');
+    lb.addEventListener('touchstart',e=>e.stopPropagation(),{passive:true});
+    lb.addEventListener('touchmove',e=>e.stopPropagation(),{passive:true});
+  }
+
+  function place(){
+    cards.forEach((el,k)=>{
+      const d=k-i;
+      el.style.zIndex=d>=0?cards.length-k:0;
+      if(d<0){const s=el._dir||1;el.style.cssText+=`;--x:${s*130}%;--y:-6%;--r:${s*18}deg;--s:1;opacity:0;pointer-events:none`;}
+      else if(d<3){el.style.cssText+=`;--x:0px;--y:${d*10}px;--r:${d?el._tilt:el._tilt*.4}deg;--s:${1-d*.04};opacity:1;pointer-events:${d?'none':'auto'}`;}
+      else{el.style.cssText+=';--x:0px;--y:24px;--r:0deg;--s:.88;opacity:0;pointer-events:none';}
+    });
+    [...dotsEl.children].forEach((d,k)=>d.classList.toggle('on',k===i));
+    backBtn.disabled=i===0;
+  }
+  function go(n,dir){
+    if(n<0||n>=cards.length)return;
+    if(n>i)cards[i]._dir=dir||1;
+    i=n;place();
+    const last=i===cards.length-1;
+    hint.textContent=last?'scroll to read':'tap or swipe for the next month';
+    hint.style.opacity=(i===0||last)?1:0;
+    if(last)celebrate();
+  }
+  function celebrate(){
+    if(typeof confetti!=='function'||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    const colors=['#e91e63','#7e57c2','#f5ead0','#f3cf5f'],z=10001;
+    confetti({particleCount:90,spread:80,origin:{y:.6},colors,zIndex:z});
+    setTimeout(()=>{confetti({particleCount:60,angle:60,spread:70,origin:{x:0,y:.7},colors,zIndex:z});confetti({particleCount:60,angle:120,spread:70,origin:{x:1,y:.7},colors,zIndex:z})},250);
+  }
+
+  // ── open / close ──
+  function setFloating(show){
+    const m=document.getElementById('music-control'),b=document.getElementById('back-to-index-btn');
+    if(m)m.style.display=show?'block':'none';
+    if(b)b.style.display=show?'block':'none';
+  }
+  function openScorecards(e){
+    if(e){e.stopPropagation();e.preventDefault();}
+    build();
+    overlay.classList.add('tm-open');overlay.setAttribute('aria-hidden','false');
+    setFloating(false);
+    cards.forEach(c=>{c._dir=0});
+    i=0;go(0);
+    stack.focus({preventScroll:true});
+  }
+  function closeScorecards(e){
+    if(e){e.stopPropagation();e.preventDefault();}
+    overlay.classList.remove('tm-open');overlay.setAttribute('aria-hidden','true');
+    setFloating(true);
+  }
+  const isOpen=()=>overlay.classList.contains('tm-open');
+
+  function wire(btn,fn){
+    if(!btn)return;
+    btn.addEventListener('pointerdown',e=>e.stopPropagation());
+    btn.addEventListener('touchstart',e=>e.stopPropagation(),{passive:false});
+    btn.addEventListener('touchend',e=>{e.stopPropagation();e.preventDefault();fn()},{passive:false});
+    btn.addEventListener('click',e=>{e.stopPropagation();fn()});
+  }
+  wire(launchBtn,openScorecards);
+  wire(closeBtn,closeScorecards);
+
+  // keep touches from leaking through to the book underneath
+  overlay.addEventListener('touchstart',e=>e.stopPropagation(),{passive:false});
+  overlay.addEventListener('touchmove',e=>e.stopPropagation(),{passive:false});
+
+  // ── flipping ──
+  let drag=null,moved=false;
+  stack.addEventListener('click',e=>{
+    if(moved){moved=false;return;}
+    if(i===cards.length-1){
+      if(e.target.closest('.tm-restart'))go(0);
+      return;
+    }
+    go(i+1);
+  });
+  backBtn.addEventListener('click',()=>go(i-1));
+  document.addEventListener('keydown',e=>{
+    if(!isOpen())return;
+    if(e.key==='Escape'){closeScorecards();return;}
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter'){
+      if(document.activeElement===backBtn||document.activeElement===closeBtn)return;
+      e.preventDefault();go(i+1);
+    }
+    if(e.key==='ArrowLeft')go(i-1);
+  });
+  stack.addEventListener('pointerdown',e=>{
+    if(i>=cards.length-1)return;
+    drag={x:e.clientX,el:cards[i]};moved=false;
+    stack.setPointerCapture(e.pointerId);
+  });
+  stack.addEventListener('pointermove',e=>{
+    if(!drag)return;
+    const dx=e.clientX-drag.x;
+    if(Math.abs(dx)>8)moved=true;
+    if(!moved)return;
+    const s=drag.el.style;s.transition='none';
+    s.setProperty('--x',dx+'px');s.setProperty('--y',Math.abs(dx)*-.08+'px');s.setProperty('--r',dx/14+'deg');
+  });
+  function endDrag(e){
+    if(!drag)return;
+    const dx=e.clientX-drag.x,el=drag.el;drag=null;
+    el.style.transition='';
+    if(moved&&Math.abs(dx)>70)go(i+1,dx>0?1:-1);else place();
+  }
+  stack.addEventListener('pointerup',endDrag);
+  stack.addEventListener('pointercancel',endDrag);
+})();
 </script>
 </body>
 
