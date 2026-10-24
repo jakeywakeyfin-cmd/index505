@@ -3381,6 +3381,29 @@ With you, I'll never walk alone.</div>
 .tm-page-score b{font:700 3.4rem/1 'Caveat',cursive;color:#e91e63;}
 </style>
 
+<!-- 11TH MONTH ANNIVERSARY — TWO SPHERES MERGE -->
+<div class="page" data-date="11th Month Anniversary 2026" style="background:radial-gradient(ellipse at 50% 30%,#0d0018 0%,#1a0b35 60%,#0a0015 100%); border:2px solid #7e57c2; box-shadow: inset 0 0 40px rgba(126,87,194,0.25); overflow:hidden; position:relative;">
+    <div class="page-content" style="background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;position:relative;">
+        <div id="em-page-stars" style="position:absolute;inset:0;pointer-events:none;z-index:0;"></div>
+        <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:12px;">
+            <div style="font-family:'Caveat',cursive;font-size:1.3rem;color:#caa3ff;letter-spacing:2px;">eleven months</div>
+            <svg viewBox="0 0 120 70" width="150" height="88" aria-hidden="true" style="filter:drop-shadow(0 0 10px rgba(202,163,255,0.5));">
+                <circle cx="44" cy="35" r="26" fill="none" stroke="#6bb3ff" stroke-width="2.4" opacity="0.85"/>
+                <circle cx="76" cy="35" r="26" fill="none" stroke="#ff6b6b" stroke-width="2.4" opacity="0.85"/>
+            </svg>
+            <div style="width:55%;height:1px;background:linear-gradient(to right,transparent,#9b59b6,transparent);"></div>
+            <div style="font-family:'EB Garamond',serif;font-style:italic;color:#d1c4e9;font-size:1rem;opacity:0.85;max-width:240px;line-height:1.5;">two stars, drifting closer, made of words</div>
+            <button id="em-launch-btn" type="button"
+                style="margin-top:6px;padding:13px 28px;background:linear-gradient(135deg,#4a148c,#7e57c2);color:#fff;border:1px solid rgba(202,163,255,0.4);border-radius:30px;font-family:'Dancing Script',cursive;font-size:1.3rem;cursor:pointer;box-shadow:0 0 20px rgba(126,87,194,0.5);touch-action:manipulation;-webkit-user-select:none;user-select:none;transition:transform .15s;"
+                ontouchstart="this.style.transform='scale(0.95)'"
+                ontouchend="this.style.transform='scale(1)'">
+                ▶ Watch it unfold
+            </button>
+            <div style="font-family:'EB Garamond',serif;font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:2px;">25 October 2026</div>
+        </div>
+    </div>
+</div>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -3439,6 +3462,47 @@ With you, I'll never walk alone.</div>
 #tm-hint{font:500 1.25rem 'Caveat',cursive;color:var(--hint);margin:0;transition:opacity .6s}
 #tm-overlay button:focus-visible,.tm-stack:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.tm-card{transition:none}}
+</style>
+
+<!-- ═══ 11TH MONTH OVERLAY — TWO SPHERES MERGE ═══ -->
+<div id="sm-overlay" aria-hidden="true">
+    <button id="sm-close" type="button" aria-label="Close">✕</button>
+    <div id="stage">
+        <canvas id="sm-canvas"></canvas>
+        <div id="sm-header">11 months together</div>
+        <div id="sm-caption-love">I love you</div>
+
+        <div id="sm-letter-overlay">
+            <div id="sm-letter-card">
+                <div id="sm-letter-heading">Happy 11 Months</div>
+                <div id="sm-letter-body">Heyy my sweetheart, happy 11 months — that's just unfathomable to me. We're one month away from the big one, and that's genuinely insane to me. I love you soo much. Thank you for everything, thank you for how amazing you have been to me through everything, even when times get tough you still fight, even when you've got other things going on. It's really amazing and I'm so proud of you.
+
+You're starting finals, and I know you're going to do amazing — just put your head down and work, and I'll be there for you every step of the way, no matter what.
+
+I'm genuinely shocked about 11 months. It doesn't feel like it should be this long, it feels like I met you yesterday. Thank you for bringing something into my life I've never had — I've never felt so safe before. I don't have to worry about you doing something to hurt me intentionally. It's genuinely been the best period of my life. Thank you so much, my angel.
+
+I know this little page isn't really that much, but for some reason the coding of this got so complicated with the maths it took me forever 😭 — but I love you, and I'll make it up to you. I love you sooo much, mwahhh. One more to go 👀.</div>
+                <button id="sm-letter-replay">&#8635; replay</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+#sm-overlay{display:none;position:fixed;inset:0;z-index:10000;background:#000;touch-action:none;}
+#sm-overlay.sm-open{display:block;}
+#sm-overlay #stage{position:absolute;inset:0;width:100%;height:100%;font-family:'EB Garamond','Georgia',serif;}
+#sm-overlay #sm-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+#sm-close{position:absolute;top:14px;right:14px;z-index:20;background:rgba(0,0,0,0.6);color:#fff;border:1px solid rgba(255,255,255,0.2);border-radius:50%;width:38px;height:38px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;touch-action:manipulation;-webkit-user-select:none;user-select:none;}
+#sm-header{position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;pointer-events:none;font-size:0.65rem;color:rgba(255,255,255,0.3);letter-spacing:4px;text-transform:uppercase;transition:opacity 1.2s ease;}
+#sm-caption-love{position:absolute;left:0;right:0;top:46%;transform:translateY(-50%);text-align:center;z-index:6;pointer-events:none;font-family:'Brush Script MT',cursive;font-size:2.4rem;color:#caa3ff;text-shadow:0 0 20px rgba(202,163,255,0.85),0 0 44px rgba(155,89,230,0.5);opacity:0;}
+#sm-letter-overlay{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:28px;box-sizing:border-box;background:rgba(5,2,12,0.55);opacity:0;pointer-events:none;transition:opacity 1s ease;}
+#sm-letter-overlay.sm-show{opacity:1;pointer-events:auto;}
+#sm-letter-card{width:100%;max-width:360px;max-height:80vh;box-sizing:border-box;background:linear-gradient(165deg,rgba(28,16,46,0.96),rgba(12,8,22,0.97));border:1px solid rgba(202,163,255,0.35);border-radius:16px;box-shadow:0 0 40px rgba(155,89,230,0.25),0 10px 40px rgba(0,0,0,0.5);padding:26px 24px 22px;display:flex;flex-direction:column;align-items:center;transform:scale(0.92) translateY(10px);transition:transform 1s cubic-bezier(0.22,1,0.36,1);}
+#sm-letter-overlay.sm-show #sm-letter-card{transform:scale(1) translateY(0);}
+#sm-letter-heading{font-family:'Brush Script MT',cursive;font-size:1.9rem;color:#caa3ff;text-shadow:0 0 16px rgba(202,163,255,0.7);text-align:center;flex-shrink:0;}
+#sm-letter-body{font-family:'EB Garamond','Georgia',serif;font-size:0.95rem;line-height:1.75;color:rgba(255,255,255,0.82);text-align:left;white-space:pre-wrap;margin-top:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
+#sm-letter-replay{margin-top:20px;flex-shrink:0;background:rgba(202,163,255,0.1);border:1px solid rgba(202,163,255,0.4);color:#caa3ff;font-family:'EB Garamond',serif;font-style:italic;font-size:0.75rem;letter-spacing:2px;padding:8px 20px;border-radius:20px;cursor:pointer;touch-action:manipulation;}
+#sm-overlay button:focus-visible{outline:2px solid #caa3ff;outline-offset:4px;}
 </style>
 
 <div class="nav-controls">
@@ -3655,6 +3719,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '8th Month Anniversary 2026':    '🌌 Our Universe',
             '9th Month Anniversary 2026':    '💛 9 Month Anniversary',
             '10th Month Anniversary 2026':   '💯 10 Month Anniversary',
+            '11th Month Anniversary 2026':   '💜 11 Month Anniversary',
             'Botanical Study':               '🌿 A Botanical Study of Her',
             'For You':                       '🎰 Compliment Machine',
             'Happy 7 Months':                '💜 7 Month Anniversary',
@@ -3806,7 +3871,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '10th Month Anniversary 2026', '9th Month Anniversary 2026', 'Botanical Study']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '10th Month Anniversary 2026', '11th Month Anniversary 2026', '9th Month Anniversary 2026', 'Botanical Study']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -6010,7 +6075,7 @@ function applyWeather(condition, isNight) {
 
     // Page filter
     if (cfg.pageFilter) {
-        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="10th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
+        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="10th Month Anniversary 2026"]):not([data-date="11th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
             p.style.filter = cfg.pageFilter;
             p.style.webkitFilter = cfg.pageFilter; // Safari/WebKit fallback
         });
@@ -6620,6 +6685,518 @@ function initBotanicalStudy() {
   }
   stack.addEventListener('pointerup',endDrag);
   stack.addEventListener('pointercancel',endDrag);
+})();
+</script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  11TH MONTH ANNIVERSARY — TWO SPHERES MERGE — made of words
+// ═══════════════════════════════════════════════════════════════
+(function(){
+
+let smStartTime = 0;
+let smRafId = null;
+const SM_DRIFT_MS = 9500;
+const SM_MERGE_FLASH_MS = 1400;
+
+const LEFT_PHRASE  = "HAPPY 11 MONTHS • ";
+const RIGHT_PHRASE = "HAPPY 11 MONTHS • ";
+const MERGE_PHRASE = "I LOVE YOU • ";
+
+let smMergeFired = false;
+let smMergeTime = 0;
+let smSparks = [];
+let smShootingStars = [];
+let smNextShootAt = 0;
+
+function smEaseInOutCubic(x) {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+}
+function smEaseOutCubic(x) { return 1 - Math.pow(1 - x, 3); }
+
+function smInitStars(w, h) {
+    const n = Math.round((w * h) / 2600);
+    const stars = [];
+    for (let i = 0; i < n; i++) {
+        stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.2 + 0.3,
+            phase: Math.random() * Math.PI * 2,
+            speed: Math.random() * 0.0006 + 0.00025
+        });
+    }
+    return stars;
+}
+
+function smInitOrbiters(seedOffset) {
+    const orb = [];
+    const n = 9;
+    for (let i = 0; i < n; i++) {
+        orb.push({
+            baseAngle: (i / n) * Math.PI * 2 + seedOffset,
+            speed: (0.00022 + Math.random() * 0.00018) * (Math.random() < 0.5 ? 1 : -1),
+            radiusMul: 1.35 + Math.random() * 0.55,
+            size: 0.9 + Math.random() * 1.4,
+            wobblePhase: Math.random() * Math.PI * 2
+        });
+    }
+    return orb;
+}
+
+function smCharAt(phrase, idx) {
+    const i = ((idx % phrase.length) + phrase.length) % phrase.length;
+    return phrase[i];
+}
+
+function smDrawSphereGlow(ctx, cx, cy, R, now, colorStr) {
+    const pulse = 0.55 + 0.25 * Math.sin(now * 0.0009);
+    const grad = ctx.createRadialGradient(cx, cy, R * 0.2, cx, cy, R * 1.9);
+    grad.addColorStop(0, `rgba(${colorStr},${0.22 * pulse})`);
+    grad.addColorStop(0.55, `rgba(${colorStr},${0.09 * pulse})`);
+    grad.addColorStop(1, `rgba(${colorStr},0)`);
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, R * 1.9, 0, Math.PI * 2);
+    ctx.fill();
+}
+
+function smDrawOrbiters(ctx, cx, cy, R, now, orbiters, colorArr, alphaMul) {
+    orbiters.forEach(o => {
+        const ang = o.baseAngle + now * o.speed;
+        const wobble = Math.sin(now * 0.0012 + o.wobblePhase) * 0.12;
+        const rad = R * (o.radiusMul + wobble);
+        const ex = cx + Math.cos(ang) * rad;
+        const ey = cy + Math.sin(ang) * rad * 0.55;
+        const depth = (Math.sin(ang) + 1) / 2;
+        const a = (0.25 + depth * 0.55) * alphaMul;
+        const s = o.size * (0.6 + depth * 0.6);
+        ctx.globalAlpha = a;
+        ctx.fillStyle = `rgb(${colorArr[0]},${colorArr[1]},${colorArr[2]})`;
+        ctx.beginPath();
+        ctx.arc(ex, ey, s, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+}
+
+function smDrawTendril(ctx, w, h, leftCx, rightCx, cy, R, t, now) {
+    const gap = (rightCx - leftCx) - 2 * R;
+    if (gap <= 2) return;
+    if (t < 0.4) return;
+    const closeness = Math.max(0, Math.min(1, 1 - gap / (R * 1.6))) * Math.min(1, (t - 0.4) / 0.2);
+    if (closeness <= 0.03) return;
+
+    const steps = 26;
+    const amp = R * 0.22 * closeness;
+    ctx.lineWidth = 1.1;
+    for (let pass = 0; pass < 2; pass++) {
+        ctx.beginPath();
+        for (let i = 0; i <= steps; i++) {
+            const f = i / steps;
+            const x = leftCx + R + (rightCx - R - (leftCx + R)) * f;
+            const wobble = Math.sin(f * Math.PI * 3 + now * 0.0022 + pass * 2.1) * amp * Math.sin(f * Math.PI);
+            const y = cy + wobble;
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        const grad = ctx.createLinearGradient(leftCx, cy, rightCx, cy);
+        grad.addColorStop(0, `rgba(107,179,255,${0.35 * closeness})`);
+        grad.addColorStop(0.5, `rgba(181,143,181,${0.5 * closeness})`);
+        grad.addColorStop(1, `rgba(255,107,107,${0.35 * closeness})`);
+        ctx.strokeStyle = grad;
+        ctx.stroke();
+    }
+
+    const sparkCount = 3;
+    for (let i = 0; i < sparkCount; i++) {
+        const f = ((now * 0.00032) + i / sparkCount) % 1;
+        const x = leftCx + R + (rightCx - R - (leftCx + R)) * f;
+        const wobble = Math.sin(f * Math.PI * 3 + now * 0.0022) * amp * Math.sin(f * Math.PI);
+        const y = cy + wobble;
+        ctx.globalAlpha = closeness * 0.85;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(x, y, 1.6, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+}
+
+function smSpawnBurst(cx, cy) {
+    smSparks = [];
+    const n = 46;
+    for (let i = 0; i < n; i++) {
+        const ang = (i / n) * Math.PI * 2 + Math.random() * 0.3;
+        const speed = 0.045 + Math.random() * 0.09;
+        smSparks.push({
+            x: cx, y: cy,
+            vx: Math.cos(ang) * speed,
+            vy: Math.sin(ang) * speed,
+            life: 1,
+            decay: 0.0009 + Math.random() * 0.0007,
+            size: 1 + Math.random() * 1.8,
+            hue: Math.random() < 0.5 ? 'rgb(202,163,255)' : 'rgb(255,200,220)'
+        });
+    }
+}
+
+function smDrawBurst(ctx, now, dt) {
+    if (!smSparks.length) return;
+    smSparks.forEach(p => {
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
+        p.vx *= 0.992;
+        p.vy *= 0.992;
+        p.life -= p.decay * dt;
+    });
+    smSparks = smSparks.filter(p => p.life > 0);
+    smSparks.forEach(p => {
+        ctx.globalAlpha = Math.max(0, p.life);
+        ctx.fillStyle = p.hue;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+}
+
+function smDrawShockwave(ctx, cx, cy, R, now) {
+    if (!smMergeFired) return;
+    const since = now - smMergeTime;
+    const f = Math.min(1, since / SM_MERGE_FLASH_MS);
+    if (f >= 1) return;
+    const eased = smEaseOutCubic(f);
+    const radius = R * (1.1 + eased * 2.6);
+    const alpha = (1 - f) * 0.55;
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.lineWidth = 2.2 * (1 - f) + 0.6;
+    ctx.strokeStyle = 'rgba(202,163,255,1)';
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+}
+
+function smMaybeSpawnShootingStar(w, h, now) {
+    if (now < smNextShootAt) return;
+    smNextShootAt = now + 6000 + Math.random() * 7000;
+    const fromLeft = Math.random() < 0.5;
+    const y0 = Math.random() * h * 0.5;
+    smShootingStars.push({
+        x: fromLeft ? -20 : w + 20,
+        y: y0,
+        vx: (fromLeft ? 1 : -1) * (0.38 + Math.random() * 0.22),
+        vy: 0.14 + Math.random() * 0.08,
+        life: 1,
+        len: 50 + Math.random() * 40
+    });
+}
+
+function smDrawShootingStars(ctx, w, h, now, dt) {
+    smMaybeSpawnShootingStar(w, h, now);
+    smShootingStars.forEach(s => {
+        s.x += s.vx * dt;
+        s.y += s.vy * dt;
+        s.life -= dt * 0.0007;
+    });
+    smShootingStars = smShootingStars.filter(s => s.life > 0 && s.x > -60 && s.x < w + 60 && s.y < h + 60);
+    smShootingStars.forEach(s => {
+        const tailX = s.x - Math.sign(s.vx) * s.len;
+        const tailY = s.y - s.len * (s.vy / Math.abs(s.vx || 1));
+        const grad = ctx.createLinearGradient(s.x, s.y, tailX, tailY);
+        grad.addColorStop(0, `rgba(255,255,255,${0.85 * s.life})`);
+        grad.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.3;
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(tailX, tailY);
+        ctx.stroke();
+    });
+}
+
+function smDrawNebula(ctx, w, h, now) {
+    const driftX = Math.sin(now * 0.00004) * w * 0.08;
+    const driftY = Math.cos(now * 0.00003) * h * 0.06;
+    const g1 = ctx.createRadialGradient(
+        w * 0.3 + driftX, h * 0.35 + driftY, 0,
+        w * 0.3 + driftX, h * 0.35 + driftY, w * 0.9
+    );
+    g1.addColorStop(0, 'rgba(70,40,110,0.16)');
+    g1.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g1;
+    ctx.fillRect(0, 0, w, h);
+
+    const g2 = ctx.createRadialGradient(
+        w * 0.75 - driftX, h * 0.65 - driftY, 0,
+        w * 0.75 - driftX, h * 0.65 - driftY, w * 0.8
+    );
+    g2.addColorStop(0, 'rgba(30,60,120,0.13)');
+    g2.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g2;
+    ctx.fillRect(0, 0, w, h);
+}
+
+let leftOrbiters = null, rightOrbiters = null;
+let smLastFrameTime = 0;
+
+function smDrawFrame(ctx, w, h, stars, now) {
+    const dt = smLastFrameTime ? Math.min(48, now - smLastFrameTime) : 16;
+    smLastFrameTime = now;
+
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, w, h);
+
+    smDrawNebula(ctx, w, h, now);
+
+    stars.forEach(s => {
+        const a = 0.3 + 0.6 * Math.abs(Math.sin(now * s.speed + s.phase));
+        ctx.globalAlpha = a;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+
+    smDrawShootingStars(ctx, w, h, now, dt);
+
+    const elapsed = now - smStartTime;
+    const raw = Math.min(1, Math.max(0, elapsed / SM_DRIFT_MS));
+    const t = smEaseInOutCubic(raw);
+
+    const cx = w / 2, cy = h * 0.46;
+    const R = Math.min(w, h) * 0.185;
+    const maxOffset = Math.min(R * 2.35, cx - R - 14);
+
+    const leftCx = cx - maxOffset * (1 - t);
+    const rightCx = cx + maxOffset * (1 - t);
+
+    const leftColor = [107, 179, 255];
+    const rightColor = [255, 107, 107];
+    const blendColor = [
+        (leftColor[0] + rightColor[0]) / 2,
+        (leftColor[1] + rightColor[1]) / 2,
+        (leftColor[2] + rightColor[2]) / 2
+    ];
+
+    smDrawTendril(ctx, w, h, leftCx, rightCx, cy, R, t, now);
+
+    if (raw < 1) {
+        smDrawSphereGlow(ctx, leftCx, cy, R, now, '107,179,255');
+        smDrawSphereGlow(ctx, rightCx, cy, R, now, '255,107,107');
+    } else {
+        smDrawSphereGlow(ctx, cx, cy, R, now, `${blendColor[0]|0},${blendColor[1]|0},${blendColor[2]|0}`);
+    }
+
+    const orbAlpha = raw < 1 ? 1 : Math.max(0, 1 - (raw - 1) * 4);
+    if (!leftOrbiters) leftOrbiters = smInitOrbiters(0);
+    if (!rightOrbiters) rightOrbiters = smInitOrbiters(Math.PI);
+    smDrawOrbiters(ctx, leftCx, cy, R, now, leftOrbiters, leftColor, orbAlpha);
+    smDrawOrbiters(ctx, rightCx, cy, R, now, rightOrbiters, rightColor, orbAlpha);
+    if (raw >= 1) {
+        smDrawOrbiters(ctx, cx, cy, R, now, leftOrbiters, blendColor, 1);
+        smDrawOrbiters(ctx, cx, cy, R, now, rightOrbiters, blendColor, 1);
+    }
+
+    const spacing = 11;
+    const charW = 8;
+    const minX = Math.min(leftCx, rightCx) - R - spacing;
+    const maxX = Math.max(leftCx, rightCx) + R + spacing;
+    const minY = cy - R - spacing;
+    const maxY = cy + R + spacing;
+
+    ctx.font = 'bold 9px "Courier New", monospace';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+
+    const lightDx = -0.5, lightDy = -0.6;
+    const rotChars = now * 0.0014;
+
+    let rowSeed = 0;
+    for (let gy = minY; gy <= maxY; gy += spacing) {
+        rowSeed++;
+        let leftCursor = Math.floor(rowSeed * 2.7 + rotChars);
+        let rightCursor = Math.floor(rowSeed * 2.7 + rotChars);
+        let mergeCursor = Math.floor(rowSeed * 2.3 + rotChars);
+
+        for (let gx = minX; gx <= maxX; gx += charW) {
+            const dxL = (gx - leftCx) / R, dyL = (gy - cy) / R;
+            const dxR = (gx - rightCx) / R, dyR = (gy - cy) / R;
+            const distL2 = dxL * dxL + dyL * dyL;
+            const distR2 = dxR * dxR + dyR * dyR;
+            const inLeft = distL2 <= 1;
+            const inRight = distR2 <= 1;
+            if (!inLeft && !inRight) continue;
+
+            let shade, color, dx, dy, ch;
+            if (inLeft && inRight) {
+                const shadeL = Math.sqrt(Math.max(0, 1 - distL2));
+                const shadeR = Math.sqrt(Math.max(0, 1 - distR2));
+                shade = Math.max(shadeL, shadeR);
+                color = blendColor;
+                dx = (dxL + dxR) / 2; dy = (dyL + dyR) / 2;
+                ch = smCharAt(MERGE_PHRASE, mergeCursor++);
+            } else if (inLeft) {
+                shade = Math.sqrt(Math.max(0, 1 - distL2));
+                color = leftColor;
+                dx = dxL; dy = dyL;
+                ch = smCharAt(LEFT_PHRASE, leftCursor++);
+            } else {
+                shade = Math.sqrt(Math.max(0, 1 - distR2));
+                color = rightColor;
+                dx = dxR; dy = dyR;
+                ch = smCharAt(RIGHT_PHRASE, rightCursor++);
+            }
+
+            if (ch === ' ') continue;
+
+            const light = Math.max(0, dx * lightDx + dy * lightDy) * 0.4;
+            let brightness = shade * 0.7 + light;
+            brightness = Math.min(1, Math.max(0.18, brightness));
+
+            const alpha = 0.4 + brightness * 0.6;
+            ctx.fillStyle = `rgba(${color[0]|0},${color[1]|0},${color[2]|0},${alpha.toFixed(2)})`;
+            ctx.fillText(ch, gx, gy);
+        }
+    }
+
+    if (raw >= 1 && !smMergeFired) {
+        smMergeFired = true;
+        smMergeTime = now;
+        smSpawnBurst(cx, cy);
+    }
+    smDrawShockwave(ctx, cx, cy, R, now);
+    smDrawBurst(ctx, now, dt);
+
+    const loveCap = document.getElementById('sm-caption-love');
+    const letterOverlay = document.getElementById('sm-letter-overlay');
+    const headerEl = document.getElementById('sm-header');
+    const loveOpacity = Math.max(0, Math.min(1, (t - 0.86) / 0.14));
+    if (loveCap) loveCap.style.opacity = loveOpacity;
+    if (headerEl) headerEl.style.opacity = (1 - loveOpacity * 0.7);
+
+    if (raw >= 1) {
+        if (letterOverlay && letterOverlay.dataset.scheduled !== '1') {
+            letterOverlay.dataset.scheduled = '1';
+            setTimeout(() => {
+                if (letterOverlay) letterOverlay.classList.add('sm-show');
+            }, 2200);
+        }
+        return 'done';
+    }
+    return 'running';
+}
+
+function smLoop(ctx, w, h, stars) {
+    const now = performance.now();
+    smDrawFrame(ctx, w, h, stars, now);
+    smRafId = requestAnimationFrame(() => smLoop(ctx, w, h, stars));
+}
+
+let smStars = null, smCtx = null, smW = 0, smH = 0;
+
+function smResize() {
+    const canvas = document.getElementById('sm-canvas');
+    if (!canvas) return;
+    const dpr = window.devicePixelRatio || 1;
+    smW = canvas.clientWidth || window.innerWidth;
+    smH = canvas.clientHeight || window.innerHeight;
+    canvas.width = smW * dpr;
+    canvas.height = smH * dpr;
+    smCtx = canvas.getContext('2d');
+    smCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    smStars = smInitStars(smW, smH);
+}
+
+function smStart() {
+    smStartTime = performance.now();
+    smMergeFired = false;
+    smSparks = [];
+    smLastFrameTime = 0;
+    leftOrbiters = null; rightOrbiters = null;
+    const letterOverlay = document.getElementById('sm-letter-overlay');
+    if (letterOverlay) { letterOverlay.classList.remove('sm-show'); letterOverlay.dataset.scheduled = '0'; }
+    const loveCap = document.getElementById('sm-caption-love');
+    if (loveCap) loveCap.style.opacity = '0';
+    const headerEl = document.getElementById('sm-header');
+    if (headerEl) headerEl.style.opacity = '1';
+    if (smRafId) cancelAnimationFrame(smRafId);
+    smLoop(smCtx, smW, smH, smStars);
+}
+
+window.addEventListener('resize', () => {
+    const overlayEl = document.getElementById('sm-overlay');
+    if (overlayEl && overlayEl.classList.contains('sm-open')) smResize();
+});
+
+const letterReplayBtn = document.getElementById('sm-letter-replay');
+if (letterReplayBtn) {
+    letterReplayBtn.addEventListener('click', (e) => { e.stopPropagation(); smStart(); });
+    letterReplayBtn.addEventListener('touchstart', (e) => { e.preventDefault(); e.stopPropagation(); smStart(); }, { passive: false });
+}
+
+// ── Open / close wiring (matches the book's other full-screen overlays) ──
+const overlay = document.getElementById('sm-overlay');
+const launchBtn = document.getElementById('em-launch-btn');
+const closeBtn = document.getElementById('sm-close');
+if (overlay) {
+    function setFloating(show) {
+        const m = document.getElementById('music-control'), b = document.getElementById('back-to-index-btn');
+        if (m) m.style.display = show ? 'block' : 'none';
+        if (b) b.style.display = show ? 'block' : 'none';
+    }
+    function openEleven(e) {
+        if (e) { e.stopPropagation(); e.preventDefault(); }
+        overlay.classList.add('sm-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        setFloating(false);
+        smResize();
+        smStart();
+    }
+    function closeEleven(e) {
+        if (e) { e.stopPropagation(); e.preventDefault(); }
+        overlay.classList.remove('sm-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        setFloating(true);
+        if (smRafId) { cancelAnimationFrame(smRafId); smRafId = null; }
+    }
+    function wire(btn, fn) {
+        if (!btn) return;
+        btn.addEventListener('pointerdown', e => e.stopPropagation());
+        btn.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+        btn.addEventListener('touchend', e => { e.stopPropagation(); e.preventDefault(); fn(); }, { passive: false });
+        btn.addEventListener('click', e => { e.stopPropagation(); fn(); });
+    }
+    wire(launchBtn, openEleven);
+    wire(closeBtn, closeEleven);
+
+    overlay.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+    overlay.addEventListener('touchmove', e => e.stopPropagation(), { passive: false });
+
+    document.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('sm-open')) return;
+        if (e.key === 'Escape') closeEleven();
+    });
+
+    // Seed ambient stars on the launch page
+    const starContainer = document.getElementById('em-page-stars');
+    if (starContainer) {
+        for (let i = 0; i < 70; i++) {
+            const s = document.createElement('div');
+            s.className = 'star';
+            const sz = (Math.random() * 2 + 0.4) + 'px';
+            s.style.width = sz; s.style.height = sz;
+            s.style.top  = Math.random() * 100 + '%';
+            s.style.left = Math.random() * 100 + '%';
+            s.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            starContainer.appendChild(s);
+        }
+    }
+}
+
 })();
 </script>
 </body>
