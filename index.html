@@ -3404,6 +3404,28 @@ With you, I'll never walk alone.</div>
     </div>
 </div>
 
+<!-- [YR-INSERT: launcher page] -->
+<div class="page" data-date="1 Year Anniversary 2026" style="background:#0a0320; overflow:hidden; position:relative; border:1px solid #2a1a4a;">
+    <div class="page-content" style="background:radial-gradient(ellipse at 50% 30%, #1a0a35 0%, #0a0320 55%, #050010 100%) !important; padding:0; overflow:hidden; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+        <canvas id="yr-launcher-bg" style="position:absolute; inset:0; width:100%; height:100%; z-index:0;"></canvas>
+        <div style="position:relative; z-index:2; text-align:center; padding:0 18px;">
+            <div style="font-family:'EB Garamond',serif; font-size:0.62rem; color:rgba(255,255,255,0.4); letter-spacing:4px; text-transform:uppercase; margin-bottom:10px;">25 november 2025 — 25 november 2026</div>
+            <div style="font-family:'Dancing Script',cursive; font-size:2.6rem; color:#d4af37; text-shadow:0 0 24px rgba(212,175,55,0.5);">One Year of Us</div>
+            <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.85rem; color:rgba(230,220,255,0.6); margin-top:6px;">365 days, told in twelve chapters</div>
+            <button id="yr-launch-btn" style="margin-top:28px; background:linear-gradient(135deg,#7e57c2,#d4af37); border:none; color:#fff; font-family:'EB Garamond',serif; font-size:0.85rem; letter-spacing:2px; text-transform:uppercase; padding:14px 30px; border-radius:30px; cursor:pointer; box-shadow:0 6px 20px rgba(126,87,194,0.45); touch-action:manipulation;">Begin Our Year</button>
+        </div>
+    </div>
+</div>
+
+<!-- [YR-INSERT: Year Two teaser page] -->
+<div class="page" data-date="Year Two 2026" style="background:#f5ead0; overflow:hidden; position:relative;">
+    <div class="page-content" style="padding:30px 22px; overflow:hidden; position:relative; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <div style="font-family:'Dancing Script',cursive; font-size:2.2rem; color:#7e57c2;">Year Two begins...</div>
+        <div style="width:50%; height:1px; background:linear-gradient(to right,transparent,#d4af37,transparent); margin:18px 0;"></div>
+        <div style="font-family:'Caveat',cursive; font-weight:700; font-size:1.3rem; color:#2c241a; line-height:1.6;">no map needed when I already know who's in the passenger seat — here's to every chapter we haven't written yet.</div>
+    </div>
+</div>
+
 <div class="page -cover" data-density="hard" data-date="End">
             <div class="page-content">
                 <div style="font-family: 'Dancing Script'; font-size: 3.5rem;">Forever ❤️</div>
@@ -3503,6 +3525,98 @@ I know this little page isn't really that much, but for some reason the coding o
 #sm-letter-body{font-family:'EB Garamond','Georgia',serif;font-size:0.95rem;line-height:1.75;color:rgba(255,255,255,0.82);text-align:left;white-space:pre-wrap;margin-top:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
 #sm-letter-replay{margin-top:20px;flex-shrink:0;background:rgba(202,163,255,0.1);border:1px solid rgba(202,163,255,0.4);color:#caa3ff;font-family:'EB Garamond',serif;font-style:italic;font-size:0.75rem;letter-spacing:2px;padding:8px 20px;border-radius:20px;cursor:pointer;touch-action:manipulation;}
 #sm-overlay button:focus-visible{outline:2px solid #caa3ff;outline-offset:4px;}
+</style>
+
+<!-- [YR-INSERT: #yr-overlay shell] -->
+<div id="yr-overlay" style="display:none; position:fixed; inset:0; z-index:10000; background:linear-gradient(160deg,#050010 0%,#14062b 100%); flex-direction:column; align-items:center; justify-content:flex-start; touch-action:none; overflow:hidden;">
+
+    <canvas id="yr-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:0;"></canvas>
+
+    <!-- Close -->
+    <button id="yr-close" style="position:absolute; top:14px; right:14px; z-index:20; background:rgba(0,0,0,0.5); color:#fff; border:1px solid rgba(255,255,255,0.25); border-radius:50%; width:38px; height:38px; font-size:1rem; cursor:pointer; touch-action:manipulation; -webkit-user-select:none; user-select:none; display:flex; align-items:center; justify-content:center;">✕</button>
+
+    <!-- Audio toggle -->
+    <button id="yr-audio-toggle" style="position:absolute; top:14px; left:14px; z-index:20; background:rgba(126,87,194,0.35); border:1px solid rgba(212,175,55,0.4); color:#fff; border-radius:50%; width:38px; height:38px; font-size:1rem; cursor:pointer; touch-action:manipulation; display:flex; align-items:center; justify-content:center;">🎵</button>
+
+    <!-- Intro -->
+    <div id="yr-intro" style="position:relative; z-index:10; flex:1; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:0 24px;">
+        <div style="font-family:'Dancing Script',cursive; font-size:2.4rem; color:#d4af37; text-shadow:0 0 24px rgba(212,175,55,0.5);">365 days</div>
+        <div style="font-family:'EB Garamond',serif; font-style:italic; font-size:0.85rem; color:rgba(230,220,255,0.55); letter-spacing:2px; margin-top:10px;">tap to begin</div>
+    </div>
+
+    <!-- Constellation strip (12 month nodes) -->
+    <div id="yr-strip-wrap" style="position:relative; z-index:10; width:100%; display:none; flex-direction:column; align-items:center; padding-top:18px;">
+        <div id="yr-dots" style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap; max-width:320px;"></div>
+    </div>
+
+    <!-- Chapter view -->
+    <div id="yr-chapter" style="position:relative; z-index:10; width:100%; max-width:420px; flex:1; display:none; flex-direction:column; align-items:center; justify-content:center; padding:10px 24px; box-sizing:border-box; overflow-y:auto;">
+        <div id="yr-chapter-title" style="font-family:'Dancing Script',cursive; font-size:1.8rem; color:#fff; text-align:center; margin-bottom:14px;"></div>
+        <div id="yr-chapter-lines" style="font-family:'Caveat',cursive; font-weight:700; font-size:1.25rem; line-height:1.7; color:rgba(240,235,255,0.92); text-align:center;"></div>
+    </div>
+
+    <!-- Finale -->
+    <div id="yr-finale" style="position:relative; z-index:10; width:100%; max-width:440px; flex:1; display:none; flex-direction:column; align-items:center; justify-content:flex-start; padding:16px 22px 26px; box-sizing:border-box; overflow-y:auto;">
+        <div style="font-family:'Playfair Display',serif; font-size:2.4rem; color:#d4af37; text-shadow:0 0 30px rgba(212,175,55,0.6); text-align:center;">1 YEAR</div>
+        <div id="yr-finale-poem" style="font-family:'EB Garamond',serif; font-size:0.95rem; line-height:1.85; color:rgba(240,235,255,0.92); white-space:pre-wrap; margin-top:18px;"></div>
+        <button id="yr-replay" style="margin-top:22px; background:rgba(126,87,194,0.3); border:1px solid rgba(212,175,55,0.5); color:#fff; font-family:'EB Garamond',serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; padding:10px 24px; border-radius:24px; cursor:pointer; touch-action:manipulation;">↻ replay</button>
+    </div>
+
+    <audio id="yr-audio" loop preload="none"></audio>
+</div>
+
+<style>
+/* ═══ yr- STEP 2: chapter player + strip dots ═══ */
+#yr-overlay{-webkit-user-select:none;user-select:none;}
+#yr-chapter{-webkit-overflow-scrolling:touch;transition:opacity .6s;scrollbar-width:none;}
+#yr-chapter::-webkit-scrollbar{display:none;}
+#yr-chapter-title{line-height:1.05;flex-shrink:0;}
+#yr-chapter-title .yr-sub{display:block;font-family:'EB Garamond',serif;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.5);text-shadow:none;margin-top:4px;}
+#yr-chapter-lines{width:100%;font-size:clamp(1.05rem,2.9vh,1.3rem)!important;line-height:1.35!important;}
+.yr-line{opacity:0;transform:translateY(10px);animation:yrLineIn .9s ease forwards;margin:0 0 9px;}
+.yr-line.yr-love{color:#ffd1e3;text-shadow:0 0 14px rgba(233,30,99,.55);font-size:1.12em;}
+@keyframes yrLineIn{to{opacity:1;transform:none;}}
+#yr-chapter-hint{margin:10px 0 18px;font-family:'Caveat',cursive;font-size:1.1rem;color:rgba(255,255,255,.55);opacity:0;transition:opacity .6s;flex-shrink:0;}
+#yr-chapter-hint.yr-show{opacity:1;animation:yrPulse 1.8s ease-in-out infinite;}
+@keyframes yrPulse{50%{opacity:.25;}}
+#yr-dots i{display:block;width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .4s;}
+#yr-dots i.yr-on{background:var(--yc);box-shadow:0 0 8px var(--yc);}
+#yr-dots i.yr-cur{transform:scale(1.6);}
+@media (prefers-reduced-motion:reduce){.yr-line{animation-duration:.01s;}#yr-chapter-hint.yr-show{animation:none;}}
+</style>
+
+<style>
+/* ═══ yr- STEP 3: finale ═══ */
+#yr-big{position:absolute;left:0;right:0;top:42%;transform:translateY(-50%) scale(.85);text-align:center;z-index:11;font-family:'Dancing Script',cursive;font-size:clamp(2.6rem,13vw,3.8rem);line-height:1;color:#fff7d6;text-shadow:0 0 22px rgba(212,175,55,.9),0 0 50px rgba(233,30,99,.6);opacity:0;transition:opacity 1.6s,transform 1.6s;pointer-events:none;}
+#yr-big.yr-show{opacity:1;transform:translateY(-50%) scale(1);animation:yrGlow 3s ease-in-out infinite;}
+#yr-big small{display:block;margin-top:10px;font-family:'EB Garamond',serif;font-size:.7rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.6);text-shadow:none;}
+@keyframes yrGlow{50%{text-shadow:0 0 34px rgba(212,175,55,1),0 0 70px rgba(233,30,99,.8);}}
+#yr-finale-bg{position:absolute;inset:0;z-index:14;background:radial-gradient(ellipse at 50% 30%,rgba(30,10,50,.9),rgba(5,0,16,.96));opacity:0;transition:opacity 1.4s;pointer-events:none;}
+#yr-finale-bg.yr-show{opacity:1;}
+#yr-finale{scrollbar-width:thin;scrollbar-color:rgba(212,175,55,.4) transparent;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 64px);mask-image:linear-gradient(to bottom,transparent 0,#000 64px);}
+#yr-finale-poem{width:100%;text-align:center;}
+#yr-finale-poem .yr-st{opacity:0;transform:translateY(10px);transition:opacity 1s,transform 1s;}
+#yr-finale-poem .yr-st.yr-in{opacity:1;transform:none;}
+.yr-ded{font-style:italic;font-size:.9rem;color:rgba(230,220,255,.6);margin:0 0 26px;line-height:1.6;}
+.yr-ph{font-family:'Dancing Script',cursive;font-size:1.6rem;color:#f3cf5f;text-shadow:0 0 14px rgba(212,175,55,.45);margin:34px 0 2px;}
+.yr-ps{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px;}
+.yr-pst{white-space:pre-line;margin:0 0 20px;font-size:1rem;line-height:1.85;}
+.yr-sign{font-family:'Dancing Script',cursive;font-size:1.8rem;color:#f3cf5f;text-align:right;margin:26px 8px 6px;}
+@media (prefers-reduced-motion:reduce){#yr-big.yr-show{animation:none;}#yr-finale-poem .yr-st{transition:none;}}
+</style>
+
+<style>
+/* ═══ yr- POLISH: heartbeat text, line-by-line poem, reading bar ═══ */
+#yr-big.yr-show{animation:yrBeatT 1.2s ease-in-out infinite!important;}
+@keyframes yrBeatT{0%{transform:translateY(-50%) scale(1)}6.7%{transform:translateY(-50%) scale(1.045)}13%{transform:translateY(-50%) scale(1)}25%{transform:translateY(-50%) scale(1.03)}33%,100%{transform:translateY(-50%) scale(1)}}
+#yr-finale-poem .yr-pst.yr-st{opacity:1;transform:none;}
+.yr-pst{white-space:normal!important;font-size:1.08rem!important;}
+.yr-pst .yr-ln{display:block;opacity:0;transform:translateY(6px);transition:opacity .9s,transform .9s;}
+.yr-pst.yr-in .yr-ln{opacity:1;transform:none;transition-delay:calc(var(--n) * .38s);}
+.yr-ph::before{content:'✦';display:block;font-family:'EB Garamond',serif;font-size:.8rem;color:rgba(212,175,55,.6);margin-bottom:6px;}
+#yr-read{position:absolute;top:0;left:0;height:3px;width:0;z-index:16;background:linear-gradient(90deg,#6bb3ff,#ff6b9a,#d4af37);opacity:0;transition:opacity 1s;pointer-events:none;}
+#yr-read.yr-show{opacity:.9;}
+@media (prefers-reduced-motion:reduce){.yr-pst .yr-ln{transition:none;}#yr-big.yr-show{animation:none!important;}}
 </style>
 
 <div class="nav-controls">
@@ -3720,6 +3834,8 @@ document.addEventListener('DOMContentLoaded', () => {
             '9th Month Anniversary 2026':    '💛 9 Month Anniversary',
             '10th Month Anniversary 2026':   '💯 10 Month Anniversary',
             '11th Month Anniversary 2026':   '💜 11 Month Anniversary',
+            '1 Year Anniversary 2026':       '🎆 1 Year Anniversary',
+            'Year Two 2026':                 '💫 Year Two',
             'Botanical Study':               '🌿 A Botanical Study of Her',
             'For You':                       '🎰 Compliment Machine',
             'Happy 7 Months':                '💜 7 Month Anniversary',
@@ -3871,7 +3987,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Fading ink effect ──────────────────────────────────────
     // Oldest pages get a warm faded sepia tone, newest pages get fresh dark ink.
     // Skip covers, locked, and dark special pages.
-    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '10th Month Anniversary 2026', '11th Month Anniversary 2026', '9th Month Anniversary 2026', 'Botanical Study']);
+    const skipDates = new Set(['Cover', 'End', 'Locked 2026', 'Index', 'New Year 2026', '11 Mar 2026', '25 Mar 2026', '5th Month Anniversary 2026', '3 Month Anniversary 2026', '25 May 2026', '8th Month Anniversary 2026', 'For You', '10th Month Anniversary 2026', '11th Month Anniversary 2026', '9th Month Anniversary 2026', 'Botanical Study', '1 Year Anniversary 2026', 'Year Two 2026']);
     const inkPages = Array.from(document.querySelectorAll('.page')).filter(p => {
         const d = p.getAttribute('data-date') || '';
         return !p.classList.contains('-cover') && !skipDates.has(d);
@@ -6075,7 +6191,7 @@ function applyWeather(condition, isNight) {
 
     // Page filter
     if (cfg.pageFilter) {
-        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="10th Month Anniversary 2026"]):not([data-date="11th Month Anniversary 2026"]):not([data-date="Botanical Study"])').forEach(p => {
+        document.querySelectorAll('.page:not(.-cover):not([data-date="11 Mar 2026"]):not([data-date="25 Mar 2026"]):not([data-date="New Year 2026"]):not([data-date="8th Month Anniversary 2026"]):not([data-date="25 May 2026"]):not([data-date="9th Month Anniversary 2026"]):not([data-date="10th Month Anniversary 2026"]):not([data-date="11th Month Anniversary 2026"]):not([data-date="Botanical Study"]):not([data-date="1 Year Anniversary 2026"]):not([data-date="Year Two 2026"])').forEach(p => {
             p.style.filter = cfg.pageFilter;
             p.style.webkitFilter = cfg.pageFilter; // Safari/WebKit fallback
         });
@@ -7197,6 +7313,637 @@ if (overlay) {
     }
 }
 
+})();
+</script>
+<!-- [YR-INSERT: 1 Year Anniversary — yr- namespace. Step 1 of 3: shell + audio controller. -->
+<!--   Step 2 (canvas engine, constellation strip, 12-chapter player, yrAudio cues) is DONE (see 'STEP 2' block in this script). -->
+<!--   Step 3 (finale: heart, '1 YEAR', confetti zIndex 10001, poem in #yr-finale-poem, replay reset via yrStopPlayer->yrFinReset) is DONE. All 3 steps complete. -->
+<script>
+(function() {
+    "use strict";
+
+    // ── yrAudio: fade-aware controller for the "Locked Out of Heaven" cue track.
+    //    Drop a file named lockedoutofheaven.mp3 next to index.html (same
+    //    convention as the other songs in the music picker) for this to play.
+    const yrAudio = {
+        el: null,
+        fadeTimer: null,
+        muted: false,
+        init() {
+            this.el = document.getElementById('yr-audio');
+            if (this.el && !this.el.src) this.el.src = './lockedoutofheaven.mp3';
+        },
+        fadeTo(target, ms) {
+            if (!this.el) return;
+            clearInterval(this.fadeTimer);
+            if (target > 0 && this.el.paused) {
+                this.el.volume = 0;
+                this.el.play().catch(() => {});
+            }
+            const start = this.el.volume;
+            const steps = Math.max(1, Math.round(ms / 50));
+            let i = 0;
+            this.fadeTimer = setInterval(() => {
+                i++;
+                const v = start + (target - start) * (i / steps);
+                this.el.volume = Math.max(0, Math.min(1, v));
+                if (i >= steps) {
+                    clearInterval(this.fadeTimer);
+                    if (target <= 0.001) this.el.pause();
+                }
+            }, 50);
+        },
+        // Named mood cues the chapter player calls into (wired up in Step 2).
+        cue(name) {
+            if (!this.el || this.muted) return;
+            switch (name) {
+                case 'launch':
+                case 'electric':
+                    this.fadeTo(0.35, 900);
+                    break;
+                case 'intimate':
+                    this.fadeTo(0.10, 900);
+                    break;
+                case 'quiet':
+                case 'finale':
+                    this.fadeTo(0, 1200);
+                    break;
+            }
+        },
+        stopImmediate() {
+            clearInterval(this.fadeTimer);
+            if (this.el) {
+                this.el.pause();
+                this.el.volume = 0;
+                this.el.currentTime = 0;
+            }
+        },
+        toggle() {
+            if (!this.el) return;
+            this.muted = !this.muted;
+            const b = document.getElementById('yr-audio-toggle');
+            if (b) b.textContent = this.muted ? '🔇' : '🎵';
+            if (this.muted) this.fadeTo(0, 400);
+            else this.cue(window.yrCore ? window.yrCore.moodNow() : 'electric');
+        }
+    };
+    window.yrAudio = yrAudio;
+
+
+    // ═════════ STEP 2: canvas engine + 12-chapter story player ═════════
+    // Content: wording polished from HANDOFF_1-year-anniversary.md (every fact kept) + moments taken from the book's own pages. {t,l:1} = "love beat" (audio ducks to 'intimate').
+    // mood per chapter -> yrAudio.cue(mood): 'electric' (up), 'intimate' (duck), 'quiet' (fade+pause).
+    const YR_CH = [
+      {m:'December', mood:'electric', lines:[
+        "On 24 November I left you a little surprise: \"you make me feel wanted.\"",
+        "The next day, we finally made it official, after basically being a couple for a month already",
+        "We watched our first movie together that same day (Godzilla. I may have fallen asleep, but we don't count that)",
+        "We named nail colours together",
+        "I went off to do my advanced driving course",
+        "We had our first fight, about your friend, and then we solved our first problems together",
+        "We helped Suhaan and Riddhi for the first time (if only we'd known what we were getting into)",
+        "You went off on holiday to Japan",
+        {t:"It was the first time we truly understood each other", l:1},
+        {t:"By the 25th I was writing \"happy one month\", and promising I was never letting go of you", l:1}]},
+      {m:'January', mood:'intimate', lines:[
+        "I started this book for you",
+        "We celebrated our first Christmas",
+        "And our first New Year: \"farewell 2025, a year that changed everything\"",
+        "You went to Tokyo",
+        "You started learning for your learner's",
+        "I taught you about cars",
+        "You went on your very interesting Gr12 tour",
+        "We had our first fight about Instagram",
+        "Probably our hardest month. We fought more than we ever had",
+        {t:"I told you I'd be right there beside you through all of matric, and I meant every word", l:1}]},
+      {m:'February', mood:'intimate', lines:[
+        "Riddhi kept messaging me about his drama and we basically became therapists",
+        "I was breaking my back on that house 😭",
+        "We made the group chat with Kiki and Riddhi",
+        "On 1 February we finally sat down and talked the fighting through like adults. I'm still proud of us for that",
+        "I decided to write you a poem every single day until Valentine's, and I installed FL Studio to try to make you a beat",
+        "You made me paint a goddamn mask for your \"friend\"",
+        "My dog passed away",
+        {t:"We spent our first Valentine's together. The first of many, I promised", l:1},
+        {t:"And on the 25th, three months: \"the 25th used to be just another day. Now it's the day I celebrate you\"", l:1}]},
+      {m:'March', mood:'electric', lines:[
+        "You turned a year older on the 11th, and since I couldn't be there, I built you a birthday page for your home screen",
+        "We finally saw each other in person for the first time since we started dating",
+        {t:"You looked so goddamn amazing", l:1},
+        "We watched our first race together",
+        {t:"On the 25th I told you the truth: \"I finally feel safe with someone\"", l:1},
+        "Four months sounds short, but they were the fullest months of my life"]},
+      {m:'April', mood:'electric', lines:[
+        "My roommate started his whole not-paying thing",
+        "Riddhi and Suhaan broke up four times (and counting)",
+        "You started looking for MD dresses",
+        "We made our Minecraft world",
+        "I told you straight that I'd been a bad boyfriend this month, and I thanked you for putting up with me anyway",
+        {t:"Meeting you gave me a work ethic I didn't know I had. I wanted to be someone you'd look at and give a chance", l:1}]},
+      {m:'May', mood:'quiet', lines:[
+        "We spent so many hours on Minecraft",
+        "You got your learner's",
+        "It was a quiet, kind of boring month",
+        "I told you I'd been struggling with my path forward, and I was sorry I let it spill onto you",
+        "Six months. I wrote you the story of the day everything changed: 2 August 2025",
+        {t:"Turns out even the boring months are better with you", l:1}]},
+      {m:'June', mood:'intimate', lines:[
+        "Ray and all of them started fighting. It was just so much fighting 😭",
+        "Seven months: I called it \"Seven Chapters Later\"",
+        {t:"And I told you I still light up every time your name appears on my screen", l:1},
+        "We'd made it past half a year, through everything, and I promised we'd keep making it"]},
+      {m:'July', mood:'electric', lines:[
+        "You built your design model",
+        {t:"You got your MD invite, and you asked me to come with you", l:1},
+        "I turned goddamn 20. I'm old 🥲",
+        "The World Cup started, Ronaldo lost 😞, and I finally stopped betting",
+        "You watched your first DTM race",
+        "We decided we'd go to our first car show",
+        "We had our first insanely big fight",
+        "67 was born",
+        {t:"At eight months I built you a little universe, and you were the sun", l:1}]},
+      {m:'August', mood:'electric', lines:[
+        "You dressed up as me",
+        "You interviewed me for your LI thing",
+        "We went to our first car show",
+        "The blue massage gun fitment sticker was born",
+        "You went to Durban before prelims",
+        "Nine months, and I told you: \"that's an entire baby\"",
+        {t:"I pressed eleven blooms into a botanical study of you, one at a time", l:1}]},
+      {m:'September', mood:'intimate', lines:[
+        "You wanted my location",
+        "The serial killers were all over",
+        "A stressful month, because we were both buried in studying",
+        "Ten months: I handed you a judge's scorecard",
+        {t:"The verdict: 10 out of 10. \"Obsessed.\"", l:1}]},
+      {m:'October', mood:'electric', lines:[
+        "You started finals",
+        "I missed girlfriend's day (I still don't know how many of those there are 😭)",
+        "We went to your MD",
+        "You went go-karting and made it boom 💥",
+        "Eleven months: I built you two spheres made of words, drifting closer until they became \"I love you\"",
+        {t:"I wrote that I'd never felt so safe before, that I never have to worry about you hurting me on purpose", l:1}]},
+      {m:'November', mood:'intimate', lines:[
+        "Our final month of our first year together",
+        "As I write this, you've just finished finals",
+        {t:"You're done with matric", l:1},
+        "I've been leaving you on read, only because I keep scrolling back through our chats to write this 😭",
+        "I passed my second year",
+        "GTA 6!!",
+        {t:"Back in December I promised I'd never let go of you. Twelve months later, I still can't imagine anything else", l:1},
+        {t:"And most importantly, I somehow love you more than the first time I met you, which I would never have thought possible", l:1}]}
+    ];
+
+    // blue -> purple -> rose -> gold (#d4af37) across the 12 months
+    const YR_STOPS = [[107,179,255],[160,110,235],[255,107,154],[212,175,55]];
+    function yrCol(i) {
+        const t = Math.max(0, Math.min(1, i / 11)) * 3, k = Math.min(2, Math.floor(t)), f = t - k;
+        return YR_STOPS[k].map((v, n) => Math.round(v + (YR_STOPS[k + 1][n] - v) * f));
+    }
+    const yrEase = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const yrReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const yrEl = id => document.getElementById(id);
+
+    // canvas state
+    let yrCtx = null, yrW = 0, yrH = 0, yrLast = 0, yrStars = [], yrSparks = [], yrShoots = [], yrNextShoot = 0;
+    let yrCamX = 0;
+    const yrLit = new Array(12).fill(0), yrLitGoal = new Array(12).fill(0);
+    let yrHeart = 0, yrHeartGoal = 0;               // Step 3 hook: set via yrCore.setHeart(1)
+    // player state
+    let yrPhase = 'idle', yrCur = -1, yrLineIdx = 0, yrTimer = null, yrBusy = false, yrMood = 'electric', yrDucked = false;
+
+    const YR_STRIP_Y = 70;                          // node centre line (below the ✕ / 🎵 buttons)
+    const yrSp = () => Math.min(yrW * 0.3, 130);
+    const yrStripPos = i => ({ x: yrW / 2 + (i * yrSp() - yrCamX), y: YR_STRIP_Y + Math.sin(i * 0.9) * 14 });
+    let yrBeat = 1;                                  // heartbeat scale (1 until the heart has formed)
+    function yrHeartAt(a) {                          // point on the heart curve for angle a
+        const k = Math.min(yrW * 0.0255, yrH * 0.02) * yrBeat;
+        return { x: yrW / 2 + 16 * Math.pow(Math.sin(a), 3) * k,
+                 y: yrH * 0.42 - (13 * Math.cos(a) - 5 * Math.cos(2 * a) - 2 * Math.cos(3 * a) - Math.cos(4 * a)) * k };
+    }
+    const yrHeartPos = i => yrHeartAt((i / 12) * Math.PI * 2 + Math.PI);
+    function yrNodePos(i) {
+        const a = yrStripPos(i);
+        if (yrHeart <= 0) return a;
+        const b = yrHeartPos(i), e = yrEase(Math.max(0, Math.min(1, (yrHeart - i * .04) / .56)));
+        return { x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e };
+    }
+    function yrBurst(x, y, rgb, n) {
+        for (let i = 0; i < n; i++) {
+            const a = Math.random() * 6.283, v = .03 + Math.random() * .1;
+            yrSparks.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, d: .0008 + Math.random() * .0008, r: 1 + Math.random() * 1.8, c: rgb });
+        }
+    }
+    function yrResize() {
+        const cv = yrEl('yr-canvas'); if (!cv) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        yrW = cv.clientWidth || innerWidth; yrH = cv.clientHeight || innerHeight;
+        cv.width = yrW * dpr; cv.height = yrH * dpr;
+        yrCtx = cv.getContext('2d'); yrCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        yrStars = [];
+        const n = Math.round(yrW * yrH / 2800);
+        for (let i = 0; i < n; i++) yrStars.push({ x: Math.random() * yrW, y: Math.random() * yrH, r: Math.random() * 1.2 + .3, p: Math.random() * 6.283, s: Math.random() * .0006 + .00025, z: Math.random() * .5 + .2 });
+    }
+    function yrFrame(now) {
+        yrRafId = requestAnimationFrame(yrFrame);
+        const c = yrCtx; if (!c) return;
+        const dt = yrLast ? Math.min(48, now - yrLast) : 16; yrLast = now;
+        const w = yrW, h = yrH;
+        c.clearRect(0, 0, w, h);
+        // nebula
+        const dx = Math.sin(now * .00004) * w * .08, dy = Math.cos(now * .00003) * h * .06;
+        let g = c.createRadialGradient(w * .3 + dx, h * .35 + dy, 0, w * .3 + dx, h * .35 + dy, w * .9);
+        g.addColorStop(0, 'rgba(90,45,140,.22)'); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+        g = c.createRadialGradient(w * .75 - dx, h * .65 - dy, 0, w * .75 - dx, h * .65 - dy, w * .8);
+        g.addColorStop(0, 'rgba(150,50,90,.14)'); g.addColorStop(1, 'rgba(0,0,0,0)'); c.fillStyle = g; c.fillRect(0, 0, w, h);
+        // twinkling stars, slight parallax with the camera
+        c.fillStyle = '#fff';
+        for (const s of yrStars) {
+            c.globalAlpha = .3 + .6 * Math.abs(Math.sin(now * s.s + s.p));
+            let x = (s.x - yrCamX * s.z * .25) % w; if (x < 0) x += w;
+            c.beginPath(); c.arc(x, s.y, s.r, 0, 6.283); c.fill();
+        }
+        c.globalAlpha = 1;
+        // shooting stars
+        if (!yrReduce && now > yrNextShoot) {
+            yrNextShoot = now + 6000 + Math.random() * 7000;
+            const L = Math.random() < .5;
+            yrShoots.push({ x: L ? -20 : w + 20, y: Math.random() * h * .5, vx: (L ? 1 : -1) * (.38 + Math.random() * .22), vy: .14 + Math.random() * .08, life: 1, len: 50 + Math.random() * 40 });
+        }
+        yrShoots.forEach(s => { s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt * .0007; });
+        yrShoots = yrShoots.filter(s => s.life > 0 && s.x > -80 && s.x < w + 80 && s.y < h + 60);
+        for (const s of yrShoots) {
+            const tx = s.x - Math.sign(s.vx) * s.len, ty = s.y - s.len * (s.vy / Math.abs(s.vx || 1));
+            const gr = c.createLinearGradient(s.x, s.y, tx, ty);
+            gr.addColorStop(0, `rgba(255,255,255,${.85 * s.life})`); gr.addColorStop(1, 'rgba(255,255,255,0)');
+            c.strokeStyle = gr; c.lineWidth = 1.3; c.beginPath(); c.moveTo(s.x, s.y); c.lineTo(tx, ty); c.stroke();
+        }
+        if (yrPhase === 'idle') return;
+        // camera + animation easing
+        const camGoal = yrCur < 0 ? 5.5 * yrSp() : yrCur * yrSp();
+        yrCamX += (camGoal - yrCamX) * Math.min(1, dt * .004);
+        for (let i = 0; i < 12; i++) yrLit[i] += (yrLitGoal[i] - yrLit[i]) * Math.min(1, dt * .006);
+        yrHeart += (yrHeartGoal - yrHeart) * Math.min(1, dt * .0011); if (Math.abs(yrHeartGoal - yrHeart) < .002) yrHeart = yrHeartGoal;
+        if (yrPhase === 'intro' && yrCur < 0) return;   // strip only shows once the story starts
+        if (yrHeart > .97) { const ph = (now % 1200) / 1200;        // lub-dub
+            yrBeat = 1 + .035 * (Math.exp(-Math.pow((ph - .08) / .05, 2)) + .65 * Math.exp(-Math.pow((ph - .3) / .06, 2))); } else yrBeat = 1;
+        const P = []; for (let i = 0; i < 12; i++) P.push(yrNodePos(i));
+        const fin = yrHeart > .01;
+        const oa = fin ? yrEase(Math.max(0, Math.min(1, (yrHeart - .5) / .5))) : 0;   // outline opacity
+        // trail / edges
+        c.lineWidth = 1.4;
+        for (let i = 0; i < (fin ? 12 : 11); i++) {
+            const j = (i + 1) % 12, a = fin ? Math.min(yrLit[i], yrLit[j]) * (1 - oa) : (yrLit[i] > .5 ? yrLit[j] : 0);
+            if (a < .03) continue;
+            const c1 = yrCol(i), c2 = yrCol(j), gr = c.createLinearGradient(P[i].x, P[i].y, P[j].x, P[j].y);
+            gr.addColorStop(0, `rgba(${c1},${.65 * a})`); gr.addColorStop(1, `rgba(${c2},${.65 * a})`);
+            c.strokeStyle = gr; c.beginPath(); c.moveTo(P[i].x, P[i].y); c.lineTo(P[j].x, P[j].y); c.stroke();
+        }
+        if (oa > .01) {  // smooth rounded heart outline, colour-graded blue -> rose -> gold
+            const N = 120, pts = [];
+            for (let n = 0; n <= N; n++) pts.push(yrHeartAt(Math.PI + (n / N) * Math.PI * 2));
+            c.beginPath(); pts.forEach((p, n) => n ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y)); c.closePath();
+            c.fillStyle = `rgba(233,30,99,${.07 * oa})`; c.fill();
+            c.lineCap = 'round';
+            for (const [lw, al] of [[9, .12], [2.2, .9]]) {
+                c.lineWidth = lw;
+                for (let n = 0; n < N; n++) {
+                    c.strokeStyle = `rgba(${yrCol((n / N) * 11)},${al * oa})`;
+                    c.beginPath(); c.moveTo(pts[n].x, pts[n].y); c.lineTo(pts[n + 1].x, pts[n + 1].y); c.stroke();
+                }
+            }
+        }
+        if (fin) {  // warm glow behind the heart
+            const e = yrEase(Math.min(1, yrHeart)), r = Math.min(w, h) * .42;
+            g = c.createRadialGradient(w / 2, h * .42, 0, w / 2, h * .42, r);
+            g.addColorStop(0, `rgba(233,30,99,${.22 * e})`); g.addColorStop(.6, `rgba(212,175,55,${.08 * e})`); g.addColorStop(1, 'rgba(0,0,0,0)');
+            c.fillStyle = g; c.fillRect(0, 0, w, h);
+        }
+        // nodes
+        for (let i = 0; i < 12; i++) {
+            const p = P[i], col = yrCol(i), L = yrLit[i], isCur = i === yrCur && !fin;
+            if (L > .02) {
+                const R = (24 + (fin ? 10 : 0)) * (isCur ? 1 + .18 * Math.sin(now * .004) : 1) * L;
+                g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, R);
+                g.addColorStop(0, `rgba(${col},${.55 * L})`); g.addColorStop(1, `rgba(${col},0)`);
+                c.fillStyle = g; c.beginPath(); c.arc(p.x, p.y, R, 0, 6.283); c.fill();
+            }
+            c.fillStyle = L > .05 ? `rgba(${col},${.4 + .6 * L})` : 'rgba(255,255,255,.25)';
+            c.beginPath(); c.arc(p.x, p.y, 2.2 + L * (isCur ? 3.4 : 2.2), 0, 6.283); c.fill();
+            if (L < .9) { c.strokeStyle = `rgba(255,255,255,${.25 * (1 - L)})`; c.lineWidth = 1; c.beginPath(); c.arc(p.x, p.y, 6, 0, 6.283); c.stroke(); }
+            if (!fin && L > .3) { c.globalAlpha = L * .7; c.fillStyle = '#fff'; c.font = '11px "EB Garamond",serif'; c.textAlign = 'center'; c.fillText(i + 1, p.x, p.y + (isCur ? 22 : 17)); c.globalAlpha = 1; }
+        }
+        // sparks
+        yrSparks.forEach(s => { s.x += s.vx * dt; s.y += s.vy * dt; s.vx *= .992; s.vy *= .992; s.life -= s.d * dt; });
+        yrSparks = yrSparks.filter(s => s.life > 0);
+        for (const s of yrSparks) { c.globalAlpha = Math.max(0, s.life); c.fillStyle = `rgb(${s.c})`; c.beginPath(); c.arc(s.x, s.y, s.r, 0, 6.283); c.fill(); }
+        c.globalAlpha = 1;
+    }
+
+    // ── player ──
+    function yrClear() { if (yrTimer) { clearTimeout(yrTimer); yrTimer = null; } }
+    function yrStopPlayer() { yrClear(); yrBusy = false; yrPhase = 'idle'; yrFinReset(); }
+    function yrBuildDots() {
+        const d = yrEl('yr-dots'); d.innerHTML = '';
+        for (let i = 0; i < 12; i++) { const b = document.createElement('i'); b.style.setProperty('--yc', 'rgb(' + yrCol(i) + ')'); d.appendChild(b); }
+    }
+    function yrMarkDots() {
+        [...yrEl('yr-dots').children].forEach((b, i) => { b.classList.toggle('yr-on', i <= yrCur); b.classList.toggle('yr-cur', i === yrCur); });
+    }
+    function yrResetPlayer() {
+        yrStopPlayer();
+        yrCur = -1; yrLineIdx = 0; yrHeart = 0; yrHeartGoal = 0; yrSparks = []; yrDucked = false;
+        yrLit.fill(0); yrLitGoal.fill(0); yrCamX = 5.5 * yrSp();
+        yrEl('yr-chapter-lines').innerHTML = ''; yrEl('yr-chapter-title').innerHTML = '';
+        const hint = yrEl('yr-chapter-hint'); if (hint) hint.classList.remove('yr-show');
+        yrPhase = 'intro';
+    }
+    function yrOverlayOpened() {
+        yrResize(); yrLast = 0;
+        if (yrRafId) cancelAnimationFrame(yrRafId);
+        yrRafId = requestAnimationFrame(yrFrame);
+        const b = yrEl('yr-audio-toggle'); if (b) b.textContent = yrAudio.muted ? '🔇' : '🎵';
+    }
+    function yrBegin() {
+        if (yrPhase !== 'intro' || yrBusy) return;
+        yrBusy = true;
+        yrEl('yr-intro').style.display = 'none';
+        const wrap = yrEl('yr-strip-wrap'); wrap.style.display = 'flex'; wrap.style.minHeight = '132px'; wrap.style.justifyContent = 'flex-end'; wrap.style.paddingBottom = '8px';
+        const ch = yrEl('yr-chapter'); ch.style.display = 'flex'; ch.style.justifyContent = 'flex-start'; ch.style.touchAction = 'pan-y'; ch.style.opacity = '0';
+        yrBuildDots();
+        yrAudio.cue('launch'); yrMood = 'electric';
+        yrTimer = setTimeout(() => yrStartChapter(0), 600);
+    }
+    function yrStartChapter(i) {
+        yrCur = i; yrLitGoal[i] = 1; yrLineIdx = 0; yrBusy = false; yrPhase = 'play';
+        const p = yrStripPos(i); yrBurst(p.x, p.y, yrCol(i).join(','), 26);
+        const col = 'rgb(' + yrCol(i) + ')', t = yrEl('yr-chapter-title');
+        t.innerHTML = 'Month ' + (i + 1) + '<span class="yr-sub"></span>';
+        t.lastChild.textContent = YR_CH[i].m;
+        t.style.color = col; t.style.textShadow = '0 0 18px ' + col;
+        yrEl('yr-chapter-lines').innerHTML = '';
+        yrEl('yr-chapter-hint').classList.remove('yr-show');
+        yrEl('yr-chapter').scrollTop = 0; yrEl('yr-chapter').style.opacity = '1';
+        yrMarkDots();
+        yrMood = YR_CH[i].mood; yrDucked = false; yrAudio.cue(yrMood);
+        yrClear(); yrTimer = setTimeout(yrShowLine, 900);
+    }
+    function yrShowLine() {
+        yrClear();
+        const L = YR_CH[yrCur].lines; if (yrLineIdx >= L.length) return;
+        const it = L[yrLineIdx++], txt = typeof it === 'string' ? it : it.t, love = !!(it && it.l);
+        const d = document.createElement('div'); d.className = 'yr-line' + (love ? ' yr-love' : ''); d.textContent = txt;
+        yrEl('yr-chapter-lines').appendChild(d);
+        const ch = yrEl('yr-chapter'); ch.scrollTo({ top: ch.scrollHeight, behavior: 'smooth' });
+        // audio beat: duck on love lines, restore the chapter mood afterwards
+        if (love) { yrAudio.cue('intimate'); yrDucked = true; }
+        else if (yrDucked) { yrAudio.cue(yrMood); yrDucked = false; }
+        if (yrLineIdx < L.length) {
+            yrTimer = setTimeout(yrShowLine, yrReduce ? 900 : Math.min(4400, 1500 + txt.length * 44 + (love ? 1000 : 0)));
+        } else {
+            yrTimer = setTimeout(() => {
+                yrEl('yr-chapter-hint').classList.add('yr-show');
+                yrTimer = setTimeout(yrNextChapter, 6500);
+            }, 1800);
+        }
+    }
+    function yrNextChapter() {
+        yrClear(); if (yrBusy || yrPhase !== 'play') return; yrBusy = true;
+        yrEl('yr-chapter-hint').classList.remove('yr-show'); yrEl('yr-chapter').style.opacity = '0';
+        if (yrCur >= 11) { yrTimer = setTimeout(yrEndStory, 1600); return; }
+        yrTimer = setTimeout(() => yrStartChapter(yrCur + 1), 900);
+    }
+    function yrEndStory() {
+        yrBusy = false; yrPhase = 'finale'; yrAudio.cue('finale');
+        if (typeof window.yrFinaleStart === 'function') { window.yrFinaleStart(); return; }   // STEP 3 defines this
+        // Step-3 placeholder so the story never dead-ends: reveal the existing finale shell
+        yrEl('yr-chapter').style.display = 'none';
+        yrEl('yr-finale').style.display = 'flex';
+    }
+    function yrAdvance() {
+        if (yrPhase === 'intro') { yrBegin(); return; }
+        if (yrPhase !== 'play' || yrBusy) return;
+        if (yrLineIdx < YR_CH[yrCur].lines.length) yrShowLine(); else yrNextChapter();
+    }
+    function yrInitPlayerWiring() {
+        const ch = yrEl('yr-chapter');
+        const hint = document.createElement('div'); hint.id = 'yr-chapter-hint'; hint.textContent = 'tap to continue';
+        ch.appendChild(hint);
+        ch.addEventListener('click', e => { e.stopPropagation(); yrAdvance(); });
+        document.addEventListener('keydown', e => {
+            if (yrEl('yr-overlay').style.display === 'none') return;
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') { e.preventDefault(); yrAdvance(); }
+        });
+        window.addEventListener('resize', () => { if (yrEl('yr-overlay').style.display !== 'none') yrResize(); });
+        yrEl('yr-overlay').addEventListener('click', () => { if (yrPhase === 'finale' && !yrPoemShown && Date.now() - yrFinAt > 5500) yrShowPoem(); });
+    }
+    // ═════════ STEP 3: finale (heart -> "1 YEAR" -> poem -> replay) ═════════
+    // Poem text is verbatim from 1-year-anniversary-poem.md (sections I-VI). st = stanzas, "\n" = line break.
+    const YR_DEDICATION = "For M — 365 days since we became official, and 480 days since 2 August 2025 changed everything.";
+    const YR_POEM = [
+      {h:'I. The Spark', s:'August – November 2025', st:[
+        "It started quiet on the second of August,\ntwo people talking before either of us knew\nthat every late-night message and every stolen glance\nwas quietly building a home out of you.",
+        "Months of guessing, laughing, testing the water,\nlearning the rhythm of the way that you speak—\nuntil November twenty-fifth finally broke the silence,\nand what felt like a dream turned into week after week."]},
+      {h:'II. Blue Lights & First Rushes', s:'Months 1 – 3', st:[
+        "Month one hit fast—like stepping on the throttle,\nheartbeats racing like a cold start in the night,\nevery text lighting up my screen like a dashboard,\nevery second near you feeling electric and right.",
+        "We found our own language in the little things:\nthe vrooms down the road, the inside jokes we'd keep,\ntrading half-finished thoughts and sudden bursts of laughter\nlong after the rest of the world had gone to sleep.",
+        "By month two and three, the newness turned to comfort—\nno longer wondering if you'd stay or if you'd fade,\njust learning how your moods shift, how your eyes soften,\nand loving every small memory that we made."]},
+      {h:'III. Side by Side Through the Noise', s:'Months 4 – 6', st:[
+        "Then came the real days—the busy, heavy weeks,\nmatric pressure, late nights, books stacked on the desk,\ntrying to balance the weight of everything ahead\nwhile still finding quiet pockets just to rest.",
+        "We talked about cars, fitment, DTM dreams,\nsix-seven jokes nobody else would ever get,\nturning ordinary afternoons into something golden\njust by showing up for each other, no regret.",
+        "Half a year passed before we even blinked—\nsix months of learning how to hold on when things get tough,\nrealizing love isn't only when the sky is clear,\nit's choosing each other when the road gets rough."]},
+      {h:'IV. Storms, Growth & Gravity', s:'Months 7 – 9', st:[
+        "Not every page in this book was easy to write;\nwe had our silences, our stubborn days, our pride,\nmoments where we had to stop and really listen\ninstead of letting distance pull us from each other's side.",
+        "Through finals, through stress, through MD and tired eyes,\nwhen patience ran thin and words came out wrong,\nwe didn't walk away—we learned how to repair,\nand every honest talk only made the roots grow strong.",
+        "By month eight and nine, I saw it clearly:\nyou weren't just someone I liked when things were bright—\nyou were my favorite place to land after a long day,\nmy calm in the static, my steady guiding light."]},
+      {h:'V. Two Worlds Merging', s:'Months 10 – 12', st:[
+        "Remember those two spheres drifting closer in the dark,\nblue meeting rose until they fused into pure gold?\nThat's what this whole year felt like watching us unfold—\ntwo separate orbits becoming one story told.",
+        "Ten months, eleven, then the calendar turned full circle,\nback to the crisp November air where we began,\nthree hundred and sixty-five days written in ink and starlight,\nand somehow it still feels like only the opening span."]},
+      {h:'VI. Into Year Two', s:'', st:[
+        "If Year One was learning how to build this from the ground,\nthen Year Two is driving with the windows rolled down—\nno map needed when I already know who's in the passenger seat,\nno second-guessing when my pulse still skips to your heartbeat.",
+        "Look at everything we survived and everything we built:\nfrom nervous late-night messages to knowing how you tilt\nyour head when you're thinking, or the way your laugh breaks through\nthe heaviest of days the second I'm with you.",
+        "Three hundred and sixty-five days of choosing us again—\nthrough exam stress, busy schedules, quiet nights, and sudden rain,\nthrough vrooms down empty streets and dreams of clean fitment and DTM lines,\nthrough inside jokes like sixty-seven and tangled-up timelines.",
+        "I don't want a love that only works when everything is easy;\nI want the kind we proved we have when life gets loud and messy—\nthe kind that listens first, holds steady when the pressure climbs,\nand still finds reasons to laugh hard even in the toughest times.",
+        "As November turns the page and Year Two opens wide,\nthere's nowhere else I'd rather be than right here by your side—\nwatching you chase every goal, cheering every win you claim,\nbuilding new chapters in this book until our hair turns gray and tame.",
+        "So here's to every sunrise we haven't seen yet,\nevery late-night drive, every promise kept,\nevery quiet moment where words don't even need to try,\nbecause just having you near me is already enough of a reply.",
+        "Thank you for every laugh, every lesson, every late-night call,\nfor staying when it was messy and catching me whenever I'd fall.\nHappy one year, my love—here's to 25 November,\nand a lifetime of tomorrows I will always remember."]}
+    ];
+    const YR_SIGN = '— T';
+
+    let yrFinT = [], yrPoemShown = false, yrFinAt = 0, yrFinIO = null;
+    const yrFinLater = (fn, ms) => yrFinT.push(setTimeout(fn, ms));
+
+    function yrConfetti() {
+        if (typeof confetti !== 'function' || yrReduce) return;
+        const colors = ['#e91e63', '#d4af37', '#7e57c2', '#6bb3ff', '#fff7d6'], z = 10001;
+        confetti({ particleCount: 110, spread: 90, origin: { x: .5, y: .42 }, colors, zIndex: z });
+        yrFinLater(() => {
+            confetti({ particleCount: 70, angle: 60, spread: 70, origin: { x: 0, y: .7 }, colors, zIndex: z });
+            confetti({ particleCount: 70, angle: 120, spread: 70, origin: { x: 1, y: .7 }, colors, zIndex: z });
+        }, 250);
+    }
+    function yrFinPrep() {
+        const ov = yrEl('yr-overlay');
+        if (!yrEl('yr-big')) {
+            const b = document.createElement('div'); b.id = 'yr-big';
+            b.innerHTML = '1 YEAR<small>25 November 2026</small>'; ov.appendChild(b);
+        }
+        if (!yrEl('yr-finale-bg')) {
+            const g = document.createElement('div'); g.id = 'yr-finale-bg'; ov.insertBefore(g, yrEl('yr-finale'));
+        }
+        const f = yrEl('yr-finale');
+        Object.assign(f.style, { display: 'none', position: 'absolute', top: '0', bottom: '0', left: '50%', transform: 'translateX(-50%)',
+            width: '100%', maxWidth: '440px', zIndex: '15', padding: '64px 24px 44px', opacity: '0', transition: 'opacity 1.4s',
+            touchAction: 'pan-y', webkitOverflowScrolling: 'touch' });
+        const h = f.firstElementChild; // the shell's "1 YEAR" heading
+        h.style.fontFamily = "'Dancing Script',cursive"; h.style.fontSize = '3rem'; h.style.color = '#f3cf5f'; h.style.flexShrink = '0';
+        // build poem once
+        const P = yrEl('yr-finale-poem');
+        if (!P.dataset.built) {
+            P.dataset.built = '1'; P.style.whiteSpace = 'normal'; P.textContent = '';
+            const add = (cls, txt) => { const d = document.createElement('div'); d.className = cls; d.textContent = txt; P.appendChild(d); return d; };
+            add('yr-ded yr-st', YR_DEDICATION);
+            YR_POEM.forEach(sec => {
+                add('yr-ph yr-st', sec.h);
+                if (sec.s) add('yr-ps yr-st', sec.s);
+                sec.st.forEach(t => { const d = add('yr-pst yr-st', ''); t.split('\n').forEach((ln, n) => {
+                    const sp = document.createElement('span'); sp.className = 'yr-ln'; sp.style.setProperty('--n', n); sp.textContent = ln; d.appendChild(sp); }); });
+            });
+            add('yr-sign yr-st', YR_SIGN);
+        }
+        if (!yrEl('yr-read')) {
+            const r = document.createElement('div'); r.id = 'yr-read'; ov.appendChild(r);
+            f.addEventListener('scroll', () => { const m = f.scrollHeight - f.clientHeight; r.style.width = (m > 0 ? f.scrollTop / m * 100 : 0) + '%'; });
+        }
+        f.scrollTop = 0;
+    }
+    function yrShowPoem() {
+        if (yrPoemShown) return; yrPoemShown = true;
+        yrFinT.forEach(clearTimeout); yrFinT = [];
+        const f = yrEl('yr-finale'), big = yrEl('yr-big'), bg = yrEl('yr-finale-bg');
+        if (big) big.classList.remove('yr-show');
+        if (bg) bg.classList.add('yr-show');
+        const rd = yrEl('yr-read'); if (rd) { rd.style.width = '0'; rd.classList.add('yr-show'); }
+        f.style.display = 'flex'; f.scrollTop = 0;
+        requestAnimationFrame(() => requestAnimationFrame(() => { f.style.opacity = '1'; }));
+        const sts = f.querySelectorAll('.yr-st');
+        if ('IntersectionObserver' in window) {
+            yrFinIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('yr-in'); yrFinIO.unobserve(e.target); } }), { root: f, threshold: .15 });
+            sts.forEach(n => yrFinIO.observe(n));
+        } else sts.forEach(n => n.classList.add('yr-in'));
+        yrConfetti();
+    }
+    function yrFinaleStart() {                        // called by yrEndStory() after Month 12
+        yrPhase = 'finale'; yrPoemShown = false; yrFinAt = Date.now();
+        yrEl('yr-chapter').style.display = 'none';
+        yrFinPrep();
+        window.yrCore.setHeart(1);                    // 12 nodes glide into the heart
+        yrFinLater(() => { const b = yrEl('yr-big'); b.style.animationDelay = -((performance.now() % 1200) / 1000) + 's'; b.classList.add('yr-show'); yrConfetti(); }, 3800);
+        yrFinLater(yrShowPoem, 12500);                // tap after ~5.5s skips ahead
+    }
+    function yrFinReset() {                           // used by yrStopPlayer (close / replay)
+        yrFinT.forEach(clearTimeout); yrFinT = []; yrPoemShown = false;
+        if (yrFinIO) { yrFinIO.disconnect(); yrFinIO = null; }
+        yrHeartGoal = 0; yrHeart = 0;
+        const big = yrEl('yr-big'), bg = yrEl('yr-finale-bg'), f = yrEl('yr-finale');
+        if (big) big.classList.remove('yr-show');
+        if (bg) bg.classList.remove('yr-show');
+        const rd = yrEl('yr-read'); if (rd) { rd.classList.remove('yr-show'); rd.style.width = '0'; }
+        if (f) { f.style.display = 'none'; f.style.opacity = '0'; f.querySelectorAll('.yr-in').forEach(n => n.classList.remove('yr-in')); }
+    }
+    window.yrFinaleStart = yrFinaleStart;
+
+    // Public hooks for Step 3 (finale): heart morph, node positions, mood, colours.
+    window.yrCore = {
+        setHeart(v) { yrHeartGoal = v; for (let i = 0; i < 12; i++) yrLitGoal[i] = 1; },
+        moodNow: () => yrMood, col: yrCol, nodePos: yrNodePos, burst: yrBurst,
+        get phase() { return yrPhase; }
+    };
+
+    let yrInitDone = false;
+    let yrRafId = null;
+
+    function yrOpen() {
+        yrAudio.init();
+        const overlay = document.getElementById('yr-overlay');
+        overlay.style.display = 'flex';
+        yrOverlayOpened();
+
+        const musicBtn = document.getElementById('music-control');
+        if (musicBtn) musicBtn.style.display = 'none';
+        const indexBtn = document.getElementById('back-to-index-btn');
+        if (indexBtn) indexBtn.style.display = 'none';
+
+        // Duck the book's own background music while this plays.
+        const bgMusic = document.getElementById('bg-music');
+        if (bgMusic && !bgMusic.paused) bgMusic.volume = 0.05;
+
+        yrResetPlayer();
+        // Reset to the intro screen every time it's (re)opened.
+        document.getElementById('yr-intro').style.display = 'flex';
+        document.getElementById('yr-strip-wrap').style.display = 'none';
+        document.getElementById('yr-chapter').style.display = 'none';
+        document.getElementById('yr-finale').style.display = 'none';
+    }
+
+    function yrClose() {
+        document.getElementById('yr-overlay').style.display = 'none';
+        yrStopPlayer();
+        if (yrRafId) cancelAnimationFrame(yrRafId);
+        yrRafId = null;
+        yrAudio.stopImmediate();
+
+        const musicBtn = document.getElementById('music-control');
+        if (musicBtn) musicBtn.style.display = 'block';
+        const indexBtn = document.getElementById('back-to-index-btn');
+        if (indexBtn) indexBtn.style.display = 'block';
+
+        const bgMusic = document.getElementById('bg-music');
+        if (bgMusic) bgMusic.volume = 1;
+    }
+
+    function yrReplay() {
+        yrAudio.stopImmediate();
+        document.getElementById('yr-finale').style.display = 'none';
+        document.getElementById('yr-chapter').style.display = 'none';
+        document.getElementById('yr-strip-wrap').style.display = 'none';
+        document.getElementById('yr-intro').style.display = 'flex';
+        yrResetPlayer();
+    }
+
+    function yrWireTap(el, handler) {
+        if (!el) return;
+        const fire = () => { const n = Date.now(); if (n - (el._yrT || 0) < 450) return; el._yrT = n; handler(); };
+        const wrapped = (e) => { e.stopPropagation(); if (e.cancelable) e.preventDefault(); fire(); };
+        el.addEventListener('pointerdown', wrapped);
+        el.addEventListener('touchstart', wrapped, { passive: false });
+        el.addEventListener('click', (e) => { e.stopPropagation(); fire(); });
+    }
+
+    function initYearOverlay() {
+        if (yrInitDone) return;
+        yrInitDone = true;
+
+        yrWireTap(document.getElementById('yr-launch-btn'), yrOpen);
+        yrWireTap(document.getElementById('yr-close'), yrClose);
+        yrWireTap(document.getElementById('yr-replay'), yrReplay);
+        yrWireTap(document.getElementById('yr-audio-toggle'), () => yrAudio.toggle());
+
+        // Intro tap-to-begin — Step 2 will replace this with the real
+        // constellation/chapter sequence; for now it just proves the shell works.
+        yrWireTap(document.getElementById('yr-intro'), yrBegin);
+        yrInitPlayerWiring();
+
+        const overlay = document.getElementById('yr-overlay');
+        overlay.addEventListener('touchstart', e => e.stopPropagation(), { passive: false });
+        overlay.addEventListener('touchmove', e => e.stopPropagation(), { passive: false });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && overlay.style.display !== 'none') yrClose();
+        });
+    }
+
+    initYearOverlay();
 })();
 </script>
 </body>
