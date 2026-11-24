@@ -7326,64 +7326,94 @@ if (overlay) {
     //    Drop a file named lockedoutofheaven.mp3 next to index.html (same
     //    convention as the other songs in the music picker) for this to play.
     const yrAudio = {
-        el: null,
-        fadeTimer: null,
-        muted: false,
+        el: null, gain: null, fadeTimer: null, jumpT: null, muted: false, level: 0,
         init() {
             this.el = document.getElementById('yr-audio');
-            if (this.el && !this.el.src) this.el.src = './lockedoutofheaven.mp3';
+            if (this.el && !this.el.getAttribute('src')) this.el.src = './lockedoutofheaven.mp3';
+            if (this.el && !this._loopWatch) {         // seamless loop: fade out near the end, restart, fade back in
+                this._loopWatch = setInterval(() => {
+                    const e = this.el; if (!e || e.paused || this.muted || this._looping || this.level <= 0.001) return;
+                    const end = YR_STEADY.loopEnd;
+                    if (e.currentTime >= end - 1.8 || e.ended) {
+                        this._looping = true; this.setLevel(0, 1700);
+                        setTimeout(() => {
+                            if (!this.el || this.muted) { this._looping = false; return; }
+                            this._seek(YR_STEADY.loopStart); this.setLevel(YR_STEADY.steady ? YR_STEADY.level : .35, 1500);
+                            this._looping = false;
+                        }, 1800);
+                    }
+                }, 150);
+            }
+            if (this.el && !this._errWired) {          // fall back to the original download name if the short one is missing
+                this._errWired = true;
+                this.el.addEventListener('error', () => {
+                    if (this._fb) return; this._fb = true;
+                    this.el.src = './Bruno_Mars_-_Locked_Out_Of_Heaven_Lyrics.mp3'; this.el.load();
+                    if (this.level > 0) this.el.play().catch(() => {});
+                });
+            }
+            // Route through Web Audio so volume fades work on iPhone/Safari (it ignores el.volume).
+            // Same trick the book uses for its other music (getElementGain / "SAFARI VOLUME FIX").
+            if (!this.gain && typeof getElementGain === 'function') this.gain = getElementGain('yr-audio', 0);
         },
-        fadeTo(target, ms) {
+        _apply(v) { if (this.gain) this.gain.gain.value = v; else if (this.el) this.el.volume = v; },
+        _now() { return this.gain ? this.gain.gain.value : this.el.volume; },
+        setLevel(target, ms) {
             if (!this.el) return;
-            clearInterval(this.fadeTimer);
+            clearInterval(this.fadeTimer); this.level = target;
             if (target > 0 && this.el.paused) {
-                this.el.volume = 0;
+                if (this.gain) this.gain.gain.cancelScheduledValues(0);
+                this._apply(0);
                 this.el.play().catch(() => {});
             }
-            const start = this.el.volume;
-            const steps = Math.max(1, Math.round(ms / 50));
-            let i = 0;
-            this.fadeTimer = setInterval(() => {
-                i++;
-                const v = start + (target - start) * (i / steps);
-                this.el.volume = Math.max(0, Math.min(1, v));
-                if (i >= steps) {
-                    clearInterval(this.fadeTimer);
-                    if (target <= 0.001) this.el.pause();
-                }
-            }, 50);
-        },
-        // Named mood cues the chapter player calls into (wired up in Step 2).
-        cue(name) {
-            if (!this.el || this.muted) return;
-            switch (name) {
-                case 'launch':
-                case 'electric':
-                    this.fadeTo(0.35, 900);
-                    break;
-                case 'intimate':
-                    this.fadeTo(0.10, 900);
-                    break;
-                case 'quiet':
-                case 'finale':
-                    this.fadeTo(0, 1200);
-                    break;
+            if (this.gain && typeof actx !== 'undefined' && actx) {
+                const g = this.gain.gain, t = actx.currentTime;
+                g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(target, t + ms / 1000);
+                if (target <= 0.001) this.fadeTimer = setTimeout(() => { if (this.level <= 0.001) this.el.pause(); }, ms + 60);
+            } else {
+                const start = this.el.volume, steps = Math.max(1, Math.round(ms / 50)); let i = 0;
+                this.fadeTimer = setInterval(() => {
+                    i++; this.el.volume = Math.max(0, Math.min(1, start + (target - start) * (i / steps)));
+                    if (i >= steps) { clearInterval(this.fadeTimer); if (target <= 0.001) this.el.pause(); }
+                }, 50);
             }
+        },
+        _seek(sec) {
+            if (sec == null || !isFinite(sec) || !this.el) return;
+            const go = () => { try { this.el.currentTime = sec; } catch (e) {} };
+            if (this.el.readyState >= 1) go(); else this.el.addEventListener('loadedmetadata', go, { once: true });
+        },
+        // cue(mood, at): mood sets the level; `at` (seconds, optional) jumps to that part of the song
+        // with a short crossfade. Without `at` the song just keeps playing from where it is.
+        cue(name, at) {
+            if (!this.el || this.muted) return;
+            if (YR_STEADY.steady) {                  // consistent: same volume the whole time, never jumps
+                clearTimeout(this.jumpT);
+                if (this.el.paused) { if (this.el.currentTime < 1) this._seek(YR_STEADY.loopStart); this.setLevel(YR_STEADY.level, 1500); }
+                else if (Math.abs(this.level - YR_STEADY.level) > .01 && !this._looping) this.setLevel(YR_STEADY.level, 900);
+                return;
+            }
+            const lvl = { launch: .35, electric: .35, swell: .5, intimate: .10, quiet: 0, finale: 0 }[name];
+            if (lvl === undefined) return;
+            clearTimeout(this.jumpT);
+            if (at != null && lvl > 0) {
+                if (this.el.paused) { this._seek(at); this.setLevel(lvl, 900); }
+                else {
+                    this.setLevel(0, 500);
+                    this.jumpT = setTimeout(() => { this._seek(at); this.setLevel(lvl, 700); }, 520);
+                }
+            } else this.setLevel(lvl, lvl === 0 ? 1200 : 900);
         },
         stopImmediate() {
-            clearInterval(this.fadeTimer);
-            if (this.el) {
-                this.el.pause();
-                this.el.volume = 0;
-                this.el.currentTime = 0;
-            }
+            clearInterval(this.fadeTimer); clearTimeout(this.jumpT); this.level = 0; this._looping = false;
+            if (this.el) { this.el.pause(); this._apply(0); try { this.el.currentTime = 0; } catch (e) {} }
         },
         toggle() {
             if (!this.el) return;
             this.muted = !this.muted;
             const b = document.getElementById('yr-audio-toggle');
             if (b) b.textContent = this.muted ? '🔇' : '🎵';
-            if (this.muted) this.fadeTo(0, 400);
+            if (this.muted) { clearTimeout(this.jumpT); this.setLevel(0, 400); }
             else this.cue(window.yrCore ? window.yrCore.moodNow() : 'electric');
         }
     };
@@ -7393,6 +7423,20 @@ if (overlay) {
     // ═════════ STEP 2: canvas engine + 12-chapter story player ═════════
     // Content: wording polished from HANDOFF_1-year-anniversary.md (every fact kept) + moments taken from the book's own pages. {t,l:1} = "love beat" (audio ducks to 'intimate').
     // mood per chapter -> yrAudio.cue(mood): 'electric' (up), 'intimate' (duck), 'quiet' (fade+pause).
+    // ── SONG MAP: seconds into lockedoutofheaven.mp3 where each moment should start (null = keep playing / no jump).
+    //    Fill these in once the best sections of the track are known. ch[0..11] = chapter 1..12.
+    //    launch = intro screen -> Month 1, heart = the heart + "1 YEAR" swell, poem = when the poem appears.
+    // Times measured from the actual track (233.6s, 143.6 bpm): chorus 1 = 0:50-1:24, quiet verse-2 = 1:31-1:47,
+    // chorus 2 = 2:10-2:43, middle-8 = 2:43-3:12, stripped breakdown -> chorus 3 peak = 3:14-3:37, outro 3:37-3:50.
+    // Values sit ~0.3s before the phrase so the 0.7s fade-in lands on the beat.
+    //   launch: intro riff + verse 1 | Dec (ch0) keeps playing | Jan/Jun/Sep: quiet verse 2 | Mar/Oct: chorus 1 | Jul: chorus 2
+    //   Apr: middle-8 build | Aug: intro riff again | Feb/Nov: keep playing | heart: breakdown into chorus 3 peak
+    // STEADY MODE (default): one continuous track at one constant volume, no jumps, no dips, looping seamlessly
+    // between loopStart and loopEnd (fades out the last ~1.7s, restarts quietly, fades back in).
+    // Set steady:false to bring back the per-chapter mood/jump map below.
+    const YR_STEADY = { steady: true, level: 0.30, loopStart: 2.7, loopEnd: 230.0 };
+    const YR_SONG = { launch: 2.7, heart: 193.6, poem: null,
+                      ch: [null, 91.0, null, 49.7, 163.0, null, 91.0, 129.7, 2.7, 91.0, 49.7, null] };
     const YR_CH = [
       {m:'December', mood:'electric', lines:[
         "On 24 November I left you a little surprise: \"you make me feel wanted.\"",
@@ -7671,7 +7715,7 @@ if (overlay) {
         const wrap = yrEl('yr-strip-wrap'); wrap.style.display = 'flex'; wrap.style.minHeight = '132px'; wrap.style.justifyContent = 'flex-end'; wrap.style.paddingBottom = '8px';
         const ch = yrEl('yr-chapter'); ch.style.display = 'flex'; ch.style.justifyContent = 'flex-start'; ch.style.touchAction = 'pan-y'; ch.style.opacity = '0';
         yrBuildDots();
-        yrAudio.cue('launch'); yrMood = 'electric';
+        yrAudio.cue('launch', YR_SONG.launch); yrMood = 'electric';
         yrTimer = setTimeout(() => yrStartChapter(0), 600);
     }
     function yrStartChapter(i) {
@@ -7685,7 +7729,7 @@ if (overlay) {
         yrEl('yr-chapter-hint').classList.remove('yr-show');
         yrEl('yr-chapter').scrollTop = 0; yrEl('yr-chapter').style.opacity = '1';
         yrMarkDots();
-        yrMood = YR_CH[i].mood; yrDucked = false; yrAudio.cue(yrMood);
+        yrMood = YR_CH[i].mood; yrDucked = false; yrAudio.cue(yrMood, YR_SONG.ch[i]);
         yrClear(); yrTimer = setTimeout(yrShowLine, 900);
     }
     function yrShowLine() {
@@ -7714,7 +7758,7 @@ if (overlay) {
         yrTimer = setTimeout(() => yrStartChapter(yrCur + 1), 900);
     }
     function yrEndStory() {
-        yrBusy = false; yrPhase = 'finale'; yrAudio.cue('finale');
+        yrBusy = false; yrPhase = 'finale'; if (YR_SONG.heart != null) yrAudio.cue('swell', YR_SONG.heart); else yrAudio.cue('finale');
         if (typeof window.yrFinaleStart === 'function') { window.yrFinaleStart(); return; }   // STEP 3 defines this
         // Step-3 placeholder so the story never dead-ends: reveal the existing finale shell
         yrEl('yr-chapter').style.display = 'none';
@@ -7831,6 +7875,7 @@ if (overlay) {
             yrFinIO = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('yr-in'); yrFinIO.unobserve(e.target); } }), { root: f, threshold: .15 });
             sts.forEach(n => yrFinIO.observe(n));
         } else sts.forEach(n => n.classList.add('yr-in'));
+        if (YR_SONG.heart != null) yrAudio.cue('intimate', YR_SONG.poem);
         yrConfetti();
     }
     function yrFinaleStart() {                        // called by yrEndStory() after Month 12
@@ -7860,6 +7905,7 @@ if (overlay) {
         get phase() { return yrPhase; }
     };
 
+    let yrBgWasPlaying = false;
     let yrInitDone = false;
     let yrRafId = null;
 
@@ -7874,9 +7920,10 @@ if (overlay) {
         const indexBtn = document.getElementById('back-to-index-btn');
         if (indexBtn) indexBtn.style.display = 'none';
 
-        // Duck the book's own background music while this plays.
+        // Pause the book's own background music while this plays (never two songs at once).
         const bgMusic = document.getElementById('bg-music');
-        if (bgMusic && !bgMusic.paused) bgMusic.volume = 0.05;
+        yrBgWasPlaying = !!(bgMusic && !bgMusic.paused);
+        if (yrBgWasPlaying) bgMusic.pause();
 
         yrResetPlayer();
         // Reset to the intro screen every time it's (re)opened.
@@ -7899,7 +7946,8 @@ if (overlay) {
         if (indexBtn) indexBtn.style.display = 'block';
 
         const bgMusic = document.getElementById('bg-music');
-        if (bgMusic) bgMusic.volume = 1;
+        if (yrBgWasPlaying && bgMusic && bgMusic.getAttribute('src')) bgMusic.play().catch(() => {});
+        yrBgWasPlaying = false;
     }
 
     function yrReplay() {
